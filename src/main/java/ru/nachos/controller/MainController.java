@@ -14,11 +14,20 @@ public class MainController {
         model.addAttribute("wind", new Wind());
         return "index";
     }
-
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String addWeatherInfo(@ModelAttribute Wind wind, Model model){
-
+    public String addWeatherInfo(@RequestParam(name = "windSpeed") String windSpeed,
+                                 @RequestParam(name = "direction") String direction,
+                                 Model model){
+        Wind wind = new Wind(windSpeed, direction);
         model.addAttribute(wind);
         return "index";
     }
+    /* как альтернатива сразу делать байндинг на модель
+
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public String addWeatherInfo(@ModelAttribute Wind wind, Model model){
+        model.addAttribute(wind);
+        return "index";
+    }
+    */
 }
