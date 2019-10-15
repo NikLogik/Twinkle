@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/ol.css" rel="stylesheet" type="text/css">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/custom.css" rel="stylesheet" type="text/css">
+</head>
+    <body onload="init()">
+    <header class="flex-column flex-md-row">
+        <div class="container-fluid">
+            <div class="row py-2">
+                <div class="col">
+                    <h1 id="brand-icon" class="text-uppercase inline"><img src="/resources/images/brend.png" class="img-fluid" width="15%" alt="Brend">Twinkle</h1>
+                </div>
+                <div class="col-6">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                <!--
+                         insert result after submit weather form
+                                    -->
+                    <label id="wind-speed-label">Current value of wind`s speed is: [[${wind.windSpeed}]]</label>
+                    <label id="wind-direction-label">Current direction of wind`s speed is [[${wind.direction}]]</label>
+                <!--
+                                  -->
+                </div>
+            </div>
+            <div class="row">
+                <div id="map" class="col-8"></div>
+                <div id="navbar" class="col-4">
+                    <div id="accordion" class="accordion">
+                        <div class="card">
+                            <div class="card-header" id="first-header">
+                                <button class="btn btn-dark btn-block" type="button" data-toggle="collapse"
+                                        data-target="#first" aria-expanded="true" area-controls="first">
+                                    Weather
+                                </button>
+                            </div>
+                            <div id="first" class="collapse" aria-labelledby="first-header" data-parent="#accordion">
+                                <div class="card-body">
+                                <!--
+                                    form for weather data from user
+                                -->
+                                    <form id="weather-form" action="#" th:action="@{/index}" th:object="${wind}" method="post">
+                                        <div class="form-group">
+                                            <label>Wind speed</label>
+                                            <input id="wind-speed" class="form-control" type="text" placeholder="speed m/s" th:field="*{windSpeed}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Wind direction</label>
+                                            <select id="wind-direction" class="form-control" th:field="*{direction}">
+                                                <option th:value="Nord" th:text="Nord"></option>
+                                                <option th:value="East" th:text="East"></option>
+                                                <option th:value="South" th:text="South"></option>
+                                                <option th:value="West" th:text="West"></option>
+                                            </select>
+                                        </div>
+                                        <button id="wind-submit-button" type="submit" onclick="submitForm()">Send data</button>
+                                    </form>
+                                <!--
+                                    end weather form
+                                -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="second-header">
+                                <button class="btn btn-dark btn-block collapsed" type="button" data-toggle="collapse"
+                                        data-target="#second" aria-expanded="true" area-controls="second">
+                                    Second
+                                </button>
+                            </div>
+                            <div id="second" class="collapse" aria-labelledby="second-header" data-parent="#accordion">
+                                <div class="card-body">
+                                    Some text in the second tab
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="third-header">
+                                <button class="btn btn-dark btn-block collapsed" type="button" data-toggle="collapse"
+                                        data-target="#third" aria-expanded="true" area-controls="third">
+                                    Third
+                                </button>
+                            </div>
+                            <div id="third" class="collapse" aria-labelledby="third-header" data-parent="#accordion">
+                                <div class="card-body">
+                                    Some text in the third tab
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="overlay"></div>
+        </div>
+    </main>
+    <footer>
+        <div class="container-fluid">
+
+        </div>
+    </footer>
+    <script src="/js/ol.js" type="text/javascript"></script>
+    <script src="/js/ol-test.js" type="text/javascript"></script>
+<!--    <script src="/js/submit-form.js" type="text/javascript"></script>-->
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+</html>
