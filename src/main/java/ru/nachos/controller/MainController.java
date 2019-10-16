@@ -8,20 +8,24 @@ import ru.nachos.models.Wind;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @GetMapping(value = "/index")
     public String index(Model model){
         //обязательно инициализировать класс, иначе будет вылетать IllegalArgumentException при загрузке страницы
         model.addAttribute("wind", new Wind());
         return "index";
     }
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
+
+    //параметр params нужен, если несколько POST-методов используют одинаковое value, но request идет от разных форм
+    @PostMapping(value = "/index", params = "formId=weather-form")
     public String addWeatherInfo(@RequestParam(name = "windSpeed") String windSpeed,
                                  @RequestParam(name = "direction") String direction,
+                                 @RequestParam(name = "formId") String formId,
                                  Model model){
         Wind wind = new Wind(windSpeed, direction);
         model.addAttribute(wind);
         return "index";
     }
+
     /* как альтернатива сразу делать байндинг на модель
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)

@@ -1,45 +1,26 @@
 package ru.nachos.models;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-
-import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Wind {
 
+    @Getter
+    @Setter
+    private String formId;
+
+    @Getter
+    @Setter
     private String windSpeed;
 
+    @Getter
+    @Setter
     private String direction;
 
-    Map<String, Object> details;
-
-    /**
-     * Empty constructor for initializing
-     */
     public Wind() {}
 
-    public Wind(String speed, String direction) {
-        this.windSpeed = speed;
-        this.direction = direction;
-    }
-
-    @JsonAnySetter
-    void setDetails(String key, Object value){
-        details.put(key, value);
-    }
-
-    public String getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(String windSpeed) {
+    public Wind(String windSpeed, String direction) {
         this.windSpeed = windSpeed;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
         this.direction = direction;
     }
 }

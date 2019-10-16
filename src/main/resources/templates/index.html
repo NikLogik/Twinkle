@@ -52,8 +52,10 @@
                                 -->
                                     <form id="weather-form" action="#" th:action="@{/index}" th:object="${wind}" method="post">
                                         <div class="form-group">
+                                <!-- скрытое поле для маппинга с нужным методом POST в контроллере по name=value  -->
+                                            <input id="type-form" class="form-control" type="hiddent" value="weather-form" name="formId" >
                                             <label>Wind speed</label>
-                                            <input id="wind-speed" class="form-control" type="text" placeholder="speed m/s" th:field="*{windSpeed}"/>
+                                            <input id="wind-speed" class="form-control" type="text" placeholder="speed m/s" th:field="*{windSpeed}" required/>
                                         </div>
                                         <div class="form-group">
                                             <label>Wind direction</label>
@@ -64,7 +66,7 @@
                                                 <option th:value="West" th:text="West"></option>
                                             </select>
                                         </div>
-                                        <button id="wind-submit-button" type="submit" onclick="submitForm()">Send data</button>
+                                        <button id="wind-submit-button" type="submit">Send data</button>
                                     </form>
                                 <!--
                                     end weather form
@@ -76,12 +78,18 @@
                             <div class="card-header" id="second-header">
                                 <button class="btn btn-dark btn-block collapsed" type="button" data-toggle="collapse"
                                         data-target="#second" aria-expanded="true" area-controls="second">
-                                    Second
+                                    Fire
                                 </button>
                             </div>
                             <div id="second" class="collapse" aria-labelledby="second-header" data-parent="#accordion">
                                 <div class="card-body">
-                                    Some text in the second tab
+                                    <!--
+                                        form for fire data from user
+                                    -->
+                                    Something about fire
+                                    <!--
+                                        end fire form
+                                    -->
                                 </div>
                             </div>
                         </div>
