@@ -53,7 +53,7 @@
                                     <form id="weather-form" action="#" th:action="@{/index}" th:object="${wind}" method="post">
                                         <div class="form-group">
                                 <!-- скрытое поле для маппинга с нужным методом POST в контроллере по name=value  -->
-                                            <input id="type-form" class="form-control" type="hiddent" value="weather-form" name="formId" >
+                                            <input id="type-form" class="form-control" type="hidden" value="weather-form" name="formId" >
                                             <label>Wind speed</label>
                                             <input id="wind-speed" class="form-control" type="text" placeholder="speed m/s" th:field="*{windSpeed}" required/>
                                         </div>
@@ -114,12 +114,15 @@
     </main>
     <footer>
         <div class="container-fluid">
-
+            <form th:action="@{/index}" method="get">
+                <input type="submit" class="btn btn-dark btn-block" name="load-weather" value="Load weather">
+                <label>[[${city}]]</label>
+            </form>
         </div>
     </footer>
     <script src="/js/ol.js" type="text/javascript"></script>
     <script src="/js/ol-test.js" type="text/javascript"></script>
-<!--    <script src="/js/submit-form.js" type="text/javascript"></script>-->
+<!--    <script src="/js/submit-form.js" type="text/javascript"></script> -->
     <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
