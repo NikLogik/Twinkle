@@ -11,7 +11,7 @@
     city.coord.lon City geo location, longitude
     city.country Country code (GB, JP etc.)
     city.timezone Shift in seconds from UTC
-        cnt Number of lines returned by this API call
+  cnt Number of lines returned by this API call
   list
     list.dt Time of data forecasted, unix, UTC
     list.main
