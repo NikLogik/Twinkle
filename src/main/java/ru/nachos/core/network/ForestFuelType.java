@@ -1,4 +1,4 @@
-package ru.nachos.core.fire;
+package ru.nachos.core.network;
 
 public class ForestFuelType {
 

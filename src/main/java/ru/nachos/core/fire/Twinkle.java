@@ -5,7 +5,6 @@ import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentPlan;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,12 @@ class Twinkle implements Agent {
     private Coord coord;
     private double speed;
     private double direction;
+    private Twinkle leftNeighbour;
+    private Twinkle rightNeighbour;
     private List<AgentPlan> planList = new ArrayList<>(5);
 
     Twinkle (Id<Agent> id){
         this.id = id;
-    }
-
-    void setCoord(Coord coord){
-        this.coord = coord;
     }
 
     public boolean addPlan(AgentPlan plan){
@@ -30,28 +27,32 @@ class Twinkle implements Agent {
         return this.planList.add(plan);
     }
 
-    @Override
-    public Id<Agent> getId() {
-        return this.id;
+    public boolean removePlan(AgentPlan plan) {
+        return this.planList.remove(plan);
     }
 
-    @Override
-    public List<AgentPlan> getPlans() {
-        return this.planList;
-    }
+    void setRightNeighbour(Twinkle twinkle){ this.rightNeighbour = twinkle; }
+
+    void setLeftNeighbour(Twinkle twinkle) {this.leftNeighbour = twinkle; }
 
     @Override
-    public Coord getCoord() {
-        return this.coord;
-    }
+    public Id<Agent> getId() { return this.id; }
 
     @Override
-    public double getSpeed() {
-        return this.speed;
-    }
+    public List<AgentPlan> getPlans() { return this.planList; }
+
+    public Twinkle getLeftNeighbour() { return leftNeighbour; }
+
+    public Twinkle getRightNeighbour() { return rightNeighbour; }
 
     @Override
-    public double getDirection() {
-        return this.direction;
-    }
+    public Coord getCoord() { return this.coord; }
+
+    @Override
+    public double getSpeed() { return this.speed; }
+
+    @Override
+    public double getDirection() { return this.direction; }
+
+    void setCoord(Coord coord) { this.coord = coord; }
 }

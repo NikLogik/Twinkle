@@ -1,7 +1,9 @@
 package ru.nachos.core.fire;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.geo.Polygon;
 import ru.nachos.core.Coord;
+import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentPlan;
 
@@ -10,8 +12,18 @@ class TwinklePlan implements AgentPlan, Comparable<TwinklePlan> {
     private Agent twinkle;
     private int distanceFromStart;
     private Coord coord;
+    private Id<Polygon> idPolygon;
+    private double speed;
     private long timeStamp;
     private int itersNumber;
+
+    public Id<Polygon> getIdPolygon() { return idPolygon; }
+
+    public void setIdPolygon(Id<Polygon> idPolygon) { this.idPolygon = idPolygon; }
+
+    public double getSpeed() { return speed; }
+
+    public void setSpeed(double speed) { this.speed = speed; }
 
     @Override
     public Agent getAgent() {

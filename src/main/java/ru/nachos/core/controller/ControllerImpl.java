@@ -1,8 +1,8 @@
 package ru.nachos.core.controller;
 
-import ru.nachos.core.fire.Fire;
-import ru.nachos.core.network.Network;
-import ru.nachos.core.weather.Weather;
+import ru.nachos.core.fire.lib.Fire;
+import ru.nachos.core.network.lib.Network;
+import ru.nachos.core.weather.lib.Weather;
 
 public final class ControllerImpl implements Controller {
 
@@ -17,9 +17,7 @@ public final class ControllerImpl implements Controller {
     private ControllerImpl(){}
 
     @Override
-    public Fire getFire() {
-        return this.fire;
-    }
+    public Fire getFire() { return this.fire; }
 
     @Override
     public Weather getWeather() {

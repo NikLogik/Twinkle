@@ -1,6 +1,5 @@
 package ru.nachos.core;
 
-import org.matsim.core.gbl.Gbl;
 import ru.nachos.core.fire.lib.Agent;
 
 import java.util.Map;
@@ -26,7 +25,6 @@ public abstract class Id<T> implements Comparable<Id<T>> {
             cache.put(type, map);
         }
 
-        Gbl.assertNotNull(key);
         Id<?> id = (Id)((Map)map).get(key);
         if (id == null) {
             id = new Id.IdImpl(key);
@@ -47,10 +45,6 @@ public abstract class Id<T> implements Comparable<Id<T>> {
         } else {
             return false;
         }
-    }
-
-    public static Id<Agent> createAgentId(long key) {
-        return create(key, Agent.class);
     }
 
     private static class IdImpl<T> extends Id<T> {

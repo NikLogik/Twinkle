@@ -1,0 +1,63 @@
+{
+  "fire":
+  {
+    "id": 1,
+    "name": "example",
+    "date": "2019-01-01"
+  },
+  "cod": "200",
+  "data": [{
+    "weather": [{
+      "id": 10,
+      "wind": [{
+        "direction": 180, "speed": 10,
+      }]
+    }],
+    "iterations": [{
+      "iter-1": [{
+        "timestamp": "12:40",
+        "agents-count": 2,
+        "agents": [{
+          "agent":{
+            "id": 100,
+            "coords": [{"lon": 54.019391, "lat": 67.038429}],
+            "speed": 2,
+            "direction": 123.9,
+            "status": "active",
+            "distance": 1002
+          },
+          "agent": {
+            "id": 101,
+            "coords": [{"lon": 54.302941, "lat":  67.049320}],
+            "speed": 2.3,
+            "direction": 135.1,
+            "status": "locked",
+            "distance": 1201
+          }
+        }]
+      }],
+      "iter-2":[{
+        "timestamp": "12:50",
+        "agents-count": 2,
+        "agents": [{
+          "agent":{
+            "id": 100,
+            "coords": [{"lon": 54.548971, "lat": 67.546871}],
+            "speed": 1.7,
+            "direction": 123.9,
+            "status": "active",
+            "distance": 1058
+          },
+          "agent": {
+            "id": 101,
+            "coords": [{"lon": 54.302941, "lat":  67.049320}],
+            "speed": 2.3,
+            "direction": 135.1,
+            "status": "locked",
+            "distance": 1201
+          }
+        }]
+      }]
+    }]
+  }]
+}
