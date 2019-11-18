@@ -1,13 +1,11 @@
 package ru.nachos.core.weather.lib;
 
-import ru.nachos.core.Id;
+import ru.nachos.core.controller.lib.HasID;
 
-import java.util.Date;
-import java.util.Map;
+public interface Weather extends HasID {
 
-public interface Weather {
-
-    Map<Id<WeatherData>, WeatherData> getWeatherDates();
-    WeatherData getWeatherByStartTime(Date startTime);
-    WeatherFactory getFactory();
+    double getWindDirection();
+    double getWindSpeed();
+    double getTemperature();
+    double getHumidity();
 }

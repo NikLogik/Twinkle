@@ -1,37 +1,32 @@
 package ru.nachos.core.controller;
 
-import ru.nachos.core.fire.lib.Fire;
-import ru.nachos.core.network.lib.Network;
-import ru.nachos.core.weather.lib.Weather;
+import ru.nachos.core.config.lib.Config;
+import ru.nachos.core.controller.lib.Controller;
+import ru.nachos.core.controller.lib.InitialPreprocessingData;
 
-public final class ControllerImpl implements Controller {
+final class ControllerImpl implements Controller {
 
     private static Controller controller;
 
-    private Fire fire;
+    private Config config;
+    private InitialPreprocessingData preprocessingData;
+    public static final String DIVIDER = "###################################################";
+    final String MARKER = "#####";
+    private int currentIteration;
 
-    private Weather weather;
+    ControllerImpl(){}
 
-    private Network network;
-
-    private ControllerImpl(){}
-
-    @Override
-    public Fire getFire() { return this.fire; }
-
-    @Override
-    public Weather getWeather() {
-        return this.weather;
+    ControllerImpl(InitialPreprocessingData preprocessing){
+        this.config = preprocessing.getConfig();
+        this.preprocessingData = preprocessing;
     }
 
     @Override
-    public Network getNetwork() {
-        return this.network;
-    }
-
-    public static Controller getInstance(){
-        if (controller == null)
-            controller = new ControllerImpl();
-        return controller;
+    public InitialPreprocessingData getPreprocessingData() { return this.preprocessingData; }
+    @Override
+    public Config getConfig() { return this.config; }
+    @Override
+    public void run(){
+        throw new UnsupportedOperationException();
     }
 }

@@ -1,6 +1,9 @@
 package ru.nachos.core;
 
 import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.network.lib.Link;
+import ru.nachos.core.network.lib.Node;
+import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -46,6 +49,19 @@ public abstract class Id<T> implements Comparable<Id<T>> {
             return false;
         }
     }
+
+    public static Id<Agent> createAgentId(long key){return create(key, Agent.class);}
+    public static Id<Agent> createAgentId(String key){return create(key, Agent.class);}
+    public static Id<Agent> createAgentId(Id<Agent> key){return create(key, Agent.class);}
+    public static Id<Agent> createLinkId(long key){return create(key, Agent.class);}
+    public static Id<Agent> createLinkId(String key){return create(key, Agent.class);}
+    public static Id<Agent> createLinkId(Id<Link> key){return create(key, Agent.class);}
+    public static Id<Node> createNodeId(long key) {return create(key, Node.class);}
+    public static Id<Node> createNodeId(String key) {return create(key, Node.class);}
+    public static Id<Node> createNodeId(Id<Node> key) {return create(key, Node.class);}
+    public static Id<PolygonV2> createPolygonId(Id<PolygonV2> key) {return create(key, PolygonV2.class);}
+    public static Id<PolygonV2> createPolygonId(long key) {return create(key, PolygonV2.class);}
+    public static Id<PolygonV2> createPolygonId(String key) {return create(key, PolygonV2.class);}
 
     private static class IdImpl<T> extends Id<T> {
         private final String id;

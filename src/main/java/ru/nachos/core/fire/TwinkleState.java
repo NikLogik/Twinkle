@@ -1,29 +1,36 @@
 package ru.nachos.core.fire;
 
+import com.vividsolutions.jts.geom.Point;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.geo.Polygon;
-import ru.nachos.core.Coord;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentPlan;
+import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.network.lib.PolygonV2;
 
-class TwinklePlan implements AgentPlan, Comparable<TwinklePlan> {
+class TwinkleState implements AgentState, Comparable<TwinkleState> {
 
     private Agent twinkle;
     private int distanceFromStart;
-    private Coord coord;
-    private Id<Polygon> idPolygon;
+    private Point coord;
+    private Id<PolygonV2> idPolygon;
     private double speed;
     private long timeStamp;
     private int itersNumber;
 
-    public Id<Polygon> getIdPolygon() { return idPolygon; }
+    TwinkleState(){}
 
-    public void setIdPolygon(Id<Polygon> idPolygon) { this.idPolygon = idPolygon; }
+    TwinkleState(Agent agent){
+        this.twinkle = agent;
+        this.coord = agent.getPoint();
+        this.speed = agent.getSpeed();
+    }
+
+    @Override
+    public Id<PolygonV2> getIdPolygon() { return idPolygon; }
+
+    public void setIdPolygon(Id<PolygonV2> idPolygon) { this.idPolygon = idPolygon; }
 
     public double getSpeed() { return speed; }
-
-    public void setSpeed(double speed) { this.speed = speed; }
 
     @Override
     public Agent getAgent() {
@@ -31,9 +38,7 @@ class TwinklePlan implements AgentPlan, Comparable<TwinklePlan> {
     }
 
     @Override
-    public void setAgent(Agent agent) {
-        this.twinkle = agent;
-    }
+    public void setAgent(Agent twinkle) { this.twinkle = twinkle; }
 
     @Override
     public int getDistanceFromStart() {
@@ -46,13 +51,8 @@ class TwinklePlan implements AgentPlan, Comparable<TwinklePlan> {
     }
 
     @Override
-    public Coord getCoord() {
+    public Point getPoint() {
         return this.coord;
-    }
-
-    @Override
-    public void setCoord(Coord coord) {
-        this.coord = coord;
     }
 
     @Override
@@ -75,9 +75,8 @@ class TwinklePlan implements AgentPlan, Comparable<TwinklePlan> {
         return itersNumber;
     }
 
-
     @Override
-    public int compareTo(@NotNull TwinklePlan o) {
+    public int compareTo(@NotNull TwinkleState o) {
         return this.itersNumber - o.getItersNumber();
     }
 }

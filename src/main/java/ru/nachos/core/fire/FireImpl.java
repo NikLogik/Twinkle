@@ -1,7 +1,8 @@
 package ru.nachos.core.fire;
 
-import ru.nachos.core.Coord;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
+import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;
@@ -21,7 +22,7 @@ class FireImpl implements Fire {
      * Center point, where fire is started to spread.
      * Use rectangular coordinates WGS84
      */
-    private Coord center;
+    private Coordinate center;
     /**
      * Length of firefront at the beginning of simulation
      */
@@ -30,35 +31,48 @@ class FireImpl implements Fire {
      * Units for calculation max distance between neighbours agents
      * in the firefront along simulation
      */
-    private int accuracy;
+    private int agentDistance;
     /**
      * The speed of fire spread, without relief constraint
      */
     private double fireSpeed;
     /**
+     * The class of fire
+     */
+    private int fireClass;
+    /**
      * Agents, which was created along simulation
      */
     private Map<Id<Agent>, Agent> twinkles = new LinkedHashMap<>();
-    private FireFactory factory;
+    private FireFactory factory = new FireFactoryImpl();
 
-    FireImpl(FireFactory factory){
-        this.factory = factory;
+    FireImpl(){}
+
+    FireImpl(Config config){
+        this.name = config.getFireName();
+        this.perimeter = config.getFirePerimeter();
+        this.agentDistance = config.getFireAgentsDistance();
+        this.center = config.getFireCenterCoordinate();
+        this.fireClass = config.getFireClass().getValue();
     }
 
+    @Override
     public FireFactory getFactory(){ return this.factory; }
-
+    @Override
     public String getName() { return name; }
-
-    public Coord getCenter() { return center; }
-
+    @Override
+    public Coordinate getCenterPoint() { return center; }
+    @Override
     public int getPerimeter() { return perimeter; }
-
-    public int getAccuracy() { return accuracy; }
-
+    @Override
+    public int getFireClass() { return fireClass; }
+    @Override
+    public int getAgentDistance() { return agentDistance; }
+    @Override
     public double getFireSpeed() { return fireSpeed; }
-
+    @Override
     public Map<Id<Agent>, Agent> getTwinkles() { return twinkles; }
-
+    @Override
     public Agent addAgent(Agent agent){
         if (twinkles.containsKey(agent.getId())){
             throw new IllegalArgumentException("Twinkle with id: " + agent.getId() + " has already existed");
@@ -69,18 +83,21 @@ class FireImpl implements Fire {
             return twinkles.put(agent.getId(), agent);
         }
     }
-
+    @Override
     public boolean removeAgent(Agent agent){ return twinkles.remove(agent.getId(), agent); }
-
+    @Override
     public Agent removeAgent(Id<Agent> id){ return twinkles.remove(id); }
 
     void setName(String name){ this.name = name; }
 
-    void setCenter(Coord center){ this.center = center; }
+    void setCenterPoint(Coordinate center){ this.center = center; }
 
     void setPerimeter(int perimeter){ this.perimeter = perimeter; }
 
-    void setAccuracy(int accuracy){ this.accuracy = accuracy; }
+    void setAgentDistance(int agentDistance){ this.agentDistance = agentDistance; }
 
-    void setFireSpeed(double fireSpeed){ this.fireSpeed = fireSpeed; }
+    @Override
+    public void setFireSpeed(double fireSpeed){ this.fireSpeed = fireSpeed; }
+
+    public void setFireClass(int fireClass) { this.fireClass = fireClass; }
 }
