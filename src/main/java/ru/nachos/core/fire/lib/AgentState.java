@@ -1,6 +1,6 @@
 package ru.nachos.core.fire.lib;
 
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.PolygonV2;
 
@@ -12,7 +12,7 @@ public interface AgentState {
 
     void setDistanceFromStart(int distance);
 
-    Point getPoint();
+    Coordinate getCoordinate();
 
     void setTimeStamp(long timeStamp);
 

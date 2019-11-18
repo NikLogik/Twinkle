@@ -1,35 +1,38 @@
 package ru.nachos.core.fire;
 
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 class Twinkle implements Agent {
 
     private Id<Agent> id;
-    private Point coord;
+    private Coordinate coord;
     private double speed;
     private double direction;
     private Agent leftNeighbour;
     private Agent rightNeighbour;
-    private List<AgentState> planList = new ArrayList<>(5);
+    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
     private boolean head = false;
 
     Twinkle (Id<Agent> id){
         this.id = id;
     }
 
-    public boolean addState(AgentState plan){
+    public AgentState addState(AgentState plan){
         plan.setAgent(this);
-        return this.planList.add(plan);
+        return this.planList.put(plan.getItersNumber(), plan);
     }
 
-    public boolean removeState(AgentState plan) {
-        return this.planList.remove(plan);
+    public boolean removeState(AgentState plan) { return this.planList.remove(plan.getItersNumber(), plan); }
+
+    @Override
+    public void setDirection(double direction) {
+        this.direction = direction;
     }
 
     @Override
@@ -42,11 +45,12 @@ class Twinkle implements Agent {
     public Id<Agent> getId() { return this.id; }
 
     @Override
-    public List<AgentState> getPlans() { return this.planList; }
+    public Map<Integer, AgentState> getStates() { return this.planList; }
 
     @Override
     public AgentState getLastState() {
-        return planList.get(planList.size()-1);
+        int last = planList.keySet().stream().max(Integer::compare).get();
+        return planList.get(last);
     }
 
     @Override
@@ -56,7 +60,7 @@ class Twinkle implements Agent {
     public Agent getRightNeighbour() { return rightNeighbour; }
 
     @Override
-    public Point getPoint() { return this.coord; }
+    public Coordinate getCoordinate() { return this.coord; }
 
     @Override
     public double getSpeed() { return this.speed; }
@@ -64,7 +68,8 @@ class Twinkle implements Agent {
     @Override
     public double getDirection() { return this.direction; }
 
-    void setPoint(Point coord) { this.coord = coord; }
+    @Override
+    public void setPoint(Coordinate coord) { this.coord = coord; }
 
     @Override
     public boolean isHead() { return head; }

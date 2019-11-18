@@ -1,12 +1,14 @@
 package ru.nachos.core.fire.lib;
 
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
 
-import java.util.List;
+import java.util.Map;
 
 public interface Agent extends HasID {
+
+    void setDirection(double direction);
 
     void setRightNeighbour(Agent twinkle);
 
@@ -19,17 +21,21 @@ public interface Agent extends HasID {
 
     Agent getRightNeighbour();
 
-    Point getPoint();
+    Coordinate getCoordinate();
 
     double getSpeed();
 
     double getDirection();
 
-    List<AgentState> getPlans();
+    Map<Integer, AgentState> getStates();
 
     AgentState getLastState();
+
+    void setPoint(Coordinate coord);
 
     boolean isHead();
 
     void setHead(boolean head);
+
+    void setSpeed(double speed);
 }

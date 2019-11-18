@@ -13,4 +13,6 @@ public interface FireFactory {
     AgentState createState(Agent agent);
 
     Map<Id<Agent>, Agent> generateFireFront(int distance, int frontLength);
+
+    void setAgentToStartPosition(Fire fire, double startDirection);
 }

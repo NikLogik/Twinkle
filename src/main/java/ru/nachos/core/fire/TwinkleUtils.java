@@ -1,7 +1,6 @@
 package ru.nachos.core.fire;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Point;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 
@@ -9,20 +8,20 @@ import java.text.DecimalFormat;
 
 public final class TwinkleUtils {
 
-    public static void setCoord(Twinkle twinkle, Point coord){
+    public static void setCoord(Agent twinkle, Coordinate coord){
         twinkle.setPoint(coord);
     }
 
     public static AgentState getStateByIter(Twinkle twinkle, int iter){
         AgentState plan = null;
-        for (AgentState plan1 : twinkle.getPlans()){
+        for (AgentState plan1 : twinkle.getStates().values()){
             if (plan1.getItersNumber()==iter)
                 plan = plan1;
         }
         return plan;
     }
 
-    public static void changeSpeed(Twinkle agent, double speed){
+    public static void changeSpeed(Agent agent, double speed){
         agent.setSpeed(speed);
     }
 

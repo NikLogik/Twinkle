@@ -1,5 +1,7 @@
 package ru.nachos.core.fire;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
@@ -47,5 +49,24 @@ class FireFactoryImpl implements FireFactory {
             map.put(twinkle.getId(), twinkle);
         }
         return map;
+    }
+
+    @Override
+    public void setAgentToStartPosition(Fire fire, double startDirection){
+        double distanceFromFireCenter = MathUtils.round(fire.getPerimeter() / (2 * Math.PI), 2);
+        if (startDirection >= 180.00) {
+            startDirection = (startDirection + 180.00) - 360.00;
+        } else if(startDirection<180.00){
+            startDirection += 180.00;
+        }
+
+        double angleIncrement = MathUtils.round(360.00 / fire.getTwinkles().size(), 2);
+
+        Agent prev = FireUtils.getHeadAgent(fire.getTwinkles());
+        for (int j=0; j < fire.getTwinkles().size(); j++, startDirection += angleIncrement){
+            Coordinate position = FireUtils.calculateCoordIncrement(fire.getCenterPoint(), distanceFromFireCenter, startDirection);
+            TwinkleUtils.setCoord(prev, position);
+            prev = prev.getRightNeighbour();
+        }
     }
 }

@@ -1,6 +1,6 @@
 package ru.nachos.core.fire;
 
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Coordinate;
 import org.jetbrains.annotations.NotNull;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
@@ -11,7 +11,7 @@ class TwinkleState implements AgentState, Comparable<TwinkleState> {
 
     private Agent twinkle;
     private int distanceFromStart;
-    private Point coord;
+    private Coordinate coord;
     private Id<PolygonV2> idPolygon;
     private double speed;
     private long timeStamp;
@@ -21,7 +21,7 @@ class TwinkleState implements AgentState, Comparable<TwinkleState> {
 
     TwinkleState(Agent agent){
         this.twinkle = agent;
-        this.coord = agent.getPoint();
+        this.coord = agent.getCoordinate();
         this.speed = agent.getSpeed();
     }
 
@@ -51,10 +51,9 @@ class TwinkleState implements AgentState, Comparable<TwinkleState> {
     }
 
     @Override
-    public Point getPoint() {
+    public Coordinate getCoordinate() {
         return this.coord;
     }
-
     @Override
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;

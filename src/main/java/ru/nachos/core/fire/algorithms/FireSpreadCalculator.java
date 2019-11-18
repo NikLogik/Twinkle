@@ -8,15 +8,15 @@ import ru.nachos.core.weather.lib.Weather;
 
 public interface FireSpreadCalculator {
 
-    double calculateSpeedOfSpreadWithArbitraryDirection(Agent agent, double radian);
+    void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent);
 
     /**
      * This method calculate speed for concrete agent,
      * considering external weather and relief conditions
-     * @param agent
+     * @param speed
      * @return speed of fire spread for concrete agent
      */
-    double calculateSpeedOfSpreadWithConstraint(Agent agent);
+    double calculateSpeedOfSpreadWithConstraint(double speed, boolean reliefData);
 
     /**
      * This method calculate speed of fire spread without external constraint, as relief,
