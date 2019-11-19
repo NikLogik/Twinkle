@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_geolatte_geolatte_geom_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_spatial_5_4_9_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_locationtech_jts_jts_core_1_16_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_postgresql_postgresql_42_2_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_17_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_18_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/FireFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/FireFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twinkle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/twinkle.iml" afterDir="false" />
+    <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment=" version 0.2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/DatabaseManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/lib/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/HasID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/InitialPreprocessingData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentStoppedBarrierEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooCloseMovedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooFarMovedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/CrossedFiresEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/FireSpreadCalculatorFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentStateV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/LinkImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NodeImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/PolygonV2Impl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/io/OsmReliefMapReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/PolygonV2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entity/FuelType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/experimental/TestReflectFieldClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/contour.dbf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/contour.prj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/contour.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/contour.shp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/contour.shx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/DatabaseManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/controller/ControllerImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/algorithms/RotermelTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -213,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574090723478</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary=" version 0.2">
+      <created>1574173830099</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1574173830099</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="UnknownFeatures">
