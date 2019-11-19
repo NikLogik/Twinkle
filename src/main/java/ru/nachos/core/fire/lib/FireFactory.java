@@ -1,5 +1,6 @@
 package ru.nachos.core.fire.lib;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 
 import java.util.Map;
@@ -8,11 +9,8 @@ public interface FireFactory {
 
     Agent createTwinkle(Id<Agent> id);
 
-    AgentState createState();
+    Map<Id<Agent>, Agent> generateFireFront(Coordinate center, int distance, int perimeter, double startDirection);
 
-    AgentState createState(Agent agent);
-
-    Map<Id<Agent>, Agent> generateFireFront(int distance, int frontLength);
-
+    @Deprecated
     void setAgentToStartPosition(Fire fire, double startDirection);
 }

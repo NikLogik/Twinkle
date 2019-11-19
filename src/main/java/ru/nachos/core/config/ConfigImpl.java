@@ -32,7 +32,7 @@ public final class ConfigImpl implements Config {
     ConfigImpl(){
         this.fireName = "default";
         params.put(FIRE_NAME.getParam(), fireName);
-        this.firstIteration = 0;
+        this.firstIteration = 1;
         params.put(FIRST_ITERATION.getParam(),firstIteration);
         this.lastIteration = 11;
         params.put(LAST_ITERATION.getParam(), lastIteration);

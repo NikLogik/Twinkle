@@ -32,13 +32,13 @@ public class FireFactoryImplTest {
     @Test
     public void generateFireFrontTest(){
         int amountTest = perimeter / (distance / 2);
-        Map<Id<Agent>, Agent> idAgentMap = fire.getFactory().generateFireFront(distance, perimeter);
+        Map<Id<Agent>, Agent> idAgentMap = fire.getFactory().generateFireFront(fire.getCenterPoint(), distance, perimeter, mainDirection);
         Assert.assertEquals(amountTest, idAgentMap.size());
     }
 
     @Test
     public void generateFireFrontWithOnlyOneHeadAgent(){
-        Map<Id<Agent>, Agent> idAgentMap = fire.getFactory().generateFireFront(distance, perimeter);
+        Map<Id<Agent>, Agent> idAgentMap = fire.getFactory().generateFireFront(fire.getCenterPoint(), distance, perimeter, mainDirection);
         List<Agent> collect = idAgentMap.values().stream().filter(Agent::isHead).collect(Collectors.toList());
         Assert.assertEquals(collect.size(), 1);
     }
@@ -46,10 +46,10 @@ public class FireFactoryImplTest {
     @Test
     public void setAgentsToStartPositionTest(){
         FireFactory factory = fire.getFactory();
-        Map<Id<Agent>, Agent> idAgentMap = factory.generateFireFront(distance, perimeter);
+        Map<Id<Agent>, Agent> idAgentMap = factory.generateFireFront(fire.getCenterPoint(), distance, perimeter, mainDirection);
         Map<Id<Agent>, Agent> twinkles = fire.getTwinkles();
         twinkles.putAll(idAgentMap);
         factory.setAgentToStartPosition(fire, mainDirection);
-        Assert.assertEquals(fire.getTwinkles().values().stream().map(Agent::getCoordinate).collect(Collectors.toList()).size(), fire.getTwinkles().size(), 0);
+        Assert.assertEquals((int) fire.getTwinkles().values().stream().map(Agent::getCoordinate).count(), fire.getTwinkles().size(), 0);
     }
 }

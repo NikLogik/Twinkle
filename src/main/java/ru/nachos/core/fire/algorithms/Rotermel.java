@@ -4,7 +4,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.fire.TwinkleUtils;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.fire.lib.AgentStateV2;
 import ru.nachos.core.network.ForestFuelType;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
@@ -129,12 +129,12 @@ public class Rotermel implements FireSpreadCalculator {
      * @param lastState - state of agent on the previous iteration
      * @return value relief coefficient
      */
-    private double reliefCoefficient(Coordinate coord, AgentState lastState){
-        int height1 = NetworkUtils.getHeightPolygon(network.getPolygones(), lastState.getIdPolygon());
+    private double reliefCoefficient(Coordinate coord, AgentStateV2 lastState){
+        int height1 = NetworkUtils.getHeightPolygon(network.getPolygones(), NetworkUtils.findPolygonByAgentCoords(network, lastState.getCoord()));
         int height2 = NetworkUtils.getHeightPolygon(network.getPolygones(), NetworkUtils.findPolygonByAgentCoords(network, coord));
         int deltaHeight = height2 - height1;
 
-        double[] p1 = new double[]{lastState.getCoordinate().x, lastState.getCoordinate().y};
+        double[] p1 = new double[]{lastState.getCoord().x, lastState.getCoord().y};
         double[] p2 = new double[]{coord.x, coord.y};
         int distance = (int) MathUtils.distance1(p1, p2);
 

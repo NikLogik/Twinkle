@@ -25,7 +25,11 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f">
-        <schema name="public" object-types="view, table" />
+        <schema name="pg_catalog" object-types="constraint, dataset trigger, table, column, function, view, sequence" />
+        <schema name="pg_temp_1" object-types="table, function, view, sequence" />
+        <schema name="pg_toast" object-types="table, function, view, sequence" />
+        <schema name="pg_toast_temp_1" object-types="table, function, view, sequence" />
+        <schema name="public" object-types="constraint, dataset trigger, table, column, function, view, sequence, index" />
       </connection>
     </loaded-nodes>
   </component>
@@ -45,19 +49,19 @@
     <connection id="651a4525-edac-4ae1-9f14-72fd43e127f2" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.planet_osm_roads" active-filter-id="6df5f96a-73c6-4c9a-92ff-e59595462ca8">
+    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.planet_osm_roads" active-filter-id="">
       <filter id="6df5f96a-73c6-4c9a-92ff-e59595462ca8" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="access" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
-    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.spatial_ref_sys" active-filter-id="ee62c8aa-1c4e-4963-b41c-9d99cabb6131">
+    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.spatial_ref_sys" active-filter-id="">
       <filter id="ee62c8aa-1c4e-4963-b41c-9d99cabb6131" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="auth_name" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
-    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.planet_osm_point" active-filter-id="44e5b462-35b3-4f4a-9a86-16322e2401ef">
-      <filter id="44e5b462-35b3-4f4a-9a86-16322e2401ef" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
-        <condition column="access" operator="=" value="" active="true" />
+    <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.planet_osm_point" active-filter-id="EMPTY_FILTER">
+      <filter id="44e5b462-35b3-4f4a-9a86-16322e2401ef" name="0103000020110F000001000000050000000AD7A3..." temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="way" operator="=" value="0103000020110F000001000000050000000AD7A3B097A64C41666666565D1C5541E17A146E9AA64C4185EB51B85E1C5541AE47E19AA7A64C411F85EB31581C5541D7A370DDA4A64C410AD7A3D0561C55410AD7A3B097A64C41666666565D1C5541" active="true" />
       </filter>
     </filter-actions>
     <filter-actions connection-id="9e7cea3f-4ba4-4d53-8df1-625f3173868f" dataset="public.planet_osm_line" active-filter-id="EMPTY_FILTER" />
