@@ -1,6 +1,6 @@
 package ru.nachos.core.fire.lib;
 
-import ru.nachos.core.Coord;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 
 import java.util.Map;
@@ -11,11 +11,13 @@ public interface Fire {
 
     String getName();
 
-    Coord getCenter();
+    Coordinate getCenterPoint();
 
     int getPerimeter();
 
-    int getAccuracy();
+    int getFireClass();
+
+    int getAgentDistance();
 
     double getFireSpeed();
 
@@ -27,4 +29,9 @@ public interface Fire {
 
     Agent removeAgent(Id<Agent> id);
 
+    void setFireSpeed(double fireSpeed);
+
+    class Definitions{
+        public static final String POST_FIX = ":twinkle";
+    }
 }

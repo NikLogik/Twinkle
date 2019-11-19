@@ -10,7 +10,7 @@
     "weather": [{
       "id": 10,
       "wind": [{
-        "direction": 180, "speed": 10,
+        "direction": 180, "speed": 10
       }]
     }],
     "iterations": [{

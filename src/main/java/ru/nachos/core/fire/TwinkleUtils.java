@@ -1,23 +1,28 @@
 package ru.nachos.core.fire;
 
-import ru.nachos.core.Coord;
-import ru.nachos.core.fire.lib.AgentPlan;
+import com.vividsolutions.jts.geom.Coordinate;
+import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.fire.lib.AgentState;
 
 import java.text.DecimalFormat;
 
 public final class TwinkleUtils {
 
-    public static void setCoord(Twinkle twinkle, Coord coord){
-        twinkle.setCoord(coord);
+    public static void setCoord(Agent twinkle, Coordinate coord){
+        twinkle.setPoint(coord);
     }
 
-    public static AgentPlan getPlanByIter(Twinkle twinkle, int iter){
-        AgentPlan plan = null;
-        for (AgentPlan plan1 : twinkle.getPlans()){
+    public static AgentState getStateByIter(Twinkle twinkle, int iter){
+        AgentState plan = null;
+        for (AgentState plan1 : twinkle.getStates().values()){
             if (plan1.getItersNumber()==iter)
                 plan = plan1;
         }
         return plan;
+    }
+
+    public static void changeSpeed(Agent agent, double speed){
+        agent.setSpeed(speed);
     }
 
     /**
@@ -26,7 +31,7 @@ public final class TwinkleUtils {
      * @param newNeighbour - new added agent
      */
     public static void setNewRightNeighbour(Twinkle target, Twinkle newNeighbour){
-        Twinkle temp = target.getRightNeighbour();
+        Agent temp = target.getRightNeighbour();
         target.setRightNeighbour(newNeighbour);
         temp.setLeftNeighbour(newNeighbour);
         newNeighbour.setLeftNeighbour(target);
@@ -39,7 +44,7 @@ public final class TwinkleUtils {
      * @param newNeighbour - new added agent
      */
     public static void setNewLeftNeighbour(Twinkle target, Twinkle newNeighbour){
-        Twinkle temp = target.getLeftNeighbour();
+        Agent temp = target.getLeftNeighbour();
         target.setLeftNeighbour(newNeighbour);
         temp.setRightNeighbour(newNeighbour);
         newNeighbour.setRightNeighbour(target);
@@ -52,7 +57,7 @@ public final class TwinkleUtils {
      * @param twinkle - target agent
      */
     public static void removeRightNeighbour(Twinkle twinkle){
-        Twinkle temp = twinkle.getRightNeighbour();
+        Agent temp = twinkle.getRightNeighbour();
         twinkle.setRightNeighbour(temp.getRightNeighbour());
         temp.getRightNeighbour().setLeftNeighbour(twinkle);
         temp.setLeftNeighbour(null);
@@ -65,7 +70,7 @@ public final class TwinkleUtils {
      * @param twinkle - target agent
      */
     public static void removeLeftNeighbour(Twinkle twinkle){
-        Twinkle temp = twinkle.getLeftNeighbour();
+        Agent temp = twinkle.getLeftNeighbour();
         twinkle.setLeftNeighbour(temp.getLeftNeighbour());
         temp.getLeftNeighbour().setRightNeighbour(twinkle);
         temp.setLeftNeighbour(null);
@@ -90,10 +95,10 @@ public final class TwinkleUtils {
      * @param right - coorfinates right point
      * @return point with middle coordinates
      */
-    public static Coord calculateMiddleCoords(Coord left, Coord right) {
-        double midX = (left.getX() + right.getX()) / 2;
-        double midY = (left.getY() + right.getY()) / 2;
-        return new Coord(midX, midY);
+    public static Coordinate calculateMiddleCoords(Coordinate left, Coordinate right) {
+        double midX = (left.x + right.x) / 2;
+        double midY = (left.y + right.y) / 2;
+        return new Coordinate(midX, midY);
     }
 
     /**

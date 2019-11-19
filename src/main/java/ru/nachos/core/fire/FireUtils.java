@@ -1,51 +1,28 @@
 package ru.nachos.core.fire;
 
-import ru.nachos.core.Coord;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
-import ru.nachos.core.controller.ControllerImpl;
+import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.Fire;
-import ru.nachos.core.fire.lib.FireFactory;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class FireUtils {
 
     private FireUtils(){}
 
-    private static final FireFactory factory = ControllerImpl.getInstance().getFire().getFactory();
-
     public static Fire createFire(){
-        return new FireImpl(new FireFactoryImpl());
+        return new FireImpl();
     }
 
-    public static FireFactory getFactory(){
-        return factory;
-    }
-
-    public static final class FireBuilder{
-
-        private FireImpl fire;
-
-        public FireBuilder(Fire fire, Coord center, int perimeter, int accuracy){
-            this.fire = (FireImpl) fire;
-            this.fire.setCenter(center);
-            this.fire.setPerimeter(perimeter);
-            this.fire.setAccuracy(accuracy);
-        }
-
-        public FireBuilder setName(String name){
-            this.fire.setName(name);
-            return this;
-        }
-
-        public FireBuilder setFireSpeed(double speed){
-            this.fire.setFireSpeed(speed);
-            return this;
-        }
-
-        public Fire build(){
-            return this.fire;
+    public static Fire createFire(Config config){
+        if (config != null) {
+            return new FireImpl(config);
+        } else {
+            return createFire();
         }
     }
 
@@ -73,5 +50,19 @@ public final class FireUtils {
             TwinkleUtils.setNewLeftNeighbour(target, newTwinkle);
         }
         twinkles.put(newTwinkle.getId(), newTwinkle);
+    }
+
+    public static Coordinate calculateCoordIncrement(Coordinate firstPoint, double length, double angle){
+        double dX = firstPoint.x + Math.cos(angle) * length;
+        double dY = firstPoint.y + Math.sin(angle) * length;
+        return new Coordinate(dX, dY);
+    }
+
+    public static Agent getHeadAgent(Map<Id<Agent>, Agent> agents){
+        List<Agent> agentList = agents.values().stream().filter(Agent::isHead).collect(Collectors.toList());
+        if (agentList.size() != 1){
+            throw new IllegalArgumentException("Fire front have to contains only 1 head agent");
+        }
+        return agentList.get(0);
     }
 }

@@ -2,27 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/Id.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/Id.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/ForestFuelType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/ForestFuelType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinklePlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinklePlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/FireSpreadCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/FireSpreadCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/Network.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/weather/Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/weather/WeatherImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/weather/WeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/weather/WeatherDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/FireFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/FireFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
@@ -32,6 +33,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -49,30 +51,42 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Моделирование/OTS_Lab/projects/PlansGenerator" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Моделирование/OTS_Lab/projects/KRNSTD+PlanGen." />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2086659" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.nachos.core.fire.lib" />
-      <recent name="ru.nachos.core.weather" />
+    <key name="CreateTestDialog.RecentsKey">
       <recent name="ru.nachos.core.fire" />
+      <recent name="ru.nachos.core.fire.algorithms" />
       <recent name="ru.nachos.core" />
-      <recent name="ru.nachos.core.Firefront" />
+      <recent name="ru.nachos.core.network" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/static/pic" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
-      <recent name="$PROJECT_DIR$/src/main/resources/static" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/images" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.nachos.core.weather" />
+      <recent name="ru.nachos.core.config" />
+      <recent name="ru.nachos.core.controller" />
+      <recent name="ru.nachos.core.fire.lib" />
+      <recent name="ru.nachos.core.fire" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -87,37 +101,86 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TwinkleApplication">
-    <configuration name="JsonObjectMapperExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.nachos.owm.JsonObjectMapperExample" />
+  <component name="RunManager" selected="JUnit.All in twinkle">
+    <configuration name="All in twinkle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="twinkle" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.nachos.owm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TwinkleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.nachos.TwinkleApplication" />
+    <configuration name="FireFactoryImplTest.generateFireFrontTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="twinkle" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.nachos.*" />
+          <option name="PATTERN" value="ru.nachos.core.fire.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.core.fire" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.fire.FireFactoryImplTest" />
+      <option name="METHOD_NAME" value="generateFireFrontTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FireFactoryImplTest.generateFireFrontWithOnlyOneHeadAgent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="twinkle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.nachos.core.fire.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.core.fire" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.fire.FireFactoryImplTest" />
+      <option name="METHOD_NAME" value="generateFireFrontWithOnlyOneHeadAgent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FireFactoryImplTest.setAgentsToStartPositionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="twinkle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.nachos.core.fire.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.core.fire" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.fire.FireFactoryImplTest" />
+      <option name="METHOD_NAME" value="setAgentsToStartPositionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FireUtilsTest.getHeadAgentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="twinkle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.nachos.core.fire.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.core.fire" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.fire.FireUtilsTest" />
+      <option name="METHOD_NAME" value="getHeadAgentTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TwinkleApplication" />
-        <item itemvalue="Application.JsonObjectMapperExample" />
+        <item itemvalue="JUnit.All in twinkle" />
+        <item itemvalue="JUnit.FireFactoryImplTest.generateFireFrontTest" />
+        <item itemvalue="JUnit.FireFactoryImplTest.setAgentsToStartPositionTest" />
+        <item itemvalue="JUnit.FireFactoryImplTest.generateFireFrontWithOnlyOneHeadAgent" />
+        <item itemvalue="JUnit.FireUtilsTest.getHeadAgentTest" />
       </list>
     </recent_temporary>
   </component>
@@ -132,6 +195,14 @@
       <option name="presentableId" value="Default" />
       <updated>1571041949432</updated>
     </task>
+    <task id="LOCAL-00001" summary=" version 0.2">
+      <created>1574065636322</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574065636322</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -151,6 +222,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value=" version 0.2" />
+    <option name="LAST_COMMIT_MESSAGE" value=" version 0.2" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -159,7 +234,22 @@
           <line>274</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="defaultGeometryProperty.getValue()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
