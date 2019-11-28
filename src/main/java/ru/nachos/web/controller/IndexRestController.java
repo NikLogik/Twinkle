@@ -36,19 +36,4 @@ public class IndexRestController {
         writer.writeData(resultData);
         return new ResponseEntity<>(resultData, HttpStatus.OK);
     }
-
-    @GetMapping("/weather/city/{id}")
-    public ResponseEntity<City> getCityId(@PathVariable("id") String id, Model model){
-        RestTemplate template = new RestTemplate();
-        City s = null;
-        try {
-            ResponseEntity<OpenWeatherMap> weather = template.getForEntity(
-                    new URI("https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=6206177780dd6e1df5b26d31e5ab0553"),
-                    OpenWeatherMap.class);
-            s = weather.getBody().getCity();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(s, HttpStatus.OK);
-    }
 }
