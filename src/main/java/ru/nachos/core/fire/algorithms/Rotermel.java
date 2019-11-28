@@ -5,8 +5,8 @@ import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.fire.TwinkleUtils;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentStateV2;
-import ru.nachos.core.network.ForestFuelType;
 import ru.nachos.core.network.NetworkUtils;
+import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.weather.lib.Weather;
 

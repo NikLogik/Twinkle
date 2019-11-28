@@ -16,6 +16,8 @@ public interface NetworkFactory {
 
     PolygonV2 createPolygon(Id<PolygonV2> id, Collection<Coordinate> externalRing);
 
+    PolygonV2 createPolygon(Id<PolygonV2> id, Coordinate[] externalRing);
+
     Node createNode(Id<Node> id, Coordinate coordinate);
 
     Node createNode(Id<Node> id);

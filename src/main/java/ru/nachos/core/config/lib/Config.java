@@ -1,9 +1,11 @@
 package ru.nachos.core.config.lib;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public interface Config {
 
     String getFireName();
@@ -25,6 +27,7 @@ public interface Config {
     Coordinate getFireCenterCoordinate();
     int getFirePerimeter();
     int getFireAgentsDistance();
+    String getSrid();
 
     enum Definitions{
         FIRE_NAME("fireName"),
@@ -42,7 +45,8 @@ public interface Config {
         FIRE_CLASS("fireClass"),
         FIRE_CENTER_COORDS("fireCenterCoords"),
         FIRE_PERIMETER("firePerimeter"),
-        FIRE_AGENTS_DISTANCE("fireAgentsDistance");
+        FIRE_AGENTS_DISTANCE("fireAgentsDistance"),
+        SRID("srid");
 
         private final String param;
 

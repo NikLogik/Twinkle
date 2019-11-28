@@ -42,8 +42,8 @@ class FireFactoryImpl implements FireFactory {
         for (int i=0; i<agentAmount; i++, direction += angleIncrement){
             Coordinate position = FireUtils.calculateCoordIncrement(center, radius, direction);
             Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class), direction);
-            TwinkleUtils.setCoord((Twinkle) twinkle, position);
-            TwinkleUtils.setDistance((Twinkle) twinkle, radius);
+            TwinkleUtils.setCoord(twinkle, position);
+            TwinkleUtils.setDistance(twinkle, radius);
             if (i==0){
                 twinkle.setHead(true);
                 head = twinkle;

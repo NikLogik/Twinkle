@@ -1,5 +1,5 @@
 package ru.nachos.web.models;
-
+@Deprecated
 public class Wind {
 
     private String formId;

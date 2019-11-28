@@ -1,6 +1,7 @@
 package ru.nachos.core.controller;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
@@ -15,6 +16,7 @@ import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Map;
 
+@Component
 final class ControllerImpl implements Controller {
 
     private static Controller controller;
@@ -61,18 +63,19 @@ final class ControllerImpl implements Controller {
         currentTime += stepAmount;
         iterationStep();
 
-
         long timePerIteration = System.currentTimeMillis() - timeStart;
     }
 
     private void iterationStep(){
         Map<Id<Agent>, Agent> agents = this.fire.getTwinkles();
         for (Agent agent : agents.values()){
-            AgentStateV2 lastState = agent.getLastState();
-            double incDistance = lastState.getDistanceFromStart() + (agent.getSpeed() * stepAmount);
-            Coordinate coordinate = FireUtils.calculateCoordIncrement(lastState.getCoord(), incDistance, agent.getDirection());
-            agent.setDistanceFromStart(incDistance);
-            agent.setPoint(coordinate);
+            if (currentIteration != 1) {
+                AgentStateV2 lastState = agent.getLastState();
+                double incDistance = lastState.getDistanceFromStart() + (agent.getSpeed() * (stepAmount/60));
+                Coordinate coordinate = FireUtils.calculateCoordIncrement(lastState.getCoord(), incDistance, agent.getDirection());
+                agent.setDistanceFromStart(incDistance);
+                agent.setPoint(coordinate);
+            }
             agent.saveState(currentIteration);
         }
     }

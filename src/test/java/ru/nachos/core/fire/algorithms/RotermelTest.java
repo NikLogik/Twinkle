@@ -3,21 +3,23 @@ package ru.nachos.core.fire.algorithms;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.nachos.core.DatabaseManager;
 import ru.nachos.core.config.ConfigUtils;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.InitialPreprocessingDataUtils;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.core.network.ForestFuelType;
+import ru.nachos.core.network.lib.ForestFuelType;
 
 public class RotermelTest {
 
+    @Autowired
+    private InitialPreprocessingDataUtils utils;
     private InitialPreprocessingData data;
 
     @Before
     public void init(){
-        data = InitialPreprocessingDataUtils.createInitialData(ConfigUtils.createConfig());
-
+        data = utils.createInitialData(ConfigUtils.createConfig());
     }
 
     @Test

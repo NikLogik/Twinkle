@@ -1,6 +1,7 @@
 package ru.nachos.core.config;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.springframework.stereotype.Component;
 import ru.nachos.core.config.lib.Config;
 
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.TreeMap;
 
 import static ru.nachos.core.config.lib.Config.Definitions.*;
 
+@Component
 public final class ConfigImpl implements Config {
 
     private String fireName;
@@ -21,14 +23,13 @@ public final class ConfigImpl implements Config {
     private double windSpeed;
     private double windDirection;
     private double humidity;
-
     private double temperature;
-
+    private String srid;
     private FirePowerClassification fireClass;
     private Coordinate fireCenterCoordinate;
     private int firePerimeter;
     private int fireAgentsDistance;
-    TreeMap<String, Object> params = new TreeMap<>();
+    private TreeMap<String, Object> params = new TreeMap<>();
     ConfigImpl(){
         this.fireName = "default";
         params.put(FIRE_NAME.getParam(), fireName);
@@ -60,7 +61,9 @@ public final class ConfigImpl implements Config {
         params.put(FIRE_PERIMETER.getParam(), firePerimeter);
         this.fireAgentsDistance = 10; //meters between agents
         params.put(FIRE_AGENTS_DISTANCE.getParam(), fireAgentsDistance);
-        this.fireCenterCoordinate = new Coordinate();
+        this.srid = "EPSG:4326";
+        params.put(SRID.getParam(), srid);
+        this.fireCenterCoordinate = new Coordinate(44.97385, 33.88063);
         params.put(FIRE_CENTER_COORDS.getParam(), fireCenterCoordinate);
     }
 
@@ -203,6 +206,11 @@ public final class ConfigImpl implements Config {
 
     @Override
     public int getFireAgentsDistance() { return fireAgentsDistance; }
+
+    @Override
+    public String getSrid() {
+        return this.srid;
+    }
 
     public void setFireAgentsDistance(int fireAgentsDistance) {
         updateParams(FIRE_AGENTS_DISTANCE.getParam(), fireAgentsDistance);

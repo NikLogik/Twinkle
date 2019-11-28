@@ -29,7 +29,7 @@ public class FireUtilsTest {
 
     @Test
     public void calculateCoordIncrementTest(){
-        Coordinate coordinate = FireUtils.calculateCoordIncrement(new Coordinate(6545.521455, 5432.234785), 541, 45.00);
+        Coordinate coordinate = FireUtils.calculateCoordIncrement(new Coordinate(5559711.64,3736820.58), 541, 45.00);
         System.out.println(coordinate.x);
         Assert.assertNotNull(coordinate);
     }

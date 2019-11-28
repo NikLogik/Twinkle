@@ -2,7 +2,7 @@ package ru.nachos.core.fire.algorithms;
 
 
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.network.ForestFuelType;
+import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.weather.lib.Weather;
 

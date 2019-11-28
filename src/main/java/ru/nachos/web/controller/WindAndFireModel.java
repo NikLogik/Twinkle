@@ -2,7 +2,7 @@ package ru.nachos.web.controller;
 
 import ru.nachos.web.models.Fire;
 import ru.nachos.web.models.Wind;
-
+@Deprecated
 public class WindAndFireModel {
 
     private Wind wind;

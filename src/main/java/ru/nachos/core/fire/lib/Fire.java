@@ -29,6 +29,8 @@ public interface Fire {
 
     Agent removeAgent(Id<Agent> id);
 
+    void setCenterPoint(Coordinate center);
+
     void setFireSpeed(double fireSpeed);
 
     class Definitions{

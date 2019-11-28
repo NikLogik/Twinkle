@@ -2,16 +2,28 @@ package ru.nachos.core.network;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.db.repository.PolygonRepository;
 
 import java.util.Collection;
 import java.util.Map;
 
+@Service
 public final class NetworkUtils {
 
     private NetworkUtils(){}
+
+    @Deprecated
+    public static PolygonRepository getRepository() {
+        return repository;
+    }
+
+    private static PolygonRepository repository;
 
     public static Network createNetwork(){
         return new NetworkImpl(new NetworkFactoryImpl());
@@ -80,7 +92,19 @@ public final class NetworkUtils {
     }
 
     public static Network createNetwork(Network network, Coordinate[] boundaryBox){
-        throw new UnsupportedOperationException("Release this method");
+        Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
+        Map<String, Polygon> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(polygon);
+        PolygonV2 temp;
+        for (Map.Entry<String, Polygon> entry : polygonsFromBoundaryBox.entrySet()){
+            temp = network.getFactory().createPolygon(Id.createPolygonId(entry.getKey()), entry.getValue().getExteriorRing().getCoordinates());
+            network.addPolygon(temp);
+        }
+        return network;
+    }
+
+    @Autowired
+    public void setPolygonRepository(PolygonRepository repository){
+        NetworkUtils.repository = repository;
     }
 
     public static Coordinate[] calculateBoundaryBox(Coordinate center, double distance){
