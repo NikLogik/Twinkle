@@ -4,7 +4,6 @@ import com.vividsolutions.jts.geom.Coordinate;
 import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;
 
@@ -18,22 +17,33 @@ class FireFactoryImpl implements FireFactory {
         return new Twinkle(id);
     }
 
-    @Override
-    public AgentState createState() {
-        return new TwinkleState();
+    public Agent createTwinkle(Id<Agent> id, double direction){
+        Twinkle twinkle = new Twinkle(id);
+        twinkle.setDirection(direction);
+        return twinkle;
     }
-
+    /**
+     *
+     * @param center - координаты центра пожара
+     * @param distance - расстояние между агентами
+     * @param perimeter - длина фронта пожара
+     * @param startDirection - направление ветра
+     * @return
+     */
     @Override
-    public AgentState createState(Agent agent) { return new TwinkleState(agent); }
-
-    @Override
-    public Map<Id<Agent>, Agent> generateFireFront(int distance, int frontLength){
-        int agentAmount = frontLength / (distance / 2);
+    public Map<Id<Agent>, Agent> generateFireFront(Coordinate center, int distance, int perimeter, double startDirection){
         TreeMap<Id<Agent>, Agent> map = new TreeMap<>();
+        int agentAmount = perimeter / (distance / 2);
+        double radius = calculateRadius(perimeter);
+        double direction = convertWindDirection(startDirection);
+        double angleIncrement = MathUtils.round(360.0 / agentAmount, 2);
         Agent head = null;
         Agent prev = null;
-        for (int i=0; i<agentAmount; i++){
-            Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class));
+        for (int i=0; i<agentAmount; i++, direction += angleIncrement){
+            Coordinate position = FireUtils.calculateCoordIncrement(center, radius, direction);
+            Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class), direction);
+            TwinkleUtils.setCoord(twinkle, position);
+            TwinkleUtils.setDistance(twinkle, radius);
             if (i==0){
                 twinkle.setHead(true);
                 head = twinkle;
@@ -51,9 +61,23 @@ class FireFactoryImpl implements FireFactory {
         return map;
     }
 
+    private double calculateRadius(int perimeter){
+        return MathUtils.round(perimeter / (2 * Math.PI), 2);
+    }
+
+    private double convertWindDirection(double startDirection){
+        double var;
+        if (startDirection >= 180.00) {
+            var = (startDirection + 180.00) - 360.00;
+        } else {
+            var = startDirection + 180.00;
+        }
+        return var;
+    }
+
     @Override
     public void setAgentToStartPosition(Fire fire, double startDirection){
-        double distanceFromFireCenter = MathUtils.round(fire.getPerimeter() / (2 * Math.PI), 2);
+        double radius = MathUtils.round(fire.getPerimeter() / (2 * Math.PI), 2);
         if (startDirection >= 180.00) {
             startDirection = (startDirection + 180.00) - 360.00;
         } else if(startDirection<180.00){
@@ -63,9 +87,11 @@ class FireFactoryImpl implements FireFactory {
         double angleIncrement = MathUtils.round(360.00 / fire.getTwinkles().size(), 2);
 
         Agent prev = FireUtils.getHeadAgent(fire.getTwinkles());
-        for (int j=0; j < fire.getTwinkles().size(); j++, startDirection += angleIncrement){
-            Coordinate position = FireUtils.calculateCoordIncrement(fire.getCenterPoint(), distanceFromFireCenter, startDirection);
-            TwinkleUtils.setCoord(prev, position);
+        double curDirection = startDirection;
+        for (int j=0; j < fire.getTwinkles().size(); j++, curDirection += angleIncrement){
+            Coordinate position = FireUtils.calculateCoordIncrement(fire.getCenterPoint(), radius, startDirection);
+            TwinkleUtils.setCoord((Twinkle) prev, position);
+
             prev = prev.getRightNeighbour();
         }
     }

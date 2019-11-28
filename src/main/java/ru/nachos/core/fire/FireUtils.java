@@ -53,6 +53,7 @@ public final class FireUtils {
     }
 
     public static Coordinate calculateCoordIncrement(Coordinate firstPoint, double length, double angle){
+        angle = angle * Math.PI/180;
         double dX = firstPoint.x + Math.cos(angle) * length;
         double dY = firstPoint.y + Math.sin(angle) * length;
         return new Coordinate(dX, dY);

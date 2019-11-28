@@ -2,9 +2,9 @@ package ru.nachos.core.network;
 
 import ru.nachos.core.Id;
 
-public class ForestFuelType{
+public class ForestFuelTypeImpl implements ru.nachos.core.network.lib.ForestFuelType {
 
-    private Id<ForestFuelType> id;
+    private Id<ForestFuelTypeImpl> id;
     private String name;
     private double middleReserve;       //  средний запас ЛГМ
     private int specificArea;           //  удельная поверхность ЛГМ
@@ -19,10 +19,10 @@ public class ForestFuelType{
     private double  canopyOfWood;       //  высота полога древостоя
     private double capacityDensityWood; //  объемная плотность полога леса
 
-    public ForestFuelType(int id, String name, double middleReserve, int specificArea, int heat,
-                          int densityForestFuel, double depth, double moisture, double maxMoisture, int treeHeight,
-                          double canopyOfWood, double capacityDensityWood) {
-        this.id = Id.create(id, ForestFuelType.class);
+    public ForestFuelTypeImpl(int id, String name, double middleReserve, int specificArea, int heat,
+                              int densityForestFuel, double depth, double moisture, double maxMoisture, int treeHeight,
+                              double canopyOfWood, double capacityDensityWood) {
+        this.id = Id.create(id, ForestFuelTypeImpl.class);
         this.name = name;
         this.middleReserve = middleReserve;
         this.specificArea = specificArea;
@@ -36,31 +36,32 @@ public class ForestFuelType{
         this.capacityDensityWood = capacityDensityWood;
     }
 
+    @Override
     public String getName() { return name; }
-
-    public Id<ForestFuelType> getId() { return this.id; }
-
+    @Override
+    public Id<ForestFuelTypeImpl> getId() { return this.id; }
+    @Override
     public double getMiddleReserve() { return this.middleReserve; }
-
+    @Override
     public int getSpecificArea() { return this.specificArea; }
-
+    @Override
     public int getHeat() { return this.heat; }
-
+    @Override
     public int getDensityForestFuel() {return this.densityForestFuel;}
-
+    @Override
     public double getDepth() {return this.depth;}
-
+    @Override
     public double getMoisture() {return this.moisture;}
-
+    @Override
     public double getMaxMoisture() {return this.maxMoisture;}
-
+    @Override
     public double getMineralMatter() {return this.mineralMatter;}
-
+    @Override
     public double getMineralConsistency() {return this.mineralConsistency;}
-
+    @Override
     public int getTreeHeight() {return this.treeHeight;}
-
+    @Override
     public double getCanopyOfWood() { return canopyOfWood; }
-
+    @Override
     public double getCapacityDensityWood() {return this.capacityDensityWood;}
 }

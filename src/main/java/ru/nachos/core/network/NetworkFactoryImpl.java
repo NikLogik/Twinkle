@@ -12,8 +12,6 @@ import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 final class NetworkFactoryImpl implements NetworkFactory {
 
@@ -26,13 +24,18 @@ final class NetworkFactoryImpl implements NetworkFactory {
 
     @Override
     public PolygonV2 createPolygon(Id<PolygonV2> id, Point... externalRing) {
-        List<Coordinate> coordinates = Arrays.stream(externalRing).map(Point::getCoordinate).collect(Collectors.toList());
+        Coordinate[] coordinates = Arrays.stream(externalRing).map(Point::getCoordinate).toArray(Coordinate[]::new);
         return createPolygon(id, coordinates);
     }
 
     @Override
     public PolygonV2 createPolygon(Id<PolygonV2> id, Collection<Coordinate> externalRing){
-        LinearRing linearRing = factory.createLinearRing(externalRing.toArray(new Coordinate[0]));
+        return createPolygon(id, externalRing.toArray(new Coordinate[0]));
+    }
+
+    @Override
+    public PolygonV2 createPolygon(Id<PolygonV2> id, Coordinate[] externalRing){
+        LinearRing linearRing = factory.createLinearRing(externalRing);
         return new PolygonV2Impl(id, linearRing, null, factory);
     }
 

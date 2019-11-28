@@ -18,11 +18,13 @@ class FireImpl implements Fire {
      * Name for idetification fire instance
      */
     private String name;
+
     /**
      * Center point, where fire is started to spread.
      * Use rectangular coordinates WGS84
      */
     private Coordinate center;
+
     /**
      * Length of firefront at the beginning of simulation
      */
@@ -45,7 +47,6 @@ class FireImpl implements Fire {
      */
     private Map<Id<Agent>, Agent> twinkles = new LinkedHashMap<>();
     private FireFactory factory = new FireFactoryImpl();
-
     FireImpl(){}
 
     FireImpl(Config config){
@@ -58,6 +59,7 @@ class FireImpl implements Fire {
 
     @Override
     public FireFactory getFactory(){ return this.factory; }
+
     @Override
     public String getName() { return name; }
     @Override
@@ -87,10 +89,9 @@ class FireImpl implements Fire {
     public boolean removeAgent(Agent agent){ return twinkles.remove(agent.getId(), agent); }
     @Override
     public Agent removeAgent(Id<Agent> id){ return twinkles.remove(id); }
-
     void setName(String name){ this.name = name; }
-
-    void setCenterPoint(Coordinate center){ this.center = center; }
+    @Override
+    public void setCenterPoint(Coordinate center){ this.center = center; }
 
     void setPerimeter(int perimeter){ this.perimeter = perimeter; }
 

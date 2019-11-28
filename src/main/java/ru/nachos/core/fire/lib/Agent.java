@@ -8,6 +8,10 @@ import java.util.Map;
 
 public interface Agent extends HasID {
 
+    AgentStateV2 saveState(int iterNum);
+
+    boolean removeState(AgentStateV2 state);
+
     void setDirection(double direction);
 
     void setRightNeighbour(Agent twinkle);
@@ -27,9 +31,9 @@ public interface Agent extends HasID {
 
     double getDirection();
 
-    Map<Integer, AgentState> getStates();
+    Map<Integer, AgentStateV2> getStates();
 
-    AgentState getLastState();
+    AgentStateV2 getLastState();
 
     void setPoint(Coordinate coord);
 
@@ -38,4 +42,8 @@ public interface Agent extends HasID {
     void setHead(boolean head);
 
     void setSpeed(double speed);
+
+    void setDistanceFromStart(double distanceFromStart);
+
+    double getDistanceFromStart();
 }

@@ -12,6 +12,7 @@ import ru.nachos.owm.OpenWeatherMap;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Deprecated
 @Controller
 public class IndexController {
 

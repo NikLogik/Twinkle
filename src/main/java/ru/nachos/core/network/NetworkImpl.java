@@ -3,16 +3,17 @@ package ru.nachos.core.network;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkImpl implements Network {
 
     private String name;
     private NetworkFactory factory;
-    private Map<Id<Node>, Node> nodes;
-    private Map<Id<Link>, Link> links;
-    private Map<Id<PolygonV2>, PolygonV2> polygons;
-    private ForestFuelType fuelType;
+    private Map<Id<Node>, Node> nodes = new HashMap<>();
+    private Map<Id<Link>, Link> links = new HashMap<>();
+    private Map<Id<PolygonV2>, PolygonV2> polygons = new HashMap<>();
+    private ForestFuelTypeImpl fuelType;
 
     NetworkImpl(NetworkFactory factory){
         this.factory = factory;
@@ -27,7 +28,9 @@ public class NetworkImpl implements Network {
     @Override
     public Map<Id<PolygonV2>, ? extends PolygonV2> getPolygones() {return this.polygons;}
     @Override
-    public void addPolygon(PolygonV2 polygon) {polygons.put(polygon.getId(), polygon);}
+    public void addPolygon(PolygonV2 polygon) {
+        polygons.put(polygon.getId(), polygon);
+    }
     @Override
     public void addNode(Node node) {nodes.put(node.getId(), node);}
     @Override
@@ -47,7 +50,7 @@ public class NetworkImpl implements Network {
         return this.name;
     }
     @Override
-    public ForestFuelType getFuelType(){ return this.fuelType; }
+    public ForestFuelTypeImpl getFuelType(){ return this.fuelType; }
     @Override
-    public void setFuelType(ForestFuelType type){ this.fuelType = type; }
+    public void setFuelType(ForestFuelTypeImpl type){ this.fuelType = type; }
 }

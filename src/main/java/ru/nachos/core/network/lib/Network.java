@@ -1,7 +1,7 @@
 package ru.nachos.core.network.lib;
 
 import ru.nachos.core.Id;
-import ru.nachos.core.network.ForestFuelType;
+import ru.nachos.core.network.ForestFuelTypeImpl;
 
 import java.util.Map;
 
@@ -31,9 +31,9 @@ public interface Network {
 
     String getName();
 
-    ForestFuelType getFuelType();
+    ForestFuelTypeImpl getFuelType();
 
-    void setFuelType(ForestFuelType type);
+    void setFuelType(ForestFuelTypeImpl type);
 
 
 }
