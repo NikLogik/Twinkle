@@ -8,7 +8,7 @@ import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentStateV2;
+import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
@@ -70,7 +70,7 @@ final class ControllerImpl implements Controller {
         Map<Id<Agent>, Agent> agents = this.fire.getTwinkles();
         for (Agent agent : agents.values()){
             if (currentIteration != 1) {
-                AgentStateV2 lastState = agent.getLastState();
+                AgentState lastState = agent.getLastState();
                 double incDistance = lastState.getDistanceFromStart() + (agent.getSpeed() * (stepAmount/60));
                 Coordinate coordinate = FireUtils.calculateCoordIncrement(lastState.getCoord(), incDistance, agent.getDirection());
                 agent.setDistanceFromStart(incDistance);

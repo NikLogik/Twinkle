@@ -14,6 +14,7 @@ import ru.nachos.web.models.lib.EstimateData;
 import ru.nachos.web.models.lib.ResultData;
 import ru.nachos.web.services.lib.ResultDataService;
 
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,13 +23,17 @@ public class FireModelRunnerImpl implements FireModelRunner{
 
     @Autowired
     private ResultDataService resultService;
-    private EstimateData estimateData;
     private ResultData resultData;
     private Map<Id<Agent>, Agent> agents = new LinkedHashMap<>();
 
     public void run(EstimateData estimateData) {
         Coordinate fireCenterCoordinate = new Coordinate(44.97385, 33.88063);
-        int startTime = 10000;
+        Calendar calendar = Calendar.getInstance();
+        int second = calendar.get(Calendar.SECOND);
+        int minute = calendar.get(Calendar.MINUTE);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int startTime = second + (minute * 60) + (hour * 3600);
+        int lastIteration = (estimateData.getLastIterationTime() - startTime) / estimateData.getIterationStepTime() ;
         Config config = new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
                 .setStartTime(startTime)
                 .setEndTime(estimateData.getLastIterationTime())
@@ -39,6 +44,7 @@ public class FireModelRunnerImpl implements FireModelRunner{
                 .setWindDirection(estimateData.getWindDirection())
                 .setWindSpeed(estimateData.getWindSpeed())
                 .setFireCenterCoordinate(fireCenterCoordinate)
+                .setLastIteration(lastIteration)
                 .build();
         InitialPreprocessingData initialData = InitialPreprocessingDataUtils.createInitialData(config);
         InitialPreprocessingDataUtils.loadInitialData(initialData);

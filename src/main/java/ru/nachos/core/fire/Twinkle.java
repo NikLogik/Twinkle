@@ -3,7 +3,7 @@ package ru.nachos.core.fire;
 import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentStateV2;
+import ru.nachos.core.fire.lib.AgentState;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,7 +17,7 @@ class Twinkle implements Agent {
     private Agent leftNeighbour;
     private Agent rightNeighbour;
     private double distanceFromStart;
-    private TreeMap<Integer, AgentStateV2> planList = new TreeMap<>();
+    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
     private boolean head = false;
 
     Twinkle (Id<Agent> id){
@@ -28,12 +28,12 @@ class Twinkle implements Agent {
     public Id<Agent> getId() { return this.id; }
 
     @Override
-    public AgentStateV2 saveState(int iterNum){
+    public AgentState saveState(int iterNum){
         return planList.put(iterNum, new TwinkleStateV2(this, iterNum));
     }
 
     @Override
-    public boolean removeState(AgentStateV2 state) {
+    public boolean removeState(AgentState state) {
         return this.planList.remove(state.getIterNum(), state);
     }
 
@@ -48,10 +48,10 @@ class Twinkle implements Agent {
     public void setSpeed(double speed){this.speed = speed;}
 
     @Override
-    public Map<Integer, AgentStateV2> getStates() { return this.planList; }
+    public Map<Integer, AgentState> getStates() { return this.planList; }
 
     @Override
-    public AgentStateV2 getLastState() {
+    public AgentState getLastState() {
         return planList.lastEntry().getValue();
     }
 
@@ -88,7 +88,7 @@ class Twinkle implements Agent {
         return distanceFromStart;
     }
 
-    public class TwinkleStateV2 implements AgentStateV2 {
+    public class TwinkleStateV2 implements AgentState {
         private Id<Agent> agent;
         private double distanceFromStart;
         private Coordinate coord;

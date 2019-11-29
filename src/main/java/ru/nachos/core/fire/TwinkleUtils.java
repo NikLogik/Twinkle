@@ -2,7 +2,7 @@ package ru.nachos.core.fire;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentStateV2;
+import ru.nachos.core.fire.lib.AgentState;
 
 import java.text.DecimalFormat;
 
@@ -16,9 +16,9 @@ public final class TwinkleUtils {
         twinkle.setPoint(coord);
     }
 
-    public static AgentStateV2 getStateByIter(Twinkle twinkle, int iter){
-        AgentStateV2 plan = null;
-        for (AgentStateV2 plan1 : twinkle.getStates().values()){
+    public static AgentState getStateByIter(Twinkle twinkle, int iter){
+        AgentState plan = null;
+        for (AgentState plan1 : twinkle.getStates().values()){
             if (plan1.getIterNum()==iter)
                 plan = plan1;
         }

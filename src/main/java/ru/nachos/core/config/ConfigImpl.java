@@ -16,8 +16,8 @@ public final class ConfigImpl implements Config {
     private int firstIteration;
     private int lastIteration;
     private int stepTimeAmount;
-    private double startTime;
-    private double endTime;
+    private long startTime;
+    private long endTime;
     private FireSpreadModels calculator;
     private ForestFuelType fuelType;
     private double windSpeed;
@@ -117,17 +117,17 @@ public final class ConfigImpl implements Config {
     }
 
     @Override
-    public double getStartTime() { return startTime; }
+    public long getStartTime() { return startTime; }
 
-    public void setStartTime(double startTime) {
+    public void setStartTime(long startTime) {
         updateParams(START_TIME.getParam(), startTime);
         this.startTime = startTime;
     }
 
     @Override
-    public double getEndTime() { return endTime; }
+    public long getEndTime() { return endTime; }
 
-    public void setEndTime(double endTime) {
+    public void setEndTime(long endTime) {
         updateParams(END_TIME.getParam(), endTime);
         this.endTime = endTime;
     }

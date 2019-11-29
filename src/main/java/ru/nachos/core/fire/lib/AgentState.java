@@ -2,29 +2,22 @@ package ru.nachos.core.fire.lib;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
-import ru.nachos.core.network.lib.PolygonV2;
 
 public interface AgentState {
 
-    Agent getAgent();
+    Id<Agent> getAgent();
 
-    int getDistanceFromStart();
+    double getDistanceFromStart();
 
-    void setDistanceFromStart(int distance);
+    Coordinate getCoord();
 
-    Coordinate getCoordinate();
+    double getSpeed();
 
-    void setTimeStamp(long timeStamp);
+    Agent getLeftNeighbour();
 
-    long getTimeStamp();
+    Agent getRightNeighbour();
 
-    void setItersNumber(int itersNumber);
+    boolean isHead();
 
-    int getItersNumber();
-
-    void setIdPolygon(Id<PolygonV2> id);
-
-    Id<PolygonV2> getIdPolygon();
-
-    void setAgent(Agent twinkle);
+    int getIterNum();
 }
