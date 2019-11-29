@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment=" version 0.4 29-11-2019">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+    <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/controller/ControllerImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/controller/ControllerImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twinkle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/twinkle.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574941799679</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=" version 0.4 29-11-2019">
+      <created>1575033819273</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575033819273</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -266,10 +268,10 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575020811674" />
-    <state x="458" y="149" width="1054" height="807" key="CommitChangelistDialog2" timestamp="1575025217481">
+    <state x="458" y="149" width="1054" height="807" key="CommitChangelistDialog2" timestamp="1575033819160">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="458" y="149" width="1054" height="807" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575025217481" />
+    <state x="458" y="149" width="1054" height="807" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575033819160" />
     <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1574971508566">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
