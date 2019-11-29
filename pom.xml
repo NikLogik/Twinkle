@@ -102,6 +102,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>2.1.8.RELEASE</version>
         </dependency>
+        <!-- При развертывании локально эту зависимость не использовать       -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -129,6 +135,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

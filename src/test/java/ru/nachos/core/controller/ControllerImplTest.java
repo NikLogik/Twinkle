@@ -14,10 +14,8 @@ import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.network.NetworkUtils;
-import ru.nachos.experimental.TwinkleCSVWriter;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TwinkleApplication.class)
@@ -49,12 +47,6 @@ public class ControllerImplTest {
         controller.run();
         Fire fire = controller.getFire();
         InitialPreprocessingData preprocessingData = controller.getPreprocessingData();
-        TwinkleCSVWriter writer = null;
-        try {
-            writer = new TwinkleCSVWriter(fire.getTwinkles());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        writer.writeAgents();
+
     }
 }

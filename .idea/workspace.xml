@@ -2,67 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment=" version 0.4 29-11-2019">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/OsmDatabaseManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PointRepositortyImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entity/PlanetOsmPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/HasSRID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PointRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolygonRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolylineRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/IndexHtmlImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_1_8_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_bootstrap_4_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_bootstrap_datepicker_1_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_jquery_3_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_webjars_popper_js_1_14_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbactions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbactions.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/lib/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/lib/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentStateV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/io/OsmReliefMapReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/experimental/TestReflectFieldClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/WindAndFireModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/Fire.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/Wind.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/EstimateDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/EstimateDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contour.dbf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contour.prj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contour.qml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contour.shp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contour.shx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/custom.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/ol.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/ol-test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/ol.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/submit-form.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/example-weather.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/images/brend.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/json-context.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/response-example.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/controller/ControllerImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/controller/ControllerImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twinkle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/twinkle.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -330,22 +274,22 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1574971508565" />
-    <state width="1813" height="394" key="GridCell.Tab.0.bottom" timestamp="1575024733544">
+    <state width="1813" height="394" key="GridCell.Tab.0.bottom" timestamp="1575033794140">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="394" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575024733544" />
-    <state width="1813" height="394" key="GridCell.Tab.0.center" timestamp="1575024733542">
+    <state width="1813" height="394" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575033794140" />
+    <state width="1813" height="394" key="GridCell.Tab.0.center" timestamp="1575033794140">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="394" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575024733542" />
-    <state width="1813" height="394" key="GridCell.Tab.0.left" timestamp="1575024733541">
+    <state width="1813" height="394" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575033794140" />
+    <state width="1813" height="394" key="GridCell.Tab.0.left" timestamp="1575033794139">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="394" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575024733541" />
-    <state width="1813" height="394" key="GridCell.Tab.0.right" timestamp="1575024733543">
+    <state width="1813" height="394" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575033794139" />
+    <state width="1813" height="394" key="GridCell.Tab.0.right" timestamp="1575033794140">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="394" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575024733543" />
+    <state width="1813" height="394" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575033794140" />
     <state x="479" y="187" width="1024" height="845" key="SettingsEditor" timestamp="1575024666425">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -354,10 +298,10 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575020110171" />
-    <state width="435" height="154" key="javadoc.popup.new" timestamp="1575021159641">
+    <state width="435" height="154" key="javadoc.popup.new" timestamp="1575033767535">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="435" height="154" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1575021159641" />
+    <state width="435" height="154" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1575033767535" />
     <state x="653" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1574972101125">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
