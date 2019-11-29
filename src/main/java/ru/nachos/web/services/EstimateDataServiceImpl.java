@@ -7,6 +7,8 @@ import ru.nachos.web.models.lib.EstimateData;
 import ru.nachos.web.models.lib.ResultData;
 import ru.nachos.web.services.lib.EstimateDataService;
 
+import java.util.List;
+
 @Service
 public class EstimateDataServiceImpl implements EstimateDataService {
 
@@ -38,6 +40,8 @@ public class EstimateDataServiceImpl implements EstimateDataService {
 
     @Override
     public void start(EstimateData estimateData) {
+        List<String> coordinates = estimateData.getCoordinates();
+        if (coordinates.size()==1)
         runner.run(estimateData);
     }
 

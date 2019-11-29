@@ -29,11 +29,11 @@ public class ConfigUtils {
             config.setStepTimeAmount(iterationStepTime);
             return this;
         }
-        public ConfigBuilder setStartTime(int startTime){
+        public ConfigBuilder setStartTime(long startTime){
             config.setStartTime(startTime);
             return this;
         }
-        public ConfigBuilder setEndTime(int endTime){
+        public ConfigBuilder setEndTime(long endTime){
             config.setEndTime(endTime);
             return this;
         }

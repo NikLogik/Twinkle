@@ -2,28 +2,32 @@ package ru.nachos.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import ru.nachos.experimental.AgentIterDataWriter;
-import ru.nachos.owm.City;
-import ru.nachos.owm.OpenWeatherMap;
+import ru.nachos.web.models.IndexHtmlImpl;
 import ru.nachos.web.models.lib.EstimateData;
 import ru.nachos.web.models.lib.ResultData;
 import ru.nachos.web.services.lib.EstimateDataService;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("/twinkle")
 public class IndexRestController {
-    @Autowired
-    AgentIterDataWriter writer;
+
     @Autowired
     EstimateDataService dataService;
+    private final AtomicLong id = new AtomicLong();
 
-    @PostMapping("/fires")
+    @GetMapping(value = "/fires")
+    public IndexHtmlImpl indexHtml(){
+        return new IndexHtmlImpl(id.incrementAndGet(), "Some text for greeting");
+    }
+
+    @PostMapping(value = "/fires", consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<ResultData> postFireData(@RequestBody EstimateData estimateData){
         boolean valid = dataService.validationData(estimateData);
         ResultData resultData = null;
@@ -33,22 +37,6 @@ public class IndexRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        writer.writeData(resultData);
         return new ResponseEntity<>(resultData, HttpStatus.OK);
-    }
-
-    @GetMapping("/weather/city/{id}")
-    public ResponseEntity<City> getCityId(@PathVariable("id") String id, Model model){
-        RestTemplate template = new RestTemplate();
-        City s = null;
-        try {
-            ResponseEntity<OpenWeatherMap> weather = template.getForEntity(
-                    new URI("https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=6206177780dd6e1df5b26d31e5ab0553"),
-                    OpenWeatherMap.class);
-            s = weather.getBody().getCity();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(s, HttpStatus.OK);
     }
 }

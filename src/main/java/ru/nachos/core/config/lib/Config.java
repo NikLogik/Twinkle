@@ -15,8 +15,8 @@ public interface Config {
     int getFirstIteration();
     int getLastIteration();
     int getStepTimeAmount();
-    double getStartTime();
-    double getEndTime();
+    long getStartTime();
+    long getEndTime();
     FireSpreadModels getCalculator();
     ForestFuelType getFuelType();
     double getWindSpeed();

@@ -8,9 +8,9 @@ import java.util.Map;
 
 public interface Agent extends HasID {
 
-    AgentStateV2 saveState(int iterNum);
+    AgentState saveState(int iterNum);
 
-    boolean removeState(AgentStateV2 state);
+    boolean removeState(AgentState state);
 
     void setDirection(double direction);
 
@@ -31,9 +31,9 @@ public interface Agent extends HasID {
 
     double getDirection();
 
-    Map<Integer, AgentStateV2> getStates();
+    Map<Integer, AgentState> getStates();
 
-    AgentStateV2 getLastState();
+    AgentState getLastState();
 
     void setPoint(Coordinate coord);
 
