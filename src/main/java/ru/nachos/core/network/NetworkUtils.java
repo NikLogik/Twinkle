@@ -115,4 +115,12 @@ public final class NetworkUtils {
         boundaryBox[3] = new Coordinate(center.x, center.y + distance); //max Y latitude (широта
         return boundaryBox;
     }
+
+    public static Coordinate centerLine(Coordinate coord1, Coordinate coord2){
+        double xx;
+        double yy;
+        xx = 0.5D * (coord1.x + coord2.x);
+        yy = 0.5D * (coord1.y + coord2.y);
+        return new Coordinate(xx, yy);
+    }
 }

@@ -21,6 +21,7 @@ public class ConfigUtils {
         public ConfigBuilder(Config config){
             this.config = (ConfigImpl) config;
         }
+
         public ConfigBuilder setLastIteration(int lastIteration){
             config.setLastIteration(lastIteration);
             return this;
@@ -69,5 +70,9 @@ public class ConfigUtils {
         public Config build(){
             return this.config;
         }
+    }
+
+    public static void resetToNull(Config config){
+        config = null;
     }
 }

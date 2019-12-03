@@ -1,8 +1,10 @@
 package ru.nachos.web.models;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.web.models.lib.EstimateData;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 public class EstimateDataImpl implements EstimateData, Serializable {
@@ -10,7 +12,7 @@ public class EstimateDataImpl implements EstimateData, Serializable {
     private double windSpeed;
     private double windDirection;
     private int fireClass;
-    private List<String> coordinates;
+    private CoordinateJson[] fireCenter;
     private int fuelTypeCode;
     private int iterationStepTime;
     private int lastIterationTime;
@@ -33,7 +35,7 @@ public class EstimateDataImpl implements EstimateData, Serializable {
     }
 
     @Override
-    public List<String> getCoordinates() { return this.coordinates; }
+    public List<Coordinate> getFireCenter() { return Arrays.asList(this.fireCenter); }
 
     @Override
     public int getFuelTypeCode() { return this.fuelTypeCode; }

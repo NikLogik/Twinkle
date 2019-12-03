@@ -8,30 +8,23 @@ import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
-import ru.nachos.core.weather.lib.Weather;
 
 public class Rotermel implements FireSpreadCalculator {
 
     private Network network;
-    private Weather weather;
 
     private double gamma;
     private ForestFuelType type;
+    private double windSpeed;
     private Agent agent;
 
-    public Rotermel(Network network, Weather weather) {
+    public Rotermel(Network network) {
         this.network = network;
-        this.weather = weather;
     }
 
     @Override
     public void setNetwork(Network network) {
         this.network = network;
-    }
-
-    @Override
-    public void setWeather(Weather weather) {
-        this.weather = weather;
     }
 
     @Override
@@ -44,7 +37,17 @@ public class Rotermel implements FireSpreadCalculator {
     }
 
     @Override
-    public double calculateSpeedOfSpreadWithConstraint(double fireSpeed, boolean reliefData) {
+    public void calculateSpeedOfSpreadWithArbitraryDirectionV2(double fireSpeed, Agent agent, double windDirection) {
+        double direction = agent.getDirection() - windDirection;
+        double albiniSpeed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
+        double A = 0.785 * albiniSpeed - 0.106 * Math.pow(albiniSpeed, 2);
+        fireSpeed = fireSpeed * Math.exp(A * (Math.cos(Math.toRadians(direction)) - 1));
+        TwinkleUtils.changeSpeed(agent, fireSpeed);
+    }
+
+    @Override
+    public double calculateSpeedOfSpreadWithConstraint(double fireSpeed, double windSpeed, boolean reliefData) {
+        this.windSpeed = windSpeed;
         double windK = windCoefficient();
         double reliefK = 0.0;
         if (reliefData) {
@@ -96,7 +99,6 @@ public class Rotermel implements FireSpreadCalculator {
      */
     private double windCoefficient() {
         double k1 = Math.pow(gamma, -0.715 * Math.exp(-1.094 * Math.pow(10, -4) * type.getSpecificArea()));
-
         double speed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
         double k2 = 7.47 * Math.exp((-0.06919 * Math.pow(type.getSpecificArea(), 0.55))
                 * Math.pow((196.848 * speed), 0.0133 * Math.pow(type.getSpecificArea(), 0.54)));
@@ -104,8 +106,7 @@ public class Rotermel implements FireSpreadCalculator {
     }
 
     private double windSpeedOn6Meters(){
-        double speed = type.getTreeHeight() * Math.pow((type.getTreeHeight() + 6), 0.28);
-        return speed;
+        return windSpeed * Math.pow(((type.getTreeHeight() + 6)/10.0), 0.28);
     }
 
     /**
@@ -115,11 +116,11 @@ public class Rotermel implements FireSpreadCalculator {
      * @return value wind coefficient
      */
     private double albiniFormulaForWindSpeed(double windSpeed6meters){
-        if (windSpeed6meters == 0.0){
+        if (windSpeed6meters == 0.000){
             windSpeed6meters = windSpeedOn6Meters();
         }
         double albiniSpeed = 0.31 * windSpeed6meters / (Math.sqrt(type.getCapacityDensityWood()* type.getTreeHeight())
-                                    * Math.log((20 + 1.18 * type.getTreeHeight()) / 0.43 * type.getTreeHeight()));
+                                    * Math.log((20 + 1.18 * type.getTreeHeight()) / (0.43 * type.getTreeHeight())));
         return albiniSpeed;
     }
 

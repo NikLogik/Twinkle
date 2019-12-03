@@ -17,9 +17,8 @@ import ru.nachos.core.network.lib.PolygonV2;
 import java.util.Map;
 
 @Component
-final class ControllerImpl implements Controller {
+class ControllerImpl implements Controller {
 
-    private static Controller controller;
     private Network network;
     private Config config;
     private InitialPreprocessingData preprocessingData;
@@ -51,6 +50,7 @@ final class ControllerImpl implements Controller {
     public void run(){
         doIteration();
     }
+
     private void doIteration(){
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
@@ -62,7 +62,6 @@ final class ControllerImpl implements Controller {
         long timeStart = System.currentTimeMillis();
         currentTime += stepAmount;
         iterationStep();
-
         long timePerIteration = System.currentTimeMillis() - timeStart;
     }
 
@@ -71,9 +70,9 @@ final class ControllerImpl implements Controller {
         for (Agent agent : agents.values()){
             if (currentIteration != 1) {
                 AgentState lastState = agent.getLastState();
-                double incDistance = lastState.getDistanceFromStart() + (agent.getSpeed() * (stepAmount/60));
+                double incDistance = agent.getSpeed() * (stepAmount/60);
                 Coordinate coordinate = FireUtils.calculateCoordIncrement(lastState.getCoord(), incDistance, agent.getDirection());
-                agent.setDistanceFromStart(incDistance);
+                agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
                 agent.setPoint(coordinate);
             }
             agent.saveState(currentIteration);

@@ -1,6 +1,7 @@
 package ru.nachos.web.models.lib;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.web.models.EstimateDataImpl;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface EstimateData {
 
     int getFireClass();
 
-    List<String> getCoordinates();
+    List<Coordinate> getFireCenter();
 
     int getFuelTypeCode();
 

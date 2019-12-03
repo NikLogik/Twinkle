@@ -1,23 +1,23 @@
 package ru.nachos.web.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.FireModelRunner;
+import ru.nachos.core.FireModelRunnerImpl;
 import ru.nachos.web.models.lib.EstimateData;
 import ru.nachos.web.models.lib.ResultData;
 import ru.nachos.web.services.lib.EstimateDataService;
 
-import java.util.List;
-
-@Service
 public class EstimateDataServiceImpl implements EstimateDataService {
 
-    @Autowired
     private FireModelRunner runner;
+
+    public EstimateDataServiceImpl() {
+        runner = new FireModelRunnerImpl();
+    }
 
     @Override
     public boolean validationData(EstimateData estimateData) {
-        if (estimateData.getCoordinates() == null || estimateData.getCoordinates().size() < 1){
+        if (estimateData.getFireCenter() == null || estimateData.getFireCenter().size() < 1){
             return false;
         }
         if (estimateData.getFireClass() == 0 || estimateData.getFireClass() > 5){
@@ -40,8 +40,6 @@ public class EstimateDataServiceImpl implements EstimateDataService {
 
     @Override
     public void start(EstimateData estimateData) {
-        List<String> coordinates = estimateData.getCoordinates();
-        if (coordinates.size()==1)
         runner.run(estimateData);
     }
 

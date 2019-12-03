@@ -31,7 +31,7 @@ public class RotermelTest {
     public void calculateSpeedWithoutExternalConstraint() {
         Config.ForestFuelType fuelType = data.getConfig().getFuelType();
         ForestFuelType typeByCode = DatabaseManager.findForestFuelTypeByCode(802);
-        Rotermel rotermel = new Rotermel(data.getNetwork(), data.getWeather());
+        Rotermel rotermel = new Rotermel(data.getNetwork());
         double speed = rotermel.calculateSpeedWithoutExternalConstraint(typeByCode);
         System.out.println(speed);
         Assert.assertNotNull(speed);

@@ -52,10 +52,37 @@ public final class FireUtils {
         twinkles.put(newTwinkle.getId(), newTwinkle);
     }
 
-    public static Coordinate calculateCoordIncrement(Coordinate firstPoint, double length, double angle){
-        angle = angle * Math.PI/180;
-        double dX = firstPoint.x + Math.cos(angle) * length;
-        double dY = firstPoint.y + Math.sin(angle) * length;
+    /**
+     *
+     * @param firstPoint - point with coordinates the previous position
+     * @param length - length from previous position ({@param firstPoint}
+     * @param direction - direction where agent are moved. Calculated from y-positive axis
+     * @return new {@link Coordinate} agents position
+     */
+    public static Coordinate calculateCoordIncrement(Coordinate firstPoint, double length, double direction){
+        if (direction > 360.000) {
+            direction -= 360.000;
+        }
+        double radians;
+        double dX = 0.0;
+        double dY = 0.0;
+        if (direction <= 90.000) {
+            radians = direction * Math.PI/180;
+            dX = firstPoint.x + Math.cos(radians) * length;
+            dY = firstPoint.y + Math.sin(radians) * length;
+        } else if (direction > 90.000 && direction <= 180.000){
+            radians = (180 - direction) * Math.PI/180;
+            dX = firstPoint.x - Math.cos(radians) * length;
+            dY = firstPoint.y + Math.sin(radians) * length;
+        } else if (direction > 180.000 && direction <= 270.000){
+            radians = (direction - 180.000) * Math.PI/180;
+            dX = firstPoint.x - Math.cos(radians) * length;
+            dY = firstPoint.y - Math.sin(radians) * length;
+        } else if (direction > 270.000){
+            radians = (360.000 - direction) * Math.PI/180;
+            dX = firstPoint.x + Math.cos(radians) * length;
+            dY = firstPoint.y - Math.sin(radians) * length;
+        }
         return new Coordinate(dX, dY);
     }
 

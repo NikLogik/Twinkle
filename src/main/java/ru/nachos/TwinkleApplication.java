@@ -9,7 +9,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 @SpringBootApplication
 public class TwinkleApplication extends SpringBootServletInitializer {
-
     public static void main(String[] args) {
         SpringApplication.run(TwinkleApplication.class, args);
     }

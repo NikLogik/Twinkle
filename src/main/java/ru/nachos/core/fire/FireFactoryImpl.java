@@ -39,9 +39,10 @@ class FireFactoryImpl implements FireFactory {
         double angleIncrement = MathUtils.round(360.0 / agentAmount, 2);
         Agent head = null;
         Agent prev = null;
-        for (int i=0; i<agentAmount; i++, direction += angleIncrement){
-            Coordinate position = FireUtils.calculateCoordIncrement(center, radius, direction);
-            Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class), direction);
+        double start = 360.000 - direction;
+        for (int i=0; i<agentAmount; i++, start -= angleIncrement){
+            Coordinate position = FireUtils.calculateCoordIncrement(center, radius, start);
+            Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class), start);
             TwinkleUtils.setCoord(twinkle, position);
             TwinkleUtils.setDistance(twinkle, radius);
             if (i==0){
@@ -90,7 +91,7 @@ class FireFactoryImpl implements FireFactory {
         double curDirection = startDirection;
         for (int j=0; j < fire.getTwinkles().size(); j++, curDirection += angleIncrement){
             Coordinate position = FireUtils.calculateCoordIncrement(fire.getCenterPoint(), radius, startDirection);
-            TwinkleUtils.setCoord((Twinkle) prev, position);
+            TwinkleUtils.setCoord(prev, position);
 
             prev = prev.getRightNeighbour();
         }

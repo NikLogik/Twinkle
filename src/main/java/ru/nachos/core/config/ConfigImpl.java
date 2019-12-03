@@ -10,7 +10,7 @@ import java.util.TreeMap;
 import static ru.nachos.core.config.lib.Config.Definitions.*;
 
 @Component
-public final class ConfigImpl implements Config {
+public class ConfigImpl implements Config {
 
     private String fireName;
     private int firstIteration;
@@ -31,40 +31,23 @@ public final class ConfigImpl implements Config {
     private int fireAgentsDistance;
     private TreeMap<String, Object> params = new TreeMap<>();
     ConfigImpl(){
-        this.fireName = "default";
-        params.put(FIRE_NAME.getParam(), fireName);
+//        this.fireName = "default";
         this.firstIteration = 1;
-        params.put(FIRST_ITERATION.getParam(),firstIteration);
-        this.lastIteration = 11;
-        params.put(LAST_ITERATION.getParam(), lastIteration);
-        this.stepTimeAmount = 300;
-        params.put(STEP_TIME_AMOUNT.getParam(), stepTimeAmount);
-        this.startTime = 0;
-        params.put(START_TIME.getParam(), startTime);
-        this.endTime = 3600;
-        params.put(END_TIME.getParam(), endTime);
+//        this.lastIteration = 11;
+//        this.stepTimeAmount = 300;
+//        this.startTime = 0;
+//        this.endTime = 3600;
         this.calculator = FireSpreadModels.Rotermel;
-        params.put(ALGORITHM_TYPE.getParam(), calculator);
-        this.fuelType = ForestFuelType.PineSparse;
-        params.put(FUEL_TYPE_CODE.getParam(), fuelType);
-        this.windSpeed = 4.6;
-        params.put(WIND_SPEED.getParam(), windSpeed);
-        this.windDirection = 45;
-        params.put(WIND_DIRECTION.getParam(), windDirection);
-        this.temperature = 17.5;
-        params.put(TEMPERATURE.getParam(), temperature);
-        this.humidity = 60;
-        params.put(HUMIDITY.getParam(), humidity);
-        this.fireClass = FirePowerClassification.Ignition;
-        params.put(FIRE_CLASS.getParam(), fireClass);
+//        this.fuelType = ForestFuelType.PineSparse;
+//        this.windSpeed = 4.6;
+//        this.windDirection = 45;
+//        this.temperature = 17.5;
+//        this.humidity = 60;
+//        this.fireClass = FirePowerClassification.Ignition;
         this.firePerimeter = 500; //for 20.000 square meters
-        params.put(FIRE_PERIMETER.getParam(), firePerimeter);
-        this.fireAgentsDistance = 10; //meters between agents
-        params.put(FIRE_AGENTS_DISTANCE.getParam(), fireAgentsDistance);
+//        this.fireAgentsDistance = 10; //meters between agents
         this.srid = "EPSG:4326";
-        params.put(SRID.getParam(), srid);
-        this.fireCenterCoordinate = new Coordinate(44.97385, 33.88063);
-        params.put(FIRE_CENTER_COORDS.getParam(), fireCenterCoordinate);
+//        this.fireCenterCoordinate = new Coordinate(44.97385, 33.88063);
     }
 
     @Override
@@ -219,19 +202,21 @@ public final class ConfigImpl implements Config {
 
     @Override
     public String toString() {
-        return  "firstIteration=" + firstIteration +
-                ", lastIteration=" + lastIteration +
-                ", stepTimeAmount=" + stepTimeAmount +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", calculator=" + calculator +
-                ", fuelType=" + fuelType +
-                ", windSpeed=" + windSpeed +
-                ", windDirection=" + windDirection +
-                ", humidity=" + humidity +
-                ", fireClass=" + fireClass +
-                ", fireCenterCoordinate=" + fireCenterCoordinate +
-                ", firePerimeter=" + firePerimeter +
-                ", fireAgentsDistance=" + fireAgentsDistance;
+        return  "ConfigImpl{" + System.lineSeparator() +
+                "firstIteration=" + firstIteration + System.lineSeparator() +
+                ", lastIteration=" + lastIteration + System.lineSeparator() +
+                ", stepTimeAmount=" + stepTimeAmount + System.lineSeparator() +
+                ", startTime=" + startTime + System.lineSeparator() +
+                ", endTime=" + endTime + System.lineSeparator() +
+                ", calculator=" + calculator + System.lineSeparator() +
+                ", fuelType=" + fuelType + System.lineSeparator() +
+                ", windSpeed=" + windSpeed + System.lineSeparator() +
+                ", windDirection=" + windDirection + System.lineSeparator() +
+                ", humidity=" + humidity + System.lineSeparator() +
+                ", fireClass=" + fireClass + System.lineSeparator() +
+                ", fireCenterCoordinate=" + fireCenterCoordinate + System.lineSeparator() +
+                ", firePerimeter=" + firePerimeter + System.lineSeparator() +
+                ", fireAgentsDistance=" + fireAgentsDistance +
+                "}";
     }
 }

@@ -54,7 +54,7 @@ class InitialPreprocessingDataLoader {
         //считаем общую скорость для пожара, без учета внешних факторов
         FireSpreadCalculator calculator = preprocessingData.getCalculator();
         double clearSpeed = calculator.calculateSpeedWithoutExternalConstraint(fuelType);
-        double speed = calculator.calculateSpeedOfSpreadWithConstraint(clearSpeed, false);
+        double speed = calculator.calculateSpeedOfSpreadWithConstraint(clearSpeed, config.getWindSpeed(), false);
         fire.setFireSpeed(speed);
         //генерируем агентов по длине периметра и ставим на стартовые точки
         FireFactory factory = fire.getFactory();

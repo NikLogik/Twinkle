@@ -31,4 +31,15 @@ public class InitialPreprocessingDataUtils {
     public void init() {
         data = source_data;
     }
+
+    public static void resetToNull(InitialPreprocessingDataImpl data){
+        data.setFire(null);
+        data.setCalculator(null);
+        data.setNetwork(null);
+        data.setWeather(null);
+        data.setConfig(null);
+        data.setRepository(null);
+        data.setReTransformation(null);
+        data.setTransformation(null);
+    }
 }
