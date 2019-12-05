@@ -1,6 +1,7 @@
 package ru.nachos.core.fire;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
@@ -17,9 +18,11 @@ class Twinkle implements Agent {
     private Agent leftNeighbour;
     private Agent rightNeighbour;
     private double distanceFromStart;
-    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
-    private boolean head = false;
+    private Id<Polygon> polygonId;
 
+    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
+
+    private boolean head = false;
     Twinkle (Id<Agent> id){
         this.id = id;
     }
@@ -41,12 +44,12 @@ class Twinkle implements Agent {
     public void setDirection(double direction) {
         this.direction = direction;
     }
+
     @Override
     public void setRightNeighbour(Agent twinkle){ this.rightNeighbour = twinkle; }
     @Override
     public void setLeftNeighbour(Agent twinkle) {this.leftNeighbour = twinkle; }
     public void setSpeed(double speed){this.speed = speed;}
-
     @Override
     public Map<Integer, AgentState> getStates() { return this.planList; }
 
@@ -66,6 +69,12 @@ class Twinkle implements Agent {
 
     @Override
     public double getSpeed() { return this.speed; }
+
+    @Override
+    public Id<Polygon> getPolygonId() { return polygonId; }
+
+    @Override
+    public void setPolygonId(Id<Polygon> polygonId) { this.polygonId = polygonId; }
 
     @Override
     public double getDirection() { return this.direction; }

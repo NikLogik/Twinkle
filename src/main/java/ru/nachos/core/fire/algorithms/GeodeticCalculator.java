@@ -35,4 +35,82 @@ public class GeodeticCalculator {
         }
         return var;
     }
+
+    public static boolean checkIntersection(Coordinate c1, Coordinate c2, Coordinate c3, Coordinate c4) {
+        //сначала расставим точки по порядку, т.е. чтобы было c1.x <= c2.x
+        if (c2.x < c1.x) {
+            Coordinate tmp = c1;
+            c1 = c2;
+            c2 = tmp;
+        }
+        //и c3.x <= c4.x
+        if (c4.x < c3.x) {
+            Coordinate tmp = c3;
+            c3 = c4;
+            c4 = tmp;
+        }
+        //проверим существование потенциального интервала для точки пересечения отрезков
+        if (c2.x < c3.x) {
+            return false; //ибо у отрезков нету взаимной абсциссы
+        }
+        //если оба отрезка вертикальные
+        if((c1.x - c2.x == 0) && (c3.x - c4.x == 0)) {
+            //если они лежат на одном X
+            if(c1.x == c3.x) {
+                //проверим пересекаются ли они, т.е. есть ли у них общий Y
+                //для этого возьмём отрицание от случая, когда они НЕ пересекаются
+                if (!((Math.max(c1.y, c2.y) < Math.min(c3.y, c4.y)) ||
+                        (Math.min(c1.y, c2.y) > Math.max(c3.y, c4.y)))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        //найдём коэффициенты уравнений, содержащих отрезки
+        //f1(x) = A1*x + b1 = y
+        //f2(x) = A2*x + b2 = y
+
+        //если первый отрезок вертикальный
+        if ((c1.x - c2.x) == 0.00) {
+            //найдём Xa, Ya - точки пересечения двух прямых
+            double Xa = c1.x;
+            double A2 = (c3.y - c4.y) / (c3.x - c4.x);
+            double b2 = c3.y - A2 * c3.x;
+            double Ya = A2 * Xa + b2;
+            if (c3.x <= Xa && c4.x >= Xa && Math.min(c1.y, c2.y) <= Ya &&
+                    Math.max(c1.y, c2.y) >= Ya) {
+                return true;
+            }
+            return false;
+        }
+        //если второй отрезок вертикальный
+        if ((c3.x - c4.x) == 0.00) {
+            //найдём Xa, Ya - точки пересечения двух прямых
+            double Xa = c3.x;
+            double A1 = (c1.y - c2.y) / (c1.x - c2.x);
+            double b1 = c1.y - A1 * c1.x;
+            double Ya = A1 * Xa + b1;
+            if (c1.x <= Xa && c2.x >= Xa && Math.min(c3.y, c4.y) <= Ya &&
+                    Math.max(c3.y, c4.y) >= Ya) {
+                return true;
+            }
+            return false;
+        }
+        //оба отрезка невертикальные
+        double A1 = (c1.y - c2.y) / (c1.x - c2.x);
+        double A2 = (c3.y - c4.y) / (c3.x - c4.x);
+        double b1 = c1.y - A1 * c1.x;
+        double b2 = c3.y - A2 * c3.x;
+        if (A1 == A2) {
+            return false; //отрезки параллельны
+        }
+        //Xa - абсцисса точки пересечения двух прямых
+        double Xa = (b2 - b1) / (A1 - A2);
+        if ((Xa < Math.max(c1.x, c3.x)) || (Xa > Math.min( c2.x, c4.x))) {
+            return false; //точка Xa находится вне пересечения проекций отрезков на ось X
+        }
+        else {
+            return true;
+        }
+    }
 }

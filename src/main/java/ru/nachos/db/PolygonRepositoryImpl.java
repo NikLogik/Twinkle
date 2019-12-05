@@ -1,9 +1,6 @@
 package ru.nachos.db;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKBReader;
 import com.vividsolutions.jts.io.WKTWriter;
@@ -19,14 +16,9 @@ import java.util.Map;
 @Component
 public class PolygonRepositoryImpl implements PolygonRepository {
 
-    @Deprecated
-    @Override
-    public OsmDatabaseManager getManager() {
-        return manager;
-    }
-
     @Autowired
     OsmDatabaseManager manager;
+    GeometryFactory factory = new GeometryFactory();
 
     private static WKBReader reader = new WKBReader(new GeometryFactory());
     private static int SRID;
@@ -49,7 +41,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         return SRID;
     }
 
-    private static final String GET_POLYGON_BY_ID = "select ST_AsEWKB(ST_Transform(way, 4326)) as way from planet_osm_polygon where osm_id=?";
+    private static final String GET_POLYGON_BY_ID = "select ST_AsEWKB(way) as way from planet_osm_polygon where osm_id=?";
     @Override
     public Polygon getPolygonById(long id) {
         Polygon polygon = null;
@@ -72,8 +64,30 @@ public class PolygonRepositoryImpl implements PolygonRepository {
     }
 
     @Override
-    public Polygon getPolygonTypeByCoordinate(Coordinate coordinate) {
-        return null;
+    public Polygon getPolygonByCoordinate(Coordinate coordinate) {
+        Point point = this.factory.createPoint(coordinate);
+        WKTWriter writer = new WKTWriter();
+        String pointS = writer.write(point);
+        String POLYGON_WHERE_POINT = "select osm_id, ST_AsEWKB(way) as way, osm_id from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
+                pointS + "'," + SRID + "), way)";
+        Polygon polygon = null;
+        try {
+            Connection connection = manager.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(POLYGON_WHERE_POINT);
+            while (resultSet.next()){
+                Geometry way = reader.read(resultSet.getBytes("way"));
+                if (way.getGeometryType().equals(OsmDatabaseManager.Definitions.POLYGON)){
+                    polygon = (Polygon) way;
+                }
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException | ParseException e){
+            e.printStackTrace();
+        }
+
+        return polygon;
     }
 
     @Override
@@ -82,7 +96,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         WKTWriter writer = new WKTWriter();
         getSRID();
         String poly = writer.write(polygon);
-        String POLYGONS_INSIDE_BORDERS = "select osm_id, ST_AsEWKB(ST_Transform(way, 4326)) as way, osm_id from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
+        String POLYGONS_INSIDE_BORDERS = "select osm_id, ST_AsEWKB(way) as way, osm_id from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
                 poly + "'," + SRID + "), way)";
         try {
             Connection connection = manager.getConnection();

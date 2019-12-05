@@ -1,6 +1,7 @@
 package ru.nachos.core.fire.lib;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
 
@@ -28,6 +29,10 @@ public interface Agent extends HasID {
     Coordinate getCoordinate();
 
     double getSpeed();
+
+    Id<Polygon> getPolygonId();
+
+    void setPolygonId(Id<Polygon> polygonId);
 
     double getDirection();
 

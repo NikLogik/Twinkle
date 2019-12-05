@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 @RestController
 public class IndexRestController {
 
-    EstimateDataService dataService;
+    private ResultData resultData;
+    private EstimateDataService dataService;
     private final AtomicLong id = new AtomicLong();
 
     @GetMapping(value = "/fires")
@@ -30,9 +31,11 @@ public class IndexRestController {
     @PostMapping(value = "/fires", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CoordinateJson>> postFireData(@RequestBody EstimateData estimateData){
+        if (resultData != null){
+            resultData = null;
+        }
         dataService = new EstimateDataServiceImpl();
         boolean valid = dataService.validationData(estimateData);
-        ResultData resultData;
         if (valid){
             dataService.start(estimateData);
             resultData = dataService.getResult();
@@ -43,10 +46,14 @@ public class IndexRestController {
         return new ResponseEntity<>(collect, HttpStatus.OK);
     }
 
-    @GetMapping(value = "fires/{iterNum}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/fires/{iterNum}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CoordinateJson>> getFireDataByIterNum(@PathVariable(name = "iterNum") int iter){
-        ResultData resultData = dataService.getResult();
-        List<CoordinateJson> collect = resultData.getAgents().get(iter).stream().map(AgentIterData::getCordinates).map(coordinate -> new CoordinateJson(coordinate.x, coordinate.y)).collect(Collectors.toList());
-        return new ResponseEntity<>(collect, HttpStatus.OK);
+        if (resultData != null) {
+            resultData = dataService.getResult();
+            List<CoordinateJson> collect = resultData.getAgents().get(iter).stream().map(AgentIterData::getCordinates).map(coordinate -> new CoordinateJson(coordinate.x, coordinate.y)).collect(Collectors.toList());
+            return new ResponseEntity<>(collect, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
