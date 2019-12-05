@@ -1,6 +1,5 @@
 package ru.nachos.web.services;
 
-import org.springframework.stereotype.Service;
 import ru.nachos.core.FireModelRunner;
 import ru.nachos.core.FireModelRunnerImpl;
 import ru.nachos.web.models.lib.EstimateData;
@@ -27,9 +26,6 @@ public class EstimateDataServiceImpl implements EstimateDataService {
             return false;
         }
         if (estimateData.getLastIterationTime() == 0){
-            return false;
-        }
-        if (estimateData.getWindDirection() == 0){
             return false;
         }
         if (estimateData.getWindSpeed() == 0){

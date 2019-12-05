@@ -10,7 +10,4 @@ public interface FireFactory {
     Agent createTwinkle(Id<Agent> id);
 
     Map<Id<Agent>, Agent> generateFireFront(Coordinate center, int distance, int perimeter, double startDirection);
-
-    @Deprecated
-    void setAgentToStartPosition(Fire fire, double startDirection);
 }

@@ -28,17 +28,8 @@ public class Rotermel implements FireSpreadCalculator {
     }
 
     @Override
-    public void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent) {
-        double direction = agent.getDirection();
-        double albiniSpeed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
-        double A = 0.785 * albiniSpeed - 0.106 * Math.pow(albiniSpeed, 2);
-        fireSpeed = fireSpeed * Math.exp(A * (Math.cos(Math.toRadians(direction)) - 1));
-        TwinkleUtils.changeSpeed(agent, fireSpeed);
-    }
-
-    @Override
-    public void calculateSpeedOfSpreadWithArbitraryDirectionV2(double fireSpeed, Agent agent, double windDirection) {
-        double direction = agent.getDirection() - windDirection;
+    public void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent, double windDirection) {
+        double direction = windDirection - agent.getDirection();
         double albiniSpeed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
         double A = 0.785 * albiniSpeed - 0.106 * Math.pow(albiniSpeed, 2);
         fireSpeed = fireSpeed * Math.exp(A * (Math.cos(Math.toRadians(direction)) - 1));

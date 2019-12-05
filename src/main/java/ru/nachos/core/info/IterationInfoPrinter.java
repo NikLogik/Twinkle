@@ -32,7 +32,7 @@ public class IterationInfoPrinter implements IterationInfo {
         AtomicInteger count = new AtomicInteger(2);
         logger.info("<======================== Print result data ===========================>");
         try {
-            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_" + count.incrementAndGet() + ".txt")));
+            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_110_converted.txt")));
             String[] header = new String[]{"iter","id_agent","lon","lat"};
             writer.writeNext(header, false);
             for (Map.Entry<Integer, List<AgentIterData>> entry : resultData.getAgents().entrySet()){

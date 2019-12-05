@@ -7,9 +7,7 @@ import ru.nachos.core.network.lib.Network;
 
 public interface FireSpreadCalculator {
 
-    void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent);
-
-    void calculateSpeedOfSpreadWithArbitraryDirectionV2(double fireSpeed, Agent agent, double windDirection);
+    void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent, double windDirection);
 
     /**
      * This method calculate speed for concrete agent,

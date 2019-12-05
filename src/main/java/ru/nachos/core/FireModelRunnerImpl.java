@@ -63,7 +63,6 @@ public class FireModelRunnerImpl implements FireModelRunner{
         System.out.println(config.toString());
         this.agents.putAll(controller.getFire().getTwinkles());
         resultData = resultService.prepareResult(agents, initialData);
-        printer.printResultData(resultData);
         ConfigUtils.resetToNull(config);
         InitialPreprocessingDataUtils.resetToNull((InitialPreprocessingDataImpl) initialData);
     }
@@ -81,6 +80,7 @@ public class FireModelRunnerImpl implements FireModelRunner{
         } else {
             GeometryFactory factory = new GeometryFactory();
             MultiPoint multiPoint = factory.createMultiPoint(coordinateList.toArray(new Coordinate[0]));
+            double radius = Math.sqrt(multiPoint.getArea() / Math.PI);
             return multiPoint.getCentroid().getCoordinate();
         }
     }

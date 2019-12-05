@@ -18,7 +18,7 @@ public class FireUtilsTest {
     Map<Id<Agent>, Agent> map = new HashMap<>();
 
     @Before
-    public void init(){
+    public void init() {
         map.put(Id.createAgentId(1), new Twinkle(Id.createAgentId(1)));
         map.put(Id.createAgentId(2), new Twinkle(Id.createAgentId(2)));
         map.put(Id.createAgentId(3), new Twinkle(Id.createAgentId(3)));
@@ -28,20 +28,18 @@ public class FireUtilsTest {
     }
 
     @Test
-    public void calculateCoordIncrementTest(){
-        Coordinate coordinate = FireUtils.calculateCoordIncrement(new Coordinate(5559711.64,3736820.58), 541, 45.00);
+    public void calculateCoordIncrementTest() {
+        Coordinate coordinate = FireUtils.calculateCoordIncrement(new Coordinate(5559711.64, 3736820.58), 541, 45.00);
         System.out.println(coordinate.x);
         Assert.assertNotNull(coordinate);
     }
 
     @Test
-    public void getHeadAgentTest(){
+    public void getHeadAgentTest() {
         List<Agent> values = new ArrayList<>(map.values());
         Agent agent = values.get(RandomUtils.nextInt(0, map.size()));
         agent.setHead(true);
         Agent headAgent = FireUtils.getHeadAgent(map);
         Assert.assertEquals(headAgent, agent);
     }
-
-
 }

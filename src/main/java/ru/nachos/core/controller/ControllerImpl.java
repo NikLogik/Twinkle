@@ -6,7 +6,7 @@ import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.core.fire.FireUtils;
+import ru.nachos.core.fire.algorithms.GeodeticCalculator;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
@@ -71,7 +71,7 @@ class ControllerImpl implements Controller {
             if (currentIteration != 1) {
                 AgentState lastState = agent.getLastState();
                 double incDistance = agent.getSpeed() * (stepAmount/60);
-                Coordinate coordinate = FireUtils.calculateCoordIncrement(lastState.getCoord(), incDistance, agent.getDirection());
+                Coordinate coordinate = GeodeticCalculator.directTask(lastState.getCoord(), incDistance, agent.getDirection());
                 agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
                 agent.setPoint(coordinate);
             }
