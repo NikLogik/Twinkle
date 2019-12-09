@@ -27,7 +27,27 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
             lastGeom = agent.getLastState().getPolygonId();
             if (currentGeom.equals(lastGeom)){
                 continue;
+            } else {
+                PolygonType currentPolygonType = null;
+                for(PolygonType value : PolygonType.values()) {
+                    if(polygonesMap.get(value).containsKey(currentGeom)) {
+                        currentPolygonType = value;
+                    }
+                }
+
+                if(currentPolygonType!=null) {
+                    agentBehaviorChange(agent, currentPolygonType);
+                }
+
             }
+        }
+    }
+
+    private void agentBehaviorChange(Agent agent, PolygonType currentPolygonType) {
+        switch (currentPolygonType) {
+            case WATER:
+                agent.setSpeed(0);
+                break;
         }
     }
 
