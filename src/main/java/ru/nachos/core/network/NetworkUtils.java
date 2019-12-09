@@ -14,6 +14,7 @@ import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.PolygonRepositoryImpl;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -67,9 +68,9 @@ public final class NetworkUtils {
      */
     public static PolygonV2 findPolygonByAgentCoords(Network network, Coordinate coord){
         GeometryFactory geomFactory = network.getFactory().getGeomFactory();
-        Collection<List<PolygonV2>> polygons = network.getPolygones().values();
+        List<Collection<PolygonV2>> polygons = network.getPolygones().values().stream().map(Map::values).collect(Collectors.toList());
         PolygonV2 polygon = null;
-        for (List<PolygonV2> list : polygons){
+        for (Collection<PolygonV2> list : polygons){
             for (PolygonV2 polygonV2 : list){
                 if (isInsidePolygon(geomFactory, polygonV2, coord)){
                     polygon = polygonV2;
@@ -82,8 +83,13 @@ public final class NetworkUtils {
     public static Network createNetwork(Network network, Coordinate[] boundaryBox){
         Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
         List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon);
-        Map<PolygonType, List<PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toList()));
-        network.getPolygones().putAll(collect);
+        Map<PolygonType, List<PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType));
+        Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> typeMap = new HashMap<>();
+        for (Map.Entry<PolygonType, List<PolygonV2>> entry : collect.entrySet()){
+            Map<Id<PolygonV2>, PolygonV2> var = entry.getValue().stream().collect(Collectors.toMap(key->key.getId(),value->value));
+            typeMap.put(entry.getKey(), var);
+        }
+        network.getPolygones().putAll(typeMap);
         return network;
     }
 

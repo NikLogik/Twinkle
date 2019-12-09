@@ -65,6 +65,7 @@ class ControllerImpl implements Controller {
     public void run(){
         doIteration();
     }
+
     private void doIteration(){
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
@@ -89,8 +90,6 @@ class ControllerImpl implements Controller {
             Coordinate newCoordinate = null;
             AgentState lastState;
             if (currentIteration != 0) {
-                System.out.println("=================" + currentIteration + "======================");
-                System.out.println("=================" + agent.getId() + "======================");
                 lastState = agent.getLastState();
                 incDistance = agent.getSpeed() * (stepAmount/60);
                 newCoordinate = GeodeticCalculator.directTask(lastState.getCoord(), incDistance, agent.getDirection());

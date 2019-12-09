@@ -2,48 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentChangePolygonEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsChangePolygonEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentStoppedBarrierEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsStoppedBarrierEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooCloseMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooCloseMovedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooFarMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooFarMovedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/CrossedFiresEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/CrossedFiresEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/GeodeticCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/PolygonV2Impl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/PolygonV2Impl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/PolygonV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/PolygonV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolygonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolygonRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResultDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResultDataImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResultData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResultData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResultDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResultDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/algorithms/GeodeticCalculatorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,15 +62,6 @@
         <item name="model: database" type="162271b6:PgImplModel$Database" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="model: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
     </expand>
     <select />
@@ -350,7 +306,7 @@
       <workItem from="1575765810728" duration="2930000" />
       <workItem from="1575801503482" duration="12130000" />
       <workItem from="1575836877515" duration="7916000" />
-      <workItem from="1575874923607" duration="7883000" />
+      <workItem from="1575874923607" duration="13328000" />
     </task>
     <task id="LOCAL-00001" summary=" version 0.2">
       <created>1574065636322</created>
@@ -422,7 +378,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575542203004</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary=" version 0.5 09-12-2019">
+      <created>1575882952546</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1575882952546</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,7 +413,8 @@
     <MESSAGE value=" version 1.0&#10; Create a simple firefront with wind constraint." />
     <MESSAGE value=" version 0.4 29-11-2019" />
     <MESSAGE value=" version 0.5 04-12-2019" />
-    <option name="LAST_COMMIT_MESSAGE" value=" version 0.5 04-12-2019" />
+    <MESSAGE value=" version 0.5 09-12-2019" />
+    <option name="LAST_COMMIT_MESSAGE" value=" version 0.5 09-12-2019" />
   </component>
   <component name="WindowStateProjectService">
     <state x="448" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575554977687">
@@ -477,10 +441,10 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575879007360" />
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1575542202925">
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1575882952024">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575542202925" />
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575882952024" />
     <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog" timestamp="1575553338415">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -493,46 +457,46 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1575554679195" />
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom" timestamp="1575878939281">
+    <state width="1813" height="516" key="GridCell.Tab.0.bottom" timestamp="1575888604960">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939281" />
-    <state width="1813" height="278" key="GridCell.Tab.0.center" timestamp="1575878939280">
+    <state width="1813" height="516" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604960" />
+    <state width="1813" height="516" key="GridCell.Tab.0.center" timestamp="1575888604960">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939280" />
-    <state width="1813" height="278" key="GridCell.Tab.0.left" timestamp="1575878939280">
+    <state width="1813" height="516" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604960" />
+    <state width="1813" height="516" key="GridCell.Tab.0.left" timestamp="1575888604960">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939280" />
-    <state width="1813" height="278" key="GridCell.Tab.0.right" timestamp="1575878939281">
+    <state width="1813" height="516" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604960" />
+    <state width="1813" height="516" key="GridCell.Tab.0.right" timestamp="1575888604960">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939281" />
-    <state width="1813" height="516" key="GridCell.Tab.1.bottom" timestamp="1575878132687">
+    <state width="1813" height="516" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604960" />
+    <state width="1813" height="516" key="GridCell.Tab.1.bottom" timestamp="1575888604903">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="516" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132687" />
-    <state width="1813" height="516" key="GridCell.Tab.1.center" timestamp="1575878132685">
+    <state width="1813" height="516" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604903" />
+    <state width="1813" height="516" key="GridCell.Tab.1.center" timestamp="1575888604902">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="516" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132685" />
-    <state width="1813" height="516" key="GridCell.Tab.1.left" timestamp="1575878132685">
+    <state width="1813" height="516" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604902" />
+    <state width="1813" height="516" key="GridCell.Tab.1.left" timestamp="1575888604902">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="516" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132685" />
-    <state width="1813" height="516" key="GridCell.Tab.1.right" timestamp="1575878132686">
+    <state width="1813" height="516" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604902" />
+    <state width="1813" height="516" key="GridCell.Tab.1.right" timestamp="1575888604902">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="516" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132686" />
+    <state width="1813" height="516" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575888604902" />
     <state x="479" y="186" width="1024" height="845" key="SettingsEditor" timestamp="1575555058595">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="479" y="186" width="1024" height="845" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1575555058595" />
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1575542222919">
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1575882965424">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1575542222919" />
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1575882965424" />
     <state width="929" height="527" key="XDebugger.FullValuePopup" timestamp="1575579293239">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -588,6 +552,11 @@
           <url>jar://$MAVEN_REPOSITORY$/org/matsim/matsim/0.10.1/matsim-0.10.1-sources.jar!/org/matsim/core/api/experimental/events/EventsManager.java</url>
           <line>29</line>
           <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="95" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

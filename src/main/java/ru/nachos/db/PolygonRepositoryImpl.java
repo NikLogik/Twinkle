@@ -15,6 +15,7 @@ import ru.nachos.db.repository.PolygonRepository;
 import javax.persistence.NonUniqueResultException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -106,18 +107,28 @@ public class PolygonRepositoryImpl implements PolygonRepository {
             Connection connection = manager.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(POLYGONS_INSIDE_BORDERS);
+            List<Long> ids = new LinkedList<>();
+            long counter = 100000;
             while(resultSet.next()){
                 Polygon polygon = null;
                 String natural;
-                long osm_id;
+                Id<PolygonV2> osm_id = null;
                 Geometry way = reader.read(resultSet.getBytes("way"));
                 if (way.getGeometryType().equals(OsmDatabaseManager.Definitions.POLYGON)){
                     polygon = (Polygon) way;
                 }
                 if(polygon!=null){
                     natural = resultSet.getString("natural");
-                    osm_id = resultSet.getLong("osm_id");
-                    PolygonV2 polygonV2 = factory.createPolygon(Id.createPolygonId(osm_id), polygon.getExteriorRing().getCoordinates());
+                    long id = resultSet.getLong("osm_id");
+                    if (ids.contains(id)){
+                        id += counter;
+                        osm_id = Id.createPolygonId(id + ":duplicate" + counter);
+                        ++counter;
+                    } else {
+                        osm_id = Id.createPolygonId(id);
+                        ids.add(id);
+                    }
+                    PolygonV2 polygonV2 = factory.createPolygon(osm_id, polygon.getExteriorRing().getCoordinates());
                     PolygonType polygonType = PolygonType.valueOfType(natural);
                     if (polygonType.getParam().equals(PolygonType.DEFAULT.getParam())){
                         String landuse = resultSet.getString("landuse");
@@ -127,6 +138,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
                     result.add(polygonV2);
                 }
             }
+            System.out.println("Database contains " + ids.size() + " duplicate id");
             statement.close();
             connection.close();
         } catch (SQLException | ParseException e){

@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler {
 
-    private Map<PolygonType, List<PolygonV2>> polygonesMap;
+    private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygonesMap;
     private List<Agent> casheList;
 
     @Override
@@ -28,7 +28,6 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
             if (currentGeom.equals(lastGeom)){
                 continue;
             }
-            
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.nachos.core.network.lib;
 
+import ru.nachos.core.Id;
 import ru.nachos.core.network.ForestFuelTypeImpl;
 import ru.nachos.core.utils.PolygonType;
 
@@ -10,9 +11,9 @@ public interface Network {
 
     NetworkFactory getFactory();
 
-    Map<PolygonType, List<PolygonV2>> getPolygones();
+    Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> getPolygones();
 
-    void addPolygonsByType(PolygonType type, List<PolygonV2> polygons);
+    void addPolygonsByType(PolygonType type, Map<Id<PolygonV2>, PolygonV2> polygons);
 
     void setName(String name);
 
