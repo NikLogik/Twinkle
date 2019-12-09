@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.utils.GeodeticCalculator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class FireUtilsTest {
 
     @Test
     public void calculateCoordIncrementTest() {
-        Coordinate coordinate = FireUtils.calculateCoordIncrement(new Coordinate(5559711.64, 3736820.58), 541, 45.00);
+        Coordinate coordinate = GeodeticCalculator.directTask(new Coordinate(5559711.64, 3736820.58), 541, 45.00);
         System.out.println(coordinate.x);
         Assert.assertNotNull(coordinate);
     }

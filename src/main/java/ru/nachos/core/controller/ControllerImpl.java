@@ -7,30 +7,39 @@ import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.core.fire.algorithms.GeodeticCalculator;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.core.replanning.EventManagerImpl;
+import ru.nachos.core.replanning.EventsHandling;
+import ru.nachos.core.replanning.events.AfterIterationEvent;
+import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.db.PolygonRepositoryImpl;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 @Component
 class ControllerImpl implements Controller {
 
     @Autowired
     private PolygonRepositoryImpl polygonRepository;
+
     private Network network;
+
     private Config config;
     private InitialPreprocessingData preprocessingData;
     private Fire fire;
-
+    private EventsHandling eventsHandler;
+    private Map<Integer, Set<Id<Agent>>> iterationMap = new TreeMap<>();
     public static final String DIVIDER = "###################################################";
 
     final String MARKER = "#####";
+
     private int currentIteration;
     private double currentTime;
     private double stepAmount;
@@ -43,6 +52,7 @@ class ControllerImpl implements Controller {
         this.currentTime = config.getStartTime();
         this.stepAmount = config.getStepTimeAmount();
         this.fire = preprocessing.getFire();
+        this.eventsHandler = new EventsHandling(new EventManagerImpl(), preprocessing.getConfig());
     }
 
     @Override
@@ -50,22 +60,25 @@ class ControllerImpl implements Controller {
 
     @Override
     public Config getConfig() { return this.config; }
+
     @Override
     public void run(){
         doIteration();
     }
-
     private void doIteration(){
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
         }
     }
 
-    private void iteration(int iteration){
+    private void iteration(int iteration) {
         this.currentIteration = iteration;
-        long timeStart = System.currentTimeMillis();
         currentTime += stepAmount;
+        long timeStart = System.currentTimeMillis();
         iterationStep();
+        AfterIterationEvent event = new AfterIterationEvent(this, currentIteration);
+        eventsHandler.handleAfterIterationEnd(event);
+        iterationMap.put(currentIteration, fire.getTwinkles().keySet());
         long timePerIteration = System.currentTimeMillis() - timeStart;
     }
 
@@ -75,26 +88,26 @@ class ControllerImpl implements Controller {
             double incDistance = 0.0;
             Coordinate newCoordinate = null;
             AgentState lastState;
-            if (currentIteration != 1) {
+            if (currentIteration != 0) {
+                System.out.println("=================" + currentIteration + "======================");
+                System.out.println("=================" + agent.getId() + "======================");
                 lastState = agent.getLastState();
                 incDistance = agent.getSpeed() * (stepAmount/60);
                 newCoordinate = GeodeticCalculator.directTask(lastState.getCoord(), incDistance, agent.getDirection());
+                agent.setCoordinate(newCoordinate);
+                agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
             }
-            agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
-            agent.setPoint(newCoordinate);
+            Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+            agent.setPolygonId(polygonId);
             agent.saveState(currentIteration);
         }
-    }
-
-    private boolean isChangePolygon(Coordinate last, Coordinate cur){
-
-        Id<PolygonV2> lastPolygon = NetworkUtils.findPolygonByAgentCoords(network, last);
-        Id<PolygonV2> curPolygon = NetworkUtils.findPolygonByAgentCoords(network, cur);
-        return !lastPolygon.equals(curPolygon);
     }
 
     @Override
     public Fire getFire() {
         return fire;
     }
+
+    @Override
+    public Network getNetwork() { return network; }
 }

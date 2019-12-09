@@ -12,9 +12,12 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.nachos.TwinkleApplication;
+import ru.nachos.core.network.NetworkUtils;
+import ru.nachos.core.network.lib.Network;
+import ru.nachos.core.network.lib.PolygonV2;
 
 import javax.sql.DataSource;
-import java.util.Map;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TwinkleApplication.class)
@@ -61,9 +64,10 @@ public class PolygonRepositoryImplTest {
 
     @Test
     public void findPolygonFromBoundaryBoxTest(){
+        Network network = NetworkUtils.createNetwork();
         GeometryFactory factory = new GeometryFactory();
         Polygon polygon1 = factory.createPolygon(coordinates);
-        Map<String, Polygon> polygons = repository.getPolygonsFromBoundaryBox(polygon1);
+        List<PolygonV2> polygons = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon1);
         Assert.assertNotNull(polygons);
         Assert.assertTrue(polygons.size() > 0);
     }

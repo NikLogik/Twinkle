@@ -9,16 +9,23 @@ import java.util.TreeMap;
 
 public class ResultDataImpl implements ResultData, Serializable {
 
+    private int iterCount;
     private TreeMap<Integer, List<AgentIterData>> agents;
 
-    public ResultDataImpl(TreeMap<Integer, List<AgentIterData>> agents) {
+    public ResultDataImpl(int iterCount, TreeMap<Integer, List<AgentIterData>> agents) {
+        this.iterCount = iterCount;
         this.agents = agents;
-        System.out.println("<===================== New instance " + this.hashCode() + " ============================>");
     }
-
+    @Override
+    public int getIterCount() { return this.iterCount; }
     @Override
     public TreeMap<Integer, List<AgentIterData>> getAgents() { return this.agents; }
-
     @Override
-    public List<AgentIterData> getFirstEntry(){ return this.agents.get(agents.firstKey()); }
+    public int getFirstIterationNumber(){ return agents.firstKey(); }
+    @Override
+    public List<AgentIterData> getFirstIteration(){ return agents.get(agents.firstKey()); }
+    @Override
+    public List<AgentIterData> getIterationByNumber(int number){ return this.agents.get(number); }
+
+
 }

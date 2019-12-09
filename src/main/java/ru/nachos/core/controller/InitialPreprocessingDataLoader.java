@@ -9,7 +9,7 @@ import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
-import ru.nachos.core.fire.algorithms.GeodeticCalculator;
+import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;

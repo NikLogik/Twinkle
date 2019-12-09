@@ -1,9 +1,9 @@
 package ru.nachos.core.fire.lib;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
+import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Map;
 
@@ -14,6 +14,8 @@ public interface Agent extends HasID {
     boolean removeState(AgentState state);
 
     void setDirection(double direction);
+
+    AgentState getStateByIter(int iterNum);
 
     void setRightNeighbour(Agent twinkle);
 
@@ -30,9 +32,9 @@ public interface Agent extends HasID {
 
     double getSpeed();
 
-    Id<Polygon> getPolygonId();
+    Id<PolygonV2> getPolygonId();
 
-    void setPolygonId(Id<Polygon> polygonId);
+    void setPolygonId(Id<PolygonV2> polygonId);
 
     double getDirection();
 
@@ -40,7 +42,7 @@ public interface Agent extends HasID {
 
     AgentState getLastState();
 
-    void setPoint(Coordinate coord);
+    void setCoordinate(Coordinate coord);
 
     boolean isHead();
 

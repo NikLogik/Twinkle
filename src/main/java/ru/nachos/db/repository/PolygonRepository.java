@@ -3,9 +3,10 @@ package ru.nachos.db.repository;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
-import org.springframework.stereotype.Component;
+import ru.nachos.core.network.lib.NetworkFactory;
+import ru.nachos.core.network.lib.PolygonV2;
 
-import java.util.Map;
+import java.util.List;
 
 public interface PolygonRepository extends HasSRID{
 
@@ -13,5 +14,7 @@ public interface PolygonRepository extends HasSRID{
 
     Polygon getPolygonByCoordinate(Coordinate coordinate);
 
-    Map<String, Polygon> getPolygonsFromBoundaryBox(Geometry polygon);
+    List<PolygonV2> getPolygonsFromBoundaryBox(NetworkFactory factory, Geometry geometry);
+
+    List<String> getNaturalTypes();
 }

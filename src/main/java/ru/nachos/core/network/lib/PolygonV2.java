@@ -5,6 +5,7 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
+import ru.nachos.core.utils.PolygonType;
 
 public abstract class PolygonV2 extends Polygon implements HasID {
 
@@ -18,6 +19,10 @@ public abstract class PolygonV2 extends Polygon implements HasID {
     public abstract int getHeight();
 
     public abstract void setHeight(int height);
+
+    public abstract void setType(PolygonType typeName);
+
+    public abstract PolygonType getPolygonType();
 
     public abstract boolean addHole(LinearRing hole);
 }

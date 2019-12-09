@@ -4,7 +4,6 @@ import com.vividsolutions.jts.geom.Coordinate;
 import org.geotools.geometry.jts.JTS;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
-import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.fire.lib.Agent;
@@ -39,7 +38,7 @@ public class ResultDataServiceImpl implements ResultDataService {
                 }
             }
         }
-        return new ResultDataImpl(resultMap);
+        return new ResultDataImpl(data.getConfig().getLastIteration(), resultMap);
     }
 
     private String joinCoordinates(Coordinate coordinate){

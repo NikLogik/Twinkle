@@ -2,19 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/twinkle_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/twinkle_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentChangePolygonEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsChangePolygonEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentStoppedBarrierEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsStoppedBarrierEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooCloseMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooCloseMovedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/AgentsTooFarMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooFarMovedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/core/CrossedFiresEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/CrossedFiresEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/events/lib/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireFactoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/GeodeticCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/GeodeticCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/GeodeticCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Agent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/OsmDatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/OsmDatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/AgentState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/PolygonV2Impl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/PolygonV2Impl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/PolygonV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/PolygonV2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolygonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/PolygonRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twinkle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/twinkle.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResultDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResultDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResultData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResultData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResultDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResultDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/algorithms/GeodeticCalculatorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/db/PolygonRepositoryImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +56,64 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="model: database" type="162271b6:PgImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="model: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="model: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="osm" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="model: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="hideWarnings" value="true" />
+    <option name="HIDE_WARNINGS" value="true" />
+  </component>
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
@@ -36,14 +123,21 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -64,22 +158,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="JavaClassFindUsagesOptions.isImplementingClasses" value="true" />
+    <property name="JavaMethodFindUsagesOptions.isSearchForTextOccurrences" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../pt2matsim" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2086659" />
+    <property name="project.structure.side.proportion" value="0.2413793" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
@@ -90,20 +185,11 @@
       <recent name="ru.nachos.core.fire" />
       <recent name="ru.nachos.core" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.nachos.web.models.lib" />
-      <recent name="ru.nachos.core.weather" />
-      <recent name="ru.nachos.core.config" />
-      <recent name="ru.nachos.core.controller" />
-      <recent name="ru.nachos.core.fire.lib" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/static/pic" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ru.nachos.core.replanning" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -112,9 +198,22 @@
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/main/resources/static" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static/pic" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.nachos.core.replanning.events" />
+      <recent name="ru.nachos.core.replanning.handlers" />
+      <recent name="ru.nachos.core.replanning.handlers.lib" />
+      <recent name="ru.nachos.web.models.lib" />
+      <recent name="ru.nachos.core.weather" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.TwinkleApplication">
     <configuration name="TwinkleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="MAIN_CLASS_NAME" value="ru.nachos.TwinkleApplication" />
       <module name="twinkle" />
       <extension name="coverage">
@@ -151,22 +250,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FireUtilsTest.calculateCoordIncrementV2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="twinkle" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.nachos.core.fire.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.nachos.core.fire" />
-      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.fire.FireUtilsTest" />
-      <option name="METHOD_NAME" value="calculateCoordIncrementV2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GeodeticCalculatorTest.directTaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="twinkle" />
       <extension name="coverage">
@@ -183,6 +266,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NetworkUtilsTest.createNetworkTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="twinkle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.nachos.core.network.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.core.network" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.core.network.NetworkUtilsTest" />
+      <option name="METHOD_NAME" value="createNetworkTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TwinkleApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="twinkle" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.nachos.TwinkleApplication" />
@@ -190,13 +289,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.TwinkleApplication" />
+      <item itemvalue="JUnit.All in twinkle" />
+      <item itemvalue="JUnit.FireFactoryImplTest.convertWindDirection" />
+      <item itemvalue="JUnit.GeodeticCalculatorTest.directTaskTest" />
+      <item itemvalue="JUnit.NetworkUtilsTest.createNetworkTest" />
+      <item itemvalue="Spring Boot.TwinkleApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TwinkleApplication" />
         <item itemvalue="JUnit.All in twinkle" />
+        <item itemvalue="JUnit.NetworkUtilsTest.createNetworkTest" />
         <item itemvalue="JUnit.FireFactoryImplTest.convertWindDirection" />
         <item itemvalue="JUnit.GeodeticCalculatorTest.directTaskTest" />
-        <item itemvalue="JUnit.FireUtilsTest.calculateCoordIncrementV2" />
       </list>
     </recent_temporary>
   </component>
@@ -230,7 +337,20 @@
       <workItem from="1575398153766" duration="2792000" />
       <workItem from="1575402392498" duration="9433000" />
       <workItem from="1575446713592" duration="21516000" />
-      <workItem from="1575531907363" duration="8924000" />
+      <workItem from="1575531907363" duration="9191000" />
+      <workItem from="1575554268198" duration="521000" />
+      <workItem from="1575554803080" duration="278000" />
+      <workItem from="1575555108535" duration="68000" />
+      <workItem from="1575555392027" duration="27000" />
+      <workItem from="1575559468595" duration="264000" />
+      <workItem from="1575562004510" duration="12243000" />
+      <workItem from="1575617401143" duration="33960000" />
+      <workItem from="1575712972385" duration="272000" />
+      <workItem from="1575744010097" duration="871000" />
+      <workItem from="1575765810728" duration="2930000" />
+      <workItem from="1575801503482" duration="12130000" />
+      <workItem from="1575836877515" duration="7916000" />
+      <workItem from="1575874923607" duration="7883000" />
     </task>
     <task id="LOCAL-00001" summary=" version 0.2">
       <created>1574065636322</created>
@@ -295,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575533228780</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary=" version 0.5 04-12-2019">
+      <created>1575542203004</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575542203004</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,70 +453,94 @@
     <option name="LAST_COMMIT_MESSAGE" value=" version 0.5 04-12-2019" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1575542047609">
+    <state x="448" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575554977687">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1575542047609" />
-    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575283834653">
+    <state x="448" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575554977687" />
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1575880203741">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575283834653" />
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575463888417">
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1575880203741" />
+    <state x="683" y="294" width="605" height="517" key="#com.intellij.refactoring.memberPullUp.PullUpDialog" timestamp="1575628405041">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575463888417" />
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1575533228677">
+    <state x="683" y="294" width="605" height="517" key="#com.intellij.refactoring.memberPullUp.PullUpDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575628405041" />
+    <state x="731" y="413" width="519" height="290" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1575767734624">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575533228677" />
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575456389777">
+    <state x="731" y="413" width="519" height="290" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/61.27.1859.1053@61.27.1859.1053" timestamp="1575767734624" />
+    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575632677343">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1575456389777" />
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom" timestamp="1575536544564">
+    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575632677343" />
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575879007360">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575536544564" />
-    <state width="1813" height="278" key="GridCell.Tab.0.center" timestamp="1575536544564">
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575879007360" />
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1575542202925">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575536544564" />
-    <state width="1813" height="278" key="GridCell.Tab.0.left" timestamp="1575536544564">
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1575542202925" />
+    <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog" timestamp="1575553338415">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575536544564" />
-    <state width="1813" height="278" key="GridCell.Tab.0.right" timestamp="1575536544564">
+    <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575553338415" />
+    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog" timestamp="1575542219766">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575536544564" />
-    <state width="1813" height="344" key="GridCell.Tab.1.bottom" timestamp="1575532399382">
+    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575542219766" />
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575554679195">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="344" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575532399382" />
-    <state width="1813" height="344" key="GridCell.Tab.1.center" timestamp="1575532399380">
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1575554679195" />
+    <state width="1813" height="278" key="GridCell.Tab.0.bottom" timestamp="1575878939281">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="344" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575532399380" />
-    <state width="1813" height="344" key="GridCell.Tab.1.left" timestamp="1575532399379">
+    <state width="1813" height="278" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939281" />
+    <state width="1813" height="278" key="GridCell.Tab.0.center" timestamp="1575878939280">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="344" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575532399379" />
-    <state width="1813" height="344" key="GridCell.Tab.1.right" timestamp="1575532399381">
+    <state width="1813" height="278" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939280" />
+    <state width="1813" height="278" key="GridCell.Tab.0.left" timestamp="1575878939280">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="344" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575532399381" />
-    <state x="479" y="187" width="1024" height="845" key="SettingsEditor" timestamp="1575281805214">
+    <state width="1813" height="278" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939280" />
+    <state width="1813" height="278" key="GridCell.Tab.0.right" timestamp="1575878939281">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="479" y="187" width="1024" height="845" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1575281805214" />
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1575533264389">
+    <state width="1813" height="278" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575878939281" />
+    <state width="1813" height="516" key="GridCell.Tab.1.bottom" timestamp="1575878132687">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1575533264389" />
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1575531907281">
+    <state width="1813" height="516" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132687" />
+    <state width="1813" height="516" key="GridCell.Tab.1.center" timestamp="1575878132685">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575531907281" />
+    <state width="1813" height="516" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132685" />
+    <state width="1813" height="516" key="GridCell.Tab.1.left" timestamp="1575878132685">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="1813" height="516" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132685" />
+    <state width="1813" height="516" key="GridCell.Tab.1.right" timestamp="1575878132686">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="1813" height="516" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1575878132686" />
+    <state x="479" y="186" width="1024" height="845" key="SettingsEditor" timestamp="1575555058595">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="479" y="186" width="1024" height="845" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1575555058595" />
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1575542222919">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1575542222919" />
+    <state width="929" height="527" key="XDebugger.FullValuePopup" timestamp="1575579293239">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="929" height="527" key="XDebugger.FullValuePopup/61.27.1859.1053@61.27.1859.1053" timestamp="1575579293239" />
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1575874943811">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575874943811" />
     <state x="721" y="273" width="529" height="559" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1575454099989">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -398,14 +549,14 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="723" y="332" width="524" height="440" key="extract.method.dialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575273549872" />
-    <state width="435" height="154" key="javadoc.popup.new" timestamp="1575538672199">
+    <state width="435" height="328" key="javadoc.popup.new" timestamp="1575840222718">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="435" height="154" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1575538672199" />
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1575383498912">
+    <state width="435" height="328" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1575840222718" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1575807686008">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575383498912" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575807686008" />
     <state x="580" y="214" width="800" height="677" key="scopes" timestamp="1575541771197">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -429,14 +580,14 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/test/java/ru/nachos/core/network/NetworkUtilsTest.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/algorithms/GeodeticCalculatorTest.java</url>
-          <line>11</line>
-          <option name="timeStamp" value="30" />
+          <url>jar://$MAVEN_REPOSITORY$/org/matsim/matsim/0.10.1/matsim-0.10.1-sources.jar!/org/matsim/core/api/experimental/events/EventsManager.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -445,13 +596,13 @@
         <watch expression="startDirection" language="JAVA" />
         <watch expression="direction" language="JAVA" />
         <watch expression="twinkle.getRightNeighbour()" language="JAVA" />
+        <watch expression="coordinates[0]" language="JAVA" />
       </configuration>
       <configuration name="Application">
-        <watch expression="twinkle.getDirection()" language="JAVA" />
-        <watch expression="twinkle.getSpeed()" language="JAVA" />
-        <watch expression="agent.getDirection()" language="JAVA" />
-        <watch expression="agent.getSpeed()" language="JAVA" />
+        <watch expression="agent.getRightNeighbour().getId()" language="JAVA" />
         <watch expression="agent.getId()" language="JAVA" />
+        <watch expression="event.getFire().getTwinkles()" language="JAVA" />
+        <watch expression="agent.getRightNeighbour()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -459,7 +610,7 @@
     <SUITE FILE_PATH="coverage/twinkle$PostGISPoints.ic" NAME="PostGISPoints Coverage Results" MODIFIED="1574757101655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ru.nachos.experimental.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/twinkle$TwinkleApplication.ic" NAME="TwinkleApplication Coverage Results" MODIFIED="1574948407809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/twinkle$TwinkleApplication.ic" NAME="TwinkleApplication Coverage Results" MODIFIED="1575639003919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ru.nachos.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/twinkle$ControllerImplTest.ic" NAME="ControllerImplTest Coverage Results" MODIFIED="1574844280441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

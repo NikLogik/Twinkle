@@ -10,13 +10,12 @@ import ru.nachos.web.models.lib.ResultData;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterationInfoPrinter implements IterationInfo {
 
-    Logger logger = Logger.getLogger(this.getClass());
+    static Logger logger = Logger.getLogger(IterationInfoPrinter.class);
 
 
     @Override
@@ -27,12 +26,11 @@ public class IterationInfoPrinter implements IterationInfo {
                 "InitialData: " + data.hashCode());
     }
 
-    @Override
-    public void printResultData(ResultData resultData){
+    public static void printResultData(ResultData resultData){
         AtomicInteger count = new AtomicInteger(2);
         logger.info("<======================== Print result data ===========================>");
         try {
-            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_110_converted.txt")));
+            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_295_5.txt")));
             String[] header = new String[]{"iter","id_agent","lon","lat"};
             writer.writeNext(header, false);
             for (Map.Entry<Integer, List<AgentIterData>> entry : resultData.getAgents().entrySet()){
@@ -42,5 +40,13 @@ public class IterationInfoPrinter implements IterationInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void printGeometryTipes(List<String> polygons){
+        System.out.println("<=============== Print natural types ====================>");
+        Set<String> collect = new HashSet<>(polygons);
+        String[] strings = collect.toArray(new String[0]);
+            Arrays.stream(strings).forEach(System.out::println);
     }
 }

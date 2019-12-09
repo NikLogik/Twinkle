@@ -43,12 +43,12 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
     private MathTransform createReTransformation(String sourceSrid) {
         int srid = repository.getSRID();
-        CoordinateReferenceSystem fromSystem = null;
-        CoordinateReferenceSystem toSystem = null;
+        CoordinateReferenceSystem fromSystem;
+        CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
-            fromSystem = CRS.decode("EPSG:" + srid);
-            toSystem = CRS.decode(sourceSrid);
+            fromSystem = CRS.decode("EPSG:" + srid, true);
+            toSystem = CRS.decode(sourceSrid, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
             e.printStackTrace();
@@ -58,12 +58,12 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
     private MathTransform createTransformation(String sourceSrid) {
         int srid = repository.getSRID();
-        CoordinateReferenceSystem fromSystem = null;
-        CoordinateReferenceSystem toSystem = null;
+        CoordinateReferenceSystem fromSystem;
+        CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
-            fromSystem = CRS.decode(sourceSrid);
-            toSystem = CRS.decode("EPSG:" + srid);
+            fromSystem = CRS.decode(sourceSrid, true);
+            toSystem = CRS.decode("EPSG:" + srid, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
             e.printStackTrace();

@@ -1,10 +1,10 @@
 package ru.nachos.core.fire;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,7 +18,7 @@ class Twinkle implements Agent {
     private Agent leftNeighbour;
     private Agent rightNeighbour;
     private double distanceFromStart;
-    private Id<Polygon> polygonId;
+    private Id<PolygonV2> polygonId;
 
     private TreeMap<Integer, AgentState> planList = new TreeMap<>();
 
@@ -43,6 +43,11 @@ class Twinkle implements Agent {
     @Override
     public void setDirection(double direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public AgentState getStateByIter(int iterNum){
+        return this.planList.get(iterNum);
     }
 
     @Override
@@ -71,16 +76,16 @@ class Twinkle implements Agent {
     public double getSpeed() { return this.speed; }
 
     @Override
-    public Id<Polygon> getPolygonId() { return polygonId; }
+    public Id<PolygonV2> getPolygonId() { return polygonId; }
 
     @Override
-    public void setPolygonId(Id<Polygon> polygonId) { this.polygonId = polygonId; }
+    public void setPolygonId(Id<PolygonV2> polygonId) { this.polygonId = polygonId; }
 
     @Override
     public double getDirection() { return this.direction; }
 
     @Override
-    public void setPoint(Coordinate coord) { this.coord = coord; }
+    public void setCoordinate(Coordinate coord) { this.coord = coord; }
 
     @Override
     public boolean isHead() { return head; }
@@ -107,6 +112,8 @@ class Twinkle implements Agent {
         private boolean head;
         private int iterNum;
 
+        private Id<PolygonV2> polygonId;
+
         TwinkleStateV2(Agent agent, int iterNum){
             this.iterNum = iterNum;
             this.agent = agent.getId();
@@ -116,11 +123,15 @@ class Twinkle implements Agent {
             this.leftNeighbour = agent.getLeftNeighbour();
             this.rightNeighbour = agent.getRightNeighbour();
             this.head = agent.isHead();
+            this.polygonId = agent.getPolygonId();
         }
+
         @Override
         public Id<Agent> getAgent() {
             return this.agent;
         }
+        @Override
+        public Id<PolygonV2> getPolygonId() { return polygonId; }
         @Override
         public double getDistanceFromStart() { return this.distanceFromStart; }
         @Override

@@ -91,7 +91,9 @@ class FireImpl implements Fire {
     public Agent removeAgent(Id<Agent> id){ return twinkles.remove(id); }
     void setName(String name){ this.name = name; }
     @Override
-    public void setCenterPoint(Coordinate center){ this.center = center; }
+    public void setCenterPoint(Coordinate center){
+        this.center = center;
+    }
 
     void setPerimeter(int perimeter){ this.perimeter = perimeter; }
 

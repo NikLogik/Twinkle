@@ -3,7 +3,7 @@ package ru.nachos.core.fire;
 import com.vividsolutions.jts.geom.Coordinate;
 import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.Id;
-import ru.nachos.core.fire.algorithms.GeodeticCalculator;
+import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;
@@ -11,7 +11,7 @@ import ru.nachos.core.fire.lib.FireFactory;
 import java.util.Map;
 import java.util.TreeMap;
 
-class FireFactoryImpl implements FireFactory {
+public class FireFactoryImpl implements FireFactory {
 
     @Override
     public Agent createTwinkle(Id<Agent> id) {

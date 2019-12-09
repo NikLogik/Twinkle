@@ -5,7 +5,6 @@ import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.fire.TwinkleUtils;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
-import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
 
@@ -122,8 +121,8 @@ public class Rotermel implements FireSpreadCalculator {
      * @return value relief coefficient
      */
     private double reliefCoefficient(Coordinate coord, AgentState lastState){
-        int height1 = NetworkUtils.getHeightPolygon(network.getPolygones(), NetworkUtils.findPolygonByAgentCoords(network, lastState.getCoord()));
-        int height2 = NetworkUtils.getHeightPolygon(network.getPolygones(), NetworkUtils.findPolygonByAgentCoords(network, coord));
+        int height1 = 0;
+        int height2 = 0;
         int deltaHeight = height2 - height1;
 
         double[] p1 = new double[]{lastState.getCoord().x, lastState.getCoord().y};

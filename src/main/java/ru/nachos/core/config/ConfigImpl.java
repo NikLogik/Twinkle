@@ -32,7 +32,7 @@ public class ConfigImpl implements Config {
     private TreeMap<String, Object> params = new TreeMap<>();
     ConfigImpl(){
 //        this.fireName = "default";
-        this.firstIteration = 1;
+        this.firstIteration = 0;
 //        this.lastIteration = 11;
 //        this.stepTimeAmount = 300;
 //        this.startTime = 0;

@@ -2,6 +2,7 @@ package ru.nachos.core.network;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.io.WKTWriter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +14,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.nachos.TwinkleApplication;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.Network;
+import ru.nachos.core.network.lib.NetworkFactory;
 import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.core.utils.GeodeticCalculator;
+import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.OsmDatabaseManager;
 import ru.nachos.db.repository.PolygonRepository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TwinkleApplication.class)
@@ -86,21 +92,24 @@ public class NetworkUtilsTest {
 
     @Test
     public void createNetworkTest(){
-        Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{coordinates[0], coordinates[1], coordinates[2], coordinates[3], coordinates[0]});
-        Map<String, Polygon> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(polygon);
-        PolygonV2 temp;
-        for (Map.Entry<String, Polygon> entry : polygonsFromBoundaryBox.entrySet()){
-            temp = network.getFactory().createPolygon(Id.createPolygonId(entry.getKey()), entry.getValue().getExteriorRing().getCoordinates());
-            network.addPolygon(temp);
+        NetworkFactory factory = network.getFactory();
+        Polygon polygon = factory.getGeomFactory().createPolygon(new Coordinate[]{coordinates[0], coordinates[1], coordinates[2], coordinates[3], coordinates[0]});
+        List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(factory, polygon);
+        WKTWriter writer = new WKTWriter();
+        List<String> pol = new LinkedList<>();
+        for (PolygonV2 p : polygonsFromBoundaryBox){
+            pol.add(writer.write(p));
         }
-        Assert.assertTrue(network.getPolygones().size() != 0);
+        polygonsFromBoundaryBox.forEach(poly-> System.out.println(poly.getId() + ", " + poly.getPolygonType()));
+        Map<PolygonType, List<PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toList()));
+        Assert.assertTrue(collect.size() != 0);
     }
 
     @Test
     public void findCrossPointWithPolygonTest(){
         Coordinate coord1 = new Coordinate(-1.0, -3.0);
         Coordinate coord2 = new Coordinate(-1.5, 1.0);
-        Coordinate polygon = NetworkUtils.findCrossPointWithPolygon(coord1, coord2, polygonV2);
+        Coordinate polygon = GeodeticCalculator.findCrossPointWithPolygon(coord1, coord2, polygonV2);
         boolean yes = polygon.x!=0.0 && polygon.y!=0.0;
         System.out.println(polygon);
         Assert.assertTrue(yes);

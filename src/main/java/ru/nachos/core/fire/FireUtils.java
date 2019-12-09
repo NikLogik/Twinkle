@@ -1,6 +1,5 @@
 package ru.nachos.core.fire;
 
-import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.fire.lib.Agent;
@@ -45,46 +44,13 @@ public final class FireUtils {
      */
     public static void setNewTwinkleToFireFront(Map<Id<Agent>, Agent> twinkles, Twinkle target, Twinkle newTwinkle, boolean side){
         if (side){
-            TwinkleUtils.setNewRightNeighbour(target, newTwinkle);
+            target.setRightNeighbour(newTwinkle);
         } else {
-            TwinkleUtils.setNewLeftNeighbour(target, newTwinkle);
+            target.setLeftNeighbour(newTwinkle);
         }
         twinkles.put(newTwinkle.getId(), newTwinkle);
     }
 
-    /**
-     *
-     * @param firstPoint - point with coordinates the previous position
-     * @param length - length from previous position ({@param firstPoint}
-     * @param direction - direction where agent are moved. Calculated from y-positive axis
-     * @return new {@link Coordinate} agents position
-     */
-    public static Coordinate calculateCoordIncrement(Coordinate firstPoint, double length, double direction){
-        if (direction > 360.000) {
-            direction -= 360.000;
-        }
-        double radians;
-        double dX = 0.0;
-        double dY = 0.0;
-        if (direction <= 90.000) {
-            radians = direction * Math.PI/180;
-            dX = firstPoint.x + Math.cos(radians) * length;
-            dY = firstPoint.y + Math.sin(radians) * length;
-        } else if (direction > 90.000 && direction <= 180.000){
-            radians = (180 - direction) * Math.PI/180;
-            dX = firstPoint.x - Math.cos(radians) * length;
-            dY = firstPoint.y + Math.sin(radians) * length;
-        } else if (direction > 180.000 && direction <= 270.000){
-            radians = (direction - 180.000) * Math.PI/180;
-            dX = firstPoint.x - Math.cos(radians) * length;
-            dY = firstPoint.y - Math.sin(radians) * length;
-        } else if (direction > 270.000){
-            radians = (360.000 - direction) * Math.PI/180;
-            dX = firstPoint.x + Math.cos(radians) * length;
-            dY = firstPoint.y - Math.sin(radians) * length;
-        }
-        return new Coordinate(dX, dY);
-    }
 
     public static Agent getHeadAgent(Map<Id<Agent>, Agent> agents){
         List<Agent> agentList = agents.values().stream().filter(Agent::isHead).collect(Collectors.toList());

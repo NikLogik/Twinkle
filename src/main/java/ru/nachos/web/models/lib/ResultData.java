@@ -8,8 +8,11 @@ import java.util.TreeMap;
 
 @JsonDeserialize(as = ResultDataImpl.class)
 public interface ResultData {
-
+    int getIterCount();
     TreeMap<Integer, List<AgentIterData>> getAgents();
 
-    List<AgentIterData> getFirstEntry();
+    int getFirstIterationNumber();
+
+    List<AgentIterData> getFirstIteration();
+    List<AgentIterData> getIterationByNumber(int number);
 }
