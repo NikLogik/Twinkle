@@ -11,6 +11,8 @@ public interface Fire {
 
     String getName();
 
+    double getHeadDirection();
+
     Coordinate getCenterPoint();
 
     int getPerimeter();

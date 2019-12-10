@@ -1,6 +1,7 @@
 package ru.nachos.core.controller;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
@@ -25,6 +26,8 @@ import java.util.TreeMap;
 
 @Component
 class ControllerImpl implements Controller {
+
+    private static Logger logger = Logger.getLogger(ControllerImpl.class);
 
     @Autowired
     private PolygonRepositoryImpl polygonRepository;
@@ -67,6 +70,7 @@ class ControllerImpl implements Controller {
     }
 
     private void doIteration(){
+        logger.info("Start doing iterations");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
         }
@@ -74,31 +78,41 @@ class ControllerImpl implements Controller {
 
     private void iteration(int iteration) {
         this.currentIteration = iteration;
+
+        logger.info(DIVIDER);
+        logger.info("Iteration #" + currentIteration + " begin");
+
         currentTime += stepAmount;
         long timeStart = System.currentTimeMillis();
+        logger.info("Move agents to new locations");
         iterationStep();
         AfterIterationEvent event = new AfterIterationEvent(this, currentIteration);
         eventsHandler.handleAfterIterationEnd(event);
+        fire.getTwinkles().values().forEach(agent -> agent.saveState(currentIteration));
         iterationMap.put(currentIteration, fire.getTwinkles().keySet());
+
         long timePerIteration = System.currentTimeMillis() - timeStart;
+        logger.info(DIVIDER);
+        logger.info("Iteration #" + currentIteration + " finished");
     }
 
     private void iterationStep(){
         Map<Id<Agent>, Agent> agents = this.fire.getTwinkles();
         for (Agent agent : agents.values()){
-            double incDistance = 0.0;
-            Coordinate newCoordinate = null;
-            AgentState lastState;
-            if (currentIteration != 0) {
-                lastState = agent.getLastState();
-                incDistance = agent.getSpeed() * (stepAmount/60);
-                newCoordinate = GeodeticCalculator.directTask(lastState.getCoord(), incDistance, agent.getDirection());
-                agent.setCoordinate(newCoordinate);
-                agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
+            if (currentIteration != 0){
+                double incDistance = 0.0;
+                Coordinate newCoordinate = null;
+                AgentState lastState;
+                if (currentIteration != 0) {
+                    lastState = agent.getLastState();
+                    incDistance = agent.getSpeed() * (stepAmount/60);
+                    newCoordinate = GeodeticCalculator.directProblem(lastState.getCoord(), incDistance, agent.getDirection());
+                    agent.setCoordinate(newCoordinate);
+                    agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
+                }
             }
             Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
             agent.setPolygonId(polygonId);
-            agent.saveState(currentIteration);
         }
     }
 

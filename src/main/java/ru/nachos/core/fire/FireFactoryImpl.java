@@ -41,7 +41,7 @@ public class FireFactoryImpl implements FireFactory {
         Agent prev = null;
         for (int i=0; i<agentAmount; i++, direction += angleIncrement){
             double tempDirection = direction > 360.0 ? direction - 360.000 : direction;
-            Coordinate position = GeodeticCalculator.directTask(center, radius, tempDirection);
+            Coordinate position = GeodeticCalculator.directProblem(center, radius, tempDirection);
             Agent twinkle = createTwinkle(Id.create(i + Fire.Definitions.POST_FIX, Agent.class), tempDirection);
             TwinkleUtils.setCoord(twinkle, position);
             TwinkleUtils.setDistance(twinkle, radius);

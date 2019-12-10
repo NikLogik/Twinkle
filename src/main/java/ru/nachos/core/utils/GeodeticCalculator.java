@@ -1,6 +1,7 @@
 package ru.nachos.core.utils;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.apache.commons.math.util.FastMath;
 import ru.nachos.core.network.lib.PolygonV2;
 
 public class GeodeticCalculator {
@@ -13,7 +14,7 @@ public class GeodeticCalculator {
      * @param direction - дирекционный угол от оси X до трезка между исходной и искомой точками (по часовой стрелке)
      * @return рассчитанная точка
      */
-    public static Coordinate directTask(Coordinate startPoint, double length, double direction){
+    public static Coordinate directProblem(Coordinate startPoint, double length, double direction){
         //определяем приращение координат
         double angleRadians = Math.toRadians(direction);
         double dX = length * Math.sin(angleRadians);
@@ -22,6 +23,31 @@ public class GeodeticCalculator {
         double y2 = startPoint.y + dY;
         return new Coordinate(x2, y2);
     }
+
+    /**
+     * Решает обратную геодезическую задачу, вычисляя дирекционный угол для отрезка по его заданным вершинам
+     * @param start - координата начала отрезка
+     * @param end - координата конца отрезка
+     * @return прямой дирекционный угол отрезка
+     */
+    public static double reverseProblem(Coordinate start, Coordinate end){
+        double dX = end.x - start.x;
+        double dY = end.y - start.y;
+        double atan = FastMath.atan(dY / dX);
+        double rumb = FastMath.toDegrees(atan);
+        double result = 0.0;
+        if (dX >= 0.000 && dY >= 0.000){
+            result = rumb;
+        } else if (dX < 0.000 && dY >= 0.000){
+            result = 180.00 - rumb;
+        } else if (dX < 0.000 && dY < 0.000){
+            result = rumb - 180.00;
+        } else if (dX >= 0.000 && dY < 0.000){
+            result = 360.00 - rumb;
+        }
+        return result;
+    }
+
 
     public static double convertDirection(double direction){
         double var = direction;
@@ -111,13 +137,34 @@ public class GeodeticCalculator {
         }
     }
 
-    public static Coordinate findCrossPointWithPolygon(Coordinate coord1, Coordinate coord2, PolygonV2 polygonV2){
+    /**
+     * Метода находит точку пересечения отрезка со стороной полигона.
+     * @param coord1
+     * @param coord2
+     * @param polygonV2
+     * @return массив координат, где под индексами:
+     * <p>0 - точка пересечения отрезка и полигона</p>
+     * <p>1, 2 - координаты стороны полигона, с которой пересекается отрезок</p>
+     */
+    public static Coordinate[] findCrossPointWithPolygon(Coordinate coord1, Coordinate coord2, PolygonV2 polygonV2){
         Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
+        if (coord1.x < coord2.x) {
+            double tmp = coord1.x;
+            coord1.x = coord2.x;
+            coord2.x = tmp;
+        }
+        if (coord1.y < coord2.y){
+            double tmp = coord1.y;
+            coord1.y = coord2.y;
+            coord2.y = tmp;
+        }
         double a1 = coord1.y - coord2.y;
         double b1 = coord1.x - coord2.x;
         double a2, b2, d, c1, c2;
         double xi = 0.0;
         double yi = 0.0;
+        Coordinate start = null;
+        Coordinate end = null;
         // параметры отрезков
         for (int i=0; i<exteriorRing.length-1; i++){
             a2 = exteriorRing[i].y - exteriorRing[i+1].y;
@@ -126,13 +173,14 @@ public class GeodeticCalculator {
             if (d!=0){
                 c1 = coord2.y * coord1.x - coord2.x * coord1.y;
                 c2 = exteriorRing[i+1].y * exteriorRing[i].x - exteriorRing[i+1].x * exteriorRing[i].y;
-
                 // координаты точки пересечения
                 xi = (b1 * c2 - b2 * c1) / d;
                 yi = (a2 * c1 - a1 * c2) / d;
+                start = exteriorRing[i];
+                end = exteriorRing[i+1];
             }
         }
-        return new Coordinate(xi, yi);
+        return new Coordinate[]{new Coordinate(xi, yi), start, end};
     }
 
     public static Coordinate middleCoordinate(Coordinate first, Coordinate second) {

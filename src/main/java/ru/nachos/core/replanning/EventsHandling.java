@@ -5,7 +5,6 @@ import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.replanning.events.AfterIterationEvent;
 import ru.nachos.core.replanning.events.AgentsChangePolygonEvent;
-import ru.nachos.core.replanning.events.AgentsTooFarMovedEvent;
 import ru.nachos.core.replanning.lib.EventManager;
 
 /**
@@ -27,9 +26,8 @@ public final class EventsHandling {
     public void handleAfterIterationEnd(AfterIterationEvent event){
         this.controller = event.getController();
         if (event.getIterNum()!=0) {
-            double distance = config.getFireAgentsDistance();
-            eventManager.computeEvent(new AgentsTooFarMovedEvent(event.getIterNum(), config.getFireAgentsDistance(), controller.getFire()));
-            eventManager.computeEvent(new AgentsChangePolygonEvent(event.getIterNum(), controller.getNetwork(), controller.getFire()));
+//            eventManager.computeEvent(new AgentsTooFarMovedEvent(event.getIterNum(), config.getFireAgentsDistance(), controller.getFire(), controller.getNetwork()));
+            eventManager.computeEvent(new AgentsChangePolygonEvent(event.getIterNum(), controller));
 
             resetAfterIteration();
         }

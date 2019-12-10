@@ -109,11 +109,10 @@ public class NetworkUtilsTest {
     public void findCrossPointWithPolygonTest(){
         Coordinate coord1 = new Coordinate(-1.0, -3.0);
         Coordinate coord2 = new Coordinate(-1.5, 1.0);
-        Coordinate polygon = GeodeticCalculator.findCrossPointWithPolygon(coord1, coord2, polygonV2);
-        boolean yes = polygon.x!=0.0 && polygon.y!=0.0;
-        System.out.println(polygon);
-        Assert.assertTrue(yes);
+        Coordinate[] polygon = GeodeticCalculator.findCrossPointWithPolygon(coord1, coord2, polygonV2);
+        System.out.println(polygon[0].toString() + polygon[1].toString() + polygon[2].toString());
+        Assert.assertTrue(polygon[0] != null);
+        Assert.assertTrue(polygon[1] != null);
+        Assert.assertTrue(polygon[2] != null);
     }
-
-
 }

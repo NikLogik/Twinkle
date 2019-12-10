@@ -30,7 +30,7 @@ public class FireUtilsTest {
 
     @Test
     public void calculateCoordIncrementTest() {
-        Coordinate coordinate = GeodeticCalculator.directTask(new Coordinate(5559711.64, 3736820.58), 541, 45.00);
+        Coordinate coordinate = GeodeticCalculator.directProblem(new Coordinate(5559711.64, 3736820.58), 541, 45.00);
         System.out.println(coordinate.x);
         Assert.assertNotNull(coordinate);
     }

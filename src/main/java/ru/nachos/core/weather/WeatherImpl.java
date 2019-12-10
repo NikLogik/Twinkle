@@ -23,7 +23,6 @@ class WeatherImpl implements Weather {
      * The current humidity in percents
      */
     private double humidity;
-
     WeatherImpl(Config config){
         this.id = Id.create(config.getFireName() + ":weather", Weather.class);
         this.windDirection = config.getWindDirection();
@@ -34,6 +33,7 @@ class WeatherImpl implements Weather {
 
     @Override
     public Id<Weather> getId() {return this.id;}
+
     @Override
     public double getWindDirection() { return this.windDirection; }
     @Override

@@ -26,6 +26,11 @@ class FireImpl implements Fire {
     private Coordinate center;
 
     /**
+     * Главное направление распространение огня (соответствует направлению скорости ветра)
+     */
+    private double headDirection;
+
+    /**
      * Length of firefront at the beginning of simulation
      */
     private int perimeter;
@@ -48,7 +53,6 @@ class FireImpl implements Fire {
     private Map<Id<Agent>, Agent> twinkles = new LinkedHashMap<>();
     private FireFactory factory = new FireFactoryImpl();
     FireImpl(){}
-
     FireImpl(Config config){
         this.name = config.getFireName();
         this.perimeter = config.getFirePerimeter();
@@ -62,6 +66,8 @@ class FireImpl implements Fire {
 
     @Override
     public String getName() { return name; }
+    @Override
+    public double getHeadDirection() { return headDirection; }
     @Override
     public Coordinate getCenterPoint() { return center; }
     @Override
@@ -103,4 +109,6 @@ class FireImpl implements Fire {
     public void setFireSpeed(double fireSpeed){ this.fireSpeed = fireSpeed; }
 
     public void setFireClass(int fireClass) { this.fireClass = fireClass; }
+
+    void setHeadDirection(double direction){ this.headDirection = direction; }
 }

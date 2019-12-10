@@ -9,6 +9,7 @@ import ru.nachos.core.network.lib.Link;
 import ru.nachos.core.network.lib.NetworkFactory;
 import ru.nachos.core.network.lib.Node;
 import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.db.repository.PolygonRepository;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,6 +17,7 @@ import java.util.Collection;
 final class NetworkFactoryImpl implements NetworkFactory {
 
     private static final GeometryFactory factory = new GeometryFactory();
+    private PolygonRepository repository;
 
     @Override
     public GeometryFactory getGeomFactory() {

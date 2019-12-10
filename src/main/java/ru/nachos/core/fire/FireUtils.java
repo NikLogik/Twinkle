@@ -25,16 +25,7 @@ public final class FireUtils {
         }
     }
 
-    /**
-     * This method add new agent in the fire front on the right side of the target agent by default.
-     * @param twinkles  - list of fire agents
-     * @param target    - target agent
-     * @param newTwinkle- new agent which to be add
-     */
-    public static void setNewTwinkleToFireFront(Map<Id<Agent>, Agent> twinkles, Twinkle target, Twinkle newTwinkle){
-        setNewTwinkleToFireFront(twinkles, target, newTwinkle, true);
-    }
-
+    public static void setHeadDirectionOfSpread(Fire fire, double directionOfSpread){ ((FireImpl)fire).setHeadDirection(directionOfSpread);}
     /**
      * This method add new agent in the fire front near by target agent.
      * @param twinkles  - list of fire agents

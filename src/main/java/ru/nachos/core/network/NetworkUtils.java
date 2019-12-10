@@ -5,22 +5,26 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
+import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.PolygonRepositoryImpl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public final class NetworkUtils {
+
+    private static Logger logger = Logger.getLogger(Network.class);
+
+    public static TreeMap<Id<PolygonV2>, Long> networkCashe = new TreeMap<>();
 
     private NetworkUtils(){}
 
@@ -60,6 +64,18 @@ public final class NetworkUtils {
         return polygon.contains(point);
     }
 
+    public static void setPolygonesToAgents(Network network, Map<Id<Agent>, Agent> agents){
+        logger.info("================= Start find geometries for agents =================");
+        for(Agent agent : agents.values()){
+            PolygonV2 polygon = repository.getPolygonByCoordinate(network.getFactory(), agent.getCoordinate());
+            if (polygon == null){
+                logger.warn("Geometry for agent id=" + agent.getId() + " not found in database");
+            }
+            agent.setPolygonId(polygon.getId());
+            network.getPolygones().get(polygon.getPolygonType()).put(polygon.getId(), polygon);
+        }
+    }
+
     /**
      * This method find a polygon in the network, to which the point are belong
      * @param network - network, where will find polygon for point
@@ -83,13 +99,9 @@ public final class NetworkUtils {
     public static Network createNetwork(Network network, Coordinate[] boundaryBox){
         Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
         List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon);
-        Map<PolygonType, List<PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType));
-        Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> typeMap = new HashMap<>();
-        for (Map.Entry<PolygonType, List<PolygonV2>> entry : collect.entrySet()){
-            Map<Id<PolygonV2>, PolygonV2> var = entry.getValue().stream().collect(Collectors.toMap(key->key.getId(),value->value));
-            typeMap.put(entry.getKey(), var);
-        }
-        network.getPolygones().putAll(typeMap);
+        Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toMap(PolygonV2::getId, Function.identity())));
+        network.getPolygones().putAll(collect);
+        logger.info("Finished creating network.");
         return network;
     }
 

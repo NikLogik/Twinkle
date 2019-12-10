@@ -12,7 +12,7 @@ public interface PolygonRepository extends HasSRID{
 
     Polygon getPolygonById(long id);
 
-    Polygon getPolygonByCoordinate(Coordinate coordinate);
+    Polygon getPolygonByCoordinate(NetworkFactory factory, Coordinate coordinate);
 
     List<PolygonV2> getPolygonsFromBoundaryBox(NetworkFactory factory, Geometry geometry);
 
