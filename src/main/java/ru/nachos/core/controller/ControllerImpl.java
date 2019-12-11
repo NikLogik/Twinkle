@@ -17,6 +17,7 @@ import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.replanning.EventManagerImpl;
 import ru.nachos.core.replanning.EventsHandling;
 import ru.nachos.core.replanning.events.AfterIterationEvent;
+import ru.nachos.core.replanning.events.BeforeIterationEvent;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.db.PolygonRepositoryImpl;
 
@@ -40,14 +41,12 @@ class ControllerImpl implements Controller {
     private EventsHandling eventsHandler;
     private Map<Integer, Set<Id<Agent>>> iterationMap = new TreeMap<>();
     public static final String DIVIDER = "###################################################";
-
     final String MARKER = "#####";
-
     private int currentIteration;
     private double currentTime;
     private double stepAmount;
-    ControllerImpl(){}
 
+    ControllerImpl(){}
     ControllerImpl(InitialPreprocessingData preprocessing){
         this.config = preprocessing.getConfig();
         this.preprocessingData = preprocessing;
@@ -66,11 +65,23 @@ class ControllerImpl implements Controller {
 
     @Override
     public void run(){
+        prepareAgentsToStart();
         doIteration();
     }
 
+    private void prepareAgentsToStart() {
+        logger.info(MARKER + "Preparing agents for start FIRE!!!");
+        this.currentIteration = 0;
+        for(Agent agent : this.fire.getTwinkles().values()){
+            Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+            agent.setPolygonId(polygonId);
+            agent.saveState(currentIteration);
+        }
+        iterationMap.put(currentIteration, fire.getTwinkles().keySet());
+    }
+
     private void doIteration(){
-        logger.info("Start doing iterations");
+        logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
         }
@@ -78,49 +89,54 @@ class ControllerImpl implements Controller {
 
     private void iteration(int iteration) {
         this.currentIteration = iteration;
-
-        logger.info(DIVIDER);
-        logger.info("Iteration #" + currentIteration + " begin");
+        eventsHandler.handleBeforeIterationStart(new BeforeIterationEvent(this, currentIteration));
+        logger.info(DIVIDER + "Iteration #" + currentIteration + " begin");
 
         currentTime += stepAmount;
         long timeStart = System.currentTimeMillis();
-        logger.info("Move agents to new locations");
-        iterationStep();
-        AfterIterationEvent event = new AfterIterationEvent(this, currentIteration);
-        eventsHandler.handleAfterIterationEnd(event);
-        fire.getTwinkles().values().forEach(agent -> agent.saveState(currentIteration));
+        iterationStep(getAgentsForIter(currentIteration));
+        eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(this, currentIteration));
         iterationMap.put(currentIteration, fire.getTwinkles().keySet());
 
         long timePerIteration = System.currentTimeMillis() - timeStart;
-        logger.info(DIVIDER);
-        logger.info("Iteration #" + currentIteration + " finished");
+        logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
     }
 
-    private void iterationStep(){
-        Map<Id<Agent>, Agent> agents = this.fire.getTwinkles();
+    private void iterationStep(Map<Id<Agent>, Agent> agents){
+        logger.info("Move agents to new locations");
         for (Agent agent : agents.values()){
-            if (currentIteration != 0){
-                double incDistance = 0.0;
-                Coordinate newCoordinate = null;
-                AgentState lastState;
-                if (currentIteration != 0) {
-                    lastState = agent.getLastState();
-                    incDistance = agent.getSpeed() * (stepAmount/60);
-                    newCoordinate = GeodeticCalculator.directProblem(lastState.getCoord(), incDistance, agent.getDirection());
-                    agent.setCoordinate(newCoordinate);
-                    agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
-                }
+            if (agent.getSpeed() == 0.0){
+                continue;
             }
+            double incDistance = 0.0;
+            Coordinate newCoordinate = null;
+            AgentState lastState;
+            lastState = agent.getLastState();
+            incDistance = agent.getSpeed() * (stepAmount/60);
+            newCoordinate = GeodeticCalculator.directProblem(lastState.getCoord(), incDistance, agent.getDirection());
+            agent.setCoordinate(newCoordinate);
+            agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
             Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
             agent.setPolygonId(polygonId);
         }
     }
 
-    @Override
-    public Fire getFire() {
-        return fire;
+    private Map<Id<Agent>, Agent> getAgentsForIter(int iterNum){
+        Map<Id<Agent>, Agent> twinkles = new TreeMap<>();
+        for (Map.Entry<Id<Agent>, Agent> entry : fire.getTwinkles().entrySet()){
+            if (iterationMap.get(iterNum).contains(entry.getKey())){
+                twinkles.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return twinkles;
     }
 
     @Override
+    public Fire getFire() { return fire; }
+
+    @Override
     public Network getNetwork() { return network; }
+
+    @Override
+    public Map<Integer, Set<Id<Agent>>> getIterationMap() { return iterationMap; }
 }

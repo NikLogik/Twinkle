@@ -15,7 +15,10 @@ import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.PolygonRepositoryImpl;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -96,6 +99,15 @@ public final class NetworkUtils {
         return polygon;
     }
 
+    public static Coordinate findIntersectionPoint(Coordinate start, Coordinate end, PolygonV2 polygonV2){
+        Coordinate intersectionPoint = repository.getIntersectionPoint(new Coordinate[]{start, end}, polygonV2);
+        if (intersectionPoint == null){
+            return end;
+        } else {
+            return intersectionPoint;
+        }
+    }
+
     public static Network createNetwork(Network network, Coordinate[] boundaryBox){
         Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
         List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon);
@@ -103,6 +115,26 @@ public final class NetworkUtils {
         network.getPolygones().putAll(collect);
         logger.info("Finished creating network.");
         return network;
+    }
+
+    public static Coordinate[] findNearestLine(Coordinate coordinate, PolygonV2 polygonV2){
+        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
+        double tempHeight = Double.MAX_VALUE;
+        Coordinate c1 = null;
+        Coordinate c2 = null;
+        for (int i=0; i < exteriorRing.length-1; i++){
+            double s1 = exteriorRing[i].distance(coordinate);
+            double s2 = exteriorRing[i+1].distance(coordinate);
+            double s3 = exteriorRing[i].distance(exteriorRing[i+1]);
+            double hP = (s1 + s2 + s3) / 2;
+            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-2) * (hP-3));
+            if (height < tempHeight){
+                c1 = exteriorRing[i];
+                c2 = exteriorRing[i+1];
+                tempHeight = height;
+            }
+        }
+        return new Coordinate[]{c1, c2};
     }
 
     public static Coordinate[] calculateBoundaryBox(Coordinate center, double distance){

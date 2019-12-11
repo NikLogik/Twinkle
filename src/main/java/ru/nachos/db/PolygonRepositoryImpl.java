@@ -77,6 +77,31 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         return polygon;
     }
 
+    public Coordinate getIntersectionPoint(Coordinate[] coordinate, PolygonV2 polygonV2){
+        LineString lineString = geoFactory.createLineString(coordinate);
+        String wLine = writer.write(lineString);
+        String wPolygon = writer.write(polygonV2);
+        Geometry geometry = null;
+        try {
+            Connection connection = manager.getConnection();
+            PreparedStatement statement = connection.prepareStatement("select st_asewkb(st_intersection(st_geomfromtext('"+ wLine
+                                                +"'),st_boundary(st_geomfromtext('"+ wPolygon +"')))) as geo");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                byte[] geos = resultSet.getBytes("geo");
+                geometry = reader.read(geos);
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert geometry != null;
+        return geometry.getCoordinate();
+    }
+
     public void getAllPolygons(){
         try {
             logger.info("Start loading all polygons from Database");
@@ -105,7 +130,6 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         String POLYGON_WHERE_POINT = "select planet_osm_polygon.osm_id as osm_id, ST_AsEWKB(way) as way, planet_osm_polygon.landuse as landuse, planet_osm_polygon.natural as natural, planet_osm_polygon.water as water, planet_osm_polygon,waterway as waterway from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
                 pointS + "'," + SRID + "), way)";
         PolygonV2 polygon = null;
-
         long counter = 100000;
         try {
             Connection connection = manager.getConnection();

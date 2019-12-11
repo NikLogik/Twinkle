@@ -20,8 +20,9 @@ class Twinkle implements Agent {
     private double distanceFromStart;
     private Id<PolygonV2> polygonId;
 
-    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
+    private boolean isStopped = false;
 
+    private TreeMap<Integer, AgentState> planList = new TreeMap<>();
     private boolean head = false;
     Twinkle (Id<Agent> id){
         this.id = id;
@@ -52,16 +53,15 @@ class Twinkle implements Agent {
 
     @Override
     public void setRightNeighbour(Agent twinkle){ this.rightNeighbour = twinkle; }
+
     @Override
     public void setLeftNeighbour(Agent twinkle) {this.leftNeighbour = twinkle; }
     public void setSpeed(double speed){this.speed = speed;}
-    @Override
-    public Map<Integer, AgentState> getStates() { return this.planList; }
 
     @Override
-    public AgentState getLastState() {
-        return planList.lastEntry().getValue();
-    }
+    public Map<Integer, AgentState> getStates() { return this.planList; }
+    @Override
+    public AgentState getLastState() { return planList.lastEntry().getValue(); }
 
     @Override
     public Agent getLeftNeighbour() { return leftNeighbour; }
@@ -97,12 +97,18 @@ class Twinkle implements Agent {
     public void setDistanceFromStart(double distanceFromStart) {
         this.distanceFromStart = distanceFromStart;
     }
+
     @Override
     public double getDistanceFromStart() {
         return distanceFromStart;
     }
+    @Override
+    public boolean isStopped() { return isStopped; }
+    @Override
+    public void setStopped(boolean stopped) { isStopped = stopped; }
 
     public class TwinkleStateV2 implements AgentState {
+
         private Id<Agent> agent;
         private double distanceFromStart;
         private Coordinate coord;

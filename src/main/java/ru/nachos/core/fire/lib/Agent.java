@@ -53,4 +53,8 @@ public interface Agent extends HasID {
     void setDistanceFromStart(double distanceFromStart);
 
     double getDistanceFromStart();
+
+    boolean isStopped();
+
+    void setStopped(boolean stopped);
 }

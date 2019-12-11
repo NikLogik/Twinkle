@@ -105,6 +105,8 @@ public class NetworkUtilsTest {
         Assert.assertTrue(collect.size() != 0);
     }
 
+
+
     @Test
     public void findCrossPointWithPolygonTest(){
         Coordinate coord1 = new Coordinate(-1.0, -3.0);

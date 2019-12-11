@@ -28,8 +28,6 @@ public final class TwinkleUtils {
         agent.setSpeed(speed);
     }
 
-
-
     public static void calculateMiddleParameters(Agent first, Agent second, Agent newA){
         double var = second.getDirection() < first.getDirection() ? second.getDirection() + 360.00 : second.getDirection();
         double direction = ((var - first.getDirection()) / 2) + first.getDirection();
