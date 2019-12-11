@@ -18,9 +18,11 @@ import ru.nachos.core.replanning.EventManagerImpl;
 import ru.nachos.core.replanning.EventsHandling;
 import ru.nachos.core.replanning.events.AfterIterationEvent;
 import ru.nachos.core.replanning.events.BeforeIterationEvent;
+import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.db.PolygonRepositoryImpl;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -96,7 +98,6 @@ class ControllerImpl implements Controller {
         long timeStart = System.currentTimeMillis();
         iterationStep(getAgentsForIter(currentIteration));
         eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(this, currentIteration));
-        iterationMap.put(currentIteration, fire.getTwinkles().keySet());
 
         long timePerIteration = System.currentTimeMillis() - timeStart;
         logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
@@ -104,7 +105,10 @@ class ControllerImpl implements Controller {
 
     private void iterationStep(Map<Id<Agent>, Agent> agents){
         logger.info("Move agents to new locations");
-        for (Agent agent : agents.values()){
+        AgentMap list = new AgentMap(agents);
+        Iterator<Agent> iterator = list.iterator();
+        while (iterator.hasNext()){
+            Agent agent = iterator.next();
             if (agent.getSpeed() == 0.0){
                 continue;
             }
@@ -121,7 +125,8 @@ class ControllerImpl implements Controller {
         }
     }
 
-    private Map<Id<Agent>, Agent> getAgentsForIter(int iterNum){
+    @Override
+    public Map<Id<Agent>, Agent> getAgentsForIter(int iterNum){
         Map<Id<Agent>, Agent> twinkles = new TreeMap<>();
         for (Map.Entry<Id<Agent>, Agent> entry : fire.getTwinkles().entrySet()){
             if (iterationMap.get(iterNum).contains(entry.getKey())){

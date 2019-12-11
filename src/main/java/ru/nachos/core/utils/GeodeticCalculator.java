@@ -33,8 +33,9 @@ public class GeodeticCalculator {
     public static double reverseProblem(Coordinate start, Coordinate end){
         double dX = end.x - start.x;
         double dY = end.y - start.y;
-        double atan = FastMath.atan(dY / dX);
-        double rumb = FastMath.toDegrees(atan);
+        double atan = FastMath.atan(dX / dY);
+        double rumb = FastMath.toDegrees(Math.abs(atan));
+
         double result = 0.0;
         if (dX >= 0.000 && dY >= 0.000){
             result = rumb;
@@ -47,7 +48,6 @@ public class GeodeticCalculator {
         }
         return result;
     }
-
 
     public static double convertDirection(double direction){
         double var = direction;
@@ -193,4 +193,11 @@ public class GeodeticCalculator {
         double var = (2 * Math.pow(a, 2)) + (2 * Math.pow(b, 2)) - Math.pow(c, 2);
         return Math.sqrt(var/4);
     }
+
+    public static double distance(Coordinate first, Coordinate second){
+        double dX = Math.pow(first.x - second.x, 2);
+        double dY = Math.pow(first.y - second.y, 2);
+        return Math.sqrt(dX + dY);
+    }
+
 }

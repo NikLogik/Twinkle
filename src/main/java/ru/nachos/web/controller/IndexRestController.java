@@ -1,5 +1,6 @@
 package ru.nachos.web.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 @RestController
 public class IndexRestController {
 
+    Logger logger = Logger.getLogger(IndexRestController.class);
+
     private ResultData resultData;
     private EstimateDataService dataService;
 
@@ -28,8 +31,8 @@ public class IndexRestController {
             resultData = null;
         }
         dataService = new EstimateDataServiceImpl();
-        boolean valid = dataService.validationData(estimateData);
-        if (valid){
+        if (dataService.validationData(estimateData)){
+            logger.info("Get estimate data :" + estimateData.toString());
             dataService.start(estimateData);
             resultData = dataService.getResult();
             if (resultData == null){
@@ -40,6 +43,7 @@ public class IndexRestController {
         }
         int number = resultData.getFirstIterationNumber();
         List<CoordinateJson> collect = resultData.getFirstIteration().stream().map(AgentIterData::getCordinates).map(coordinate -> new CoordinateJson(coordinate.x, coordinate.y)).collect(Collectors.toList());
+        logger.info("Send response with result of the first iteration");
         return new ResponseEntity<>(new ResponseData(resultData.getIterCount(), number, collect), HttpStatus.OK);
     }
 

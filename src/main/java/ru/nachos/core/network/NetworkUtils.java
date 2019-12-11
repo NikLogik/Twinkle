@@ -118,16 +118,16 @@ public final class NetworkUtils {
     }
 
     public static Coordinate[] findNearestLine(Coordinate coordinate, PolygonV2 polygonV2){
-        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
-        double tempHeight = Double.MAX_VALUE;
         Coordinate c1 = null;
         Coordinate c2 = null;
+        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
+        double tempHeight = Double.MAX_VALUE;
         for (int i=0; i < exteriorRing.length-1; i++){
             double s1 = exteriorRing[i].distance(coordinate);
             double s2 = exteriorRing[i+1].distance(coordinate);
             double s3 = exteriorRing[i].distance(exteriorRing[i+1]);
             double hP = (s1 + s2 + s3) / 2;
-            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-2) * (hP-3));
+            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-s2) * (hP-s3));
             if (height < tempHeight){
                 c1 = exteriorRing[i];
                 c2 = exteriorRing[i+1];

@@ -5,9 +5,7 @@ import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.replanning.events.AfterIterationEvent;
-import ru.nachos.core.replanning.events.AgentsChangePolygonEvent;
-import ru.nachos.core.replanning.events.BeforeIterationEvent;
+import ru.nachos.core.replanning.events.*;
 import ru.nachos.core.replanning.lib.EventManager;
 
 import java.util.Set;
@@ -41,7 +39,9 @@ public final class EventsHandling {
         Controller controller = event.getController();
 //        eventManager.computeEvent(new AgentsTooFarMovedEvent(event.getIterNum(), config.getFireAgentsDistance(), controller.getFire(), controller.getNetwork()));
         eventManager.computeEvent(new AgentsChangePolygonEvent(event.getIterNum(), controller));
-        controller.getFire().getTwinkles().values().forEach(agent -> agent.saveState(event.getIterNum()));
+        eventManager.computeEvent(new AgentsTooCloseMovedEvent(event.getIterNum(), config.getFireAgentsDistance() / 2, controller));
+        eventManager.computeEvent(new AgentInsideFirefrontEvent(event.getIterNum(), controller));
+        controller.getAgentsForIter(event.getIterNum()).values().forEach(agent -> agent.saveState(event.getIterNum()));
         resetAfterIteration();
     }
 

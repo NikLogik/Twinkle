@@ -10,17 +10,18 @@ import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.replanning.events.AgentsChangePolygonEvent;
 import ru.nachos.core.replanning.handlers.lib.AgentChangePolygonHandler;
+import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler {
 
     private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygonesMap;
-    private List<Agent> casheList;
+    private AgentMap casheList;
+    private Map<Id<Agent>, Agent> addAgents = new HashMap<>();
     private Fire fire;
     private Controller controller;
     private int iterNum;
@@ -31,10 +32,10 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
         this.controller = event.getController();
         this.fire = event.getFire();
         this.iterNum = event.getIterNum();
-        casheList = new LinkedList<>(event.getFire().getTwinkles().values());
+        casheList = new AgentMap(controller.getAgentsForIter(event.getIterNum()));
         Id<PolygonV2> currentGeom;
         Id<PolygonV2> lastGeom;
-        for (Agent agent : casheList){
+        for (Agent agent : casheList.values()){
             currentGeom = agent.getPolygonId();
             lastGeom = agent.getLastState().getPolygonId();
             if (currentGeom.equals(lastGeom)){
@@ -52,6 +53,8 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
                 }
             }
         }
+        controller.getFire().getTwinkles().putAll(addAgents);
+        controller.getIterationMap().get(iterNum).addAll(addAgents.keySet());
     }
 
     private void agentBehaviorChange(Agent agent, PolygonType currentPolygonType) {
@@ -66,7 +69,7 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
                 agent.setCoordinate(crossingPoint);
                 Coordinate[] directionLine = NetworkUtils.findNearestLine(crossingPoint, currentPolygon);
                 double leftDistance = agent.getLastState().getCoord().distance(agent.getCoordinate());
-                int leftTime = (controller.getConfig().getStepTimeAmount()/60) - (int)(agent.getSpeed() / leftDistance);
+                int leftTime = (controller.getConfig().getStepTimeAmount()/60) - (int)(leftDistance / agent.getSpeed());
                 setNewOppositeAgents(agent, leftTime, crossingPoint, directionLine);
                 agent.setSpeed(0);
                 break;
@@ -84,23 +87,22 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
         dirAgent.setDirection(direction);
         dirAgent.setRightNeighbour(agent);
         dirAgent.setLeftNeighbour(agent.getLeftNeighbour());
-        calculator.calculateSpeedOfSpreadWithArbitraryDirection(fireSpeed, dirAgent, direction);
+        calculator.calculateSpeedOfSpreadWithArbitraryDirection(fireSpeed, dirAgent, fire.getHeadDirection());
         dirAgent.setDistanceFromStart(dirAgent.getSpeed() * leftTime);
-        Coordinate position = GeodeticCalculator.directProblem(start, dirAgent.getDistanceFromStart(), dirAgent.getDirection());
+        Coordinate position = GeodeticCalculator.directProblem(start, dirAgent.getDistanceFromStart(), direction);
         dirAgent.setCoordinate(position);
-        dirAgent.setPolygonId(agent.getPolygonId());
-
+        dirAgent.setPolygonId(NetworkUtils.findPolygonByAgentCoords(controller.getNetwork(), position).getId());
+        addAgents.put(dirAgent.getId(), dirAgent);
         Agent revAgent = fire.getFactory().createTwinkle(Id.createAgentId(agent.getId() + ":reverse"));
         revAgent.setDirection(revDirection);
         revAgent.setLeftNeighbour(agent);
         revAgent.setRightNeighbour(agent.getRightNeighbour());
         calculator.calculateSpeedOfSpreadWithArbitraryDirection(fireSpeed, revAgent, fire.getHeadDirection());
         revAgent.setDistanceFromStart(revAgent.getSpeed() * leftTime);
-        Coordinate revPosition = GeodeticCalculator.directProblem(start, revAgent.getDistanceFromStart(), revAgent.getDirection());
+        Coordinate revPosition = GeodeticCalculator.directProblem(start, revAgent.getDistanceFromStart(), revDirection);
         revAgent.setCoordinate(revPosition);
-        revAgent.setPolygonId(agent.getPolygonId());
-        fire.getTwinkles().put(dirAgent.getId(), dirAgent);
-        fire.getTwinkles().put(revAgent.getId(), revAgent);
+        revAgent.setPolygonId(NetworkUtils.findPolygonByAgentCoords(controller.getNetwork(), revPosition).getId());
+        addAgents.put(revAgent.getId(), revAgent);
     }
 
     @Override

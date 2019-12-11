@@ -17,6 +17,8 @@ public interface Controller extends Runnable{
 
     Config getConfig();
 
+    Map<Id<Agent>, Agent> getAgentsForIter(int iterNum);
+
     Fire getFire();
 
     Network getNetwork();

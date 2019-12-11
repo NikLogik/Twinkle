@@ -50,4 +50,17 @@ public class EstimateDataImpl implements EstimateData, Serializable {
         return this.lastIterationTime;
     }
 
+    @Override
+    public String toString() {
+        return "EstimateDataImpl{" +
+                "windSpeed=" + windSpeed +
+                ", windDirection=" + windDirection +
+                ", fireClass=" + fireClass +
+                ", fireCenter=" + Arrays.toString(fireCenter) +
+                ", fuelTypeCode=" + fuelTypeCode +
+                ", iterationStepTime=" + iterationStepTime +
+                ", lastIterationTime=" + lastIterationTime +
+                ", fireAgentDistance=" + fireAgentDistance +
+                '}';
+    }
 }
