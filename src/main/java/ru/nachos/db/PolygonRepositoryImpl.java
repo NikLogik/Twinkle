@@ -5,7 +5,6 @@ import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKBReader;
 import com.vividsolutions.jts.io.WKTWriter;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
@@ -27,7 +26,7 @@ import java.util.List;
 @Component
 public class PolygonRepositoryImpl implements PolygonRepository {
 
-    private static Logger logger = Logger.getLogger(PolygonRepositoryImpl.class);
+//    private static Logger logger = Logger.getLogger(PolygonRepositoryImpl.class);
 
     @Autowired
     OsmDatabaseManager manager;
@@ -49,6 +48,8 @@ public class PolygonRepositoryImpl implements PolygonRepository {
             if(resultSetInt != SRID || SRID == 0){
                 SRID = resultSetInt;
             }
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,12 +105,12 @@ public class PolygonRepositoryImpl implements PolygonRepository {
 
     public void getAllPolygons(){
         try {
-            logger.info("Start loading all polygons from Database");
+//            logger.info("Start loading all polygons from Database");
             List<String> list = new ArrayList<>();
             Connection connection = manager.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select ST_AsEWKB(way) as way from planet_osm_polygon");
-            logger.info("Finished loading all polygons from database");
+//            logger.info("Finished loading all polygons from database");
             Geometry geom;
             while (resultSet.next()){
                 geom = reader.read(resultSet.getBytes("way"));
@@ -126,7 +127,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
     public PolygonV2 getPolygonByCoordinate(NetworkFactory netFactory, Coordinate coordinate) {
         Point point = this.geoFactory.createPoint(coordinate);
         String pointS = writer.write(point);
-        logger.info("Get geometry by coordinate "+pointS);
+//        logger.info("Get geometry by coordinate "+pointS);
         String POLYGON_WHERE_POINT = "select planet_osm_polygon.osm_id as osm_id, ST_AsEWKB(way) as way, planet_osm_polygon.landuse as landuse, planet_osm_polygon.natural as natural, planet_osm_polygon.water as water, planet_osm_polygon,waterway as waterway from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
                 pointS + "'," + SRID + "), way)";
         PolygonV2 polygon = null;
@@ -180,7 +181,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
     @Override
     public List<PolygonV2> getPolygonsFromBoundaryBox(NetworkFactory factory, Geometry geometry) {
 
-        logger.info("Start loading geometries from Database");
+//        logger.info("Start loading geometries from Database");
 
         List<PolygonV2> result = new ArrayList<>();
         getSRID();
@@ -230,7 +231,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
                     result.add(polygonV2);
                 }
             }
-            logger.info("Finished loading geometries from Database: " + result.size());
+//            logger.info("Finished loading geometries from Database: " + result.size());
             statement.close();
             connection.close();
         } catch (SQLException | ParseException e){

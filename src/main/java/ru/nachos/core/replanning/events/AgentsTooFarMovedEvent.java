@@ -1,20 +1,17 @@
 package ru.nachos.core.replanning.events;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.network.lib.Network;
-import ru.nachos.core.replanning.Event;
-import ru.nachos.core.fire.lib.Agent;
-
-import java.util.Map;
+import ru.nachos.core.replanning.lib.Event;
+import ru.nachos.core.utils.AgentMap;
 
 public class AgentsTooFarMovedEvent extends Event {
 
     private final int fireAgentsDistance;
     private final Coordinate center;
     private final Network network;
-    private Map<Id<Agent>, Agent> agents;
+    private AgentMap agents;
     private Fire fire;
 
     public AgentsTooFarMovedEvent(int iterNum, int fireAgentsDistance, Fire fire, Network network) {
@@ -26,7 +23,7 @@ public class AgentsTooFarMovedEvent extends Event {
         this.network = network;
     }
 
-    public Map<Id<Agent>, Agent> getAgents() { return agents; }
+    public AgentMap getAgents() { return agents; }
 
     public Network getNetwork() { return network; }
 

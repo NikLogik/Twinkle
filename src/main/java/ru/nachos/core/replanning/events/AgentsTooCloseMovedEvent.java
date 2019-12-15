@@ -1,25 +1,17 @@
 package ru.nachos.core.replanning.events;
 
-import ru.nachos.core.Id;
-import ru.nachos.core.controller.lib.Controller;
-import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.replanning.Event;
-
-import java.util.Map;
+import ru.nachos.core.replanning.lib.Event;
+import ru.nachos.core.utils.AgentMap;
 
 public class AgentsTooCloseMovedEvent extends Event {
 
-    private Agent source;
-
-    private Controller controller;
-
     private int minDistance;
-    private Map<Id<Agent>, Agent> agents;
+    private AgentMap agents;
 
-    public AgentsTooCloseMovedEvent(int iterNum, int minDistance, Controller controller) {
+    public AgentsTooCloseMovedEvent(int iterNum, int minDistance, AgentMap agents) {
         super(iterNum);
         this.minDistance = minDistance;
-        this.controller = controller;
+        this.agents = agents;
     }
     @Override
     public String getEventType() {
@@ -28,5 +20,5 @@ public class AgentsTooCloseMovedEvent extends Event {
 
     public int getMinDistance() { return minDistance; }
 
-    public Controller getController() { return controller; }
+    public AgentMap getAgents() { return agents; }
 }

@@ -2,8 +2,7 @@ package ru.nachos.core.fire.lib;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
-
-import java.util.Map;
+import ru.nachos.core.utils.AgentMap;
 
 public interface Fire {
 
@@ -23,11 +22,11 @@ public interface Fire {
 
     double getFireSpeed();
 
-    Map<Id<Agent>, Agent> getTwinkles();
+    AgentMap getTwinkles();
 
     Agent addAgent(Agent agent);
 
-    boolean removeAgent(Agent agent);
+    Agent removeAgent(Agent agent);
 
     Agent removeAgent(Id<Agent> id);
 

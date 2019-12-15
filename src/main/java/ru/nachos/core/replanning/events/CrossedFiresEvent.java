@@ -1,6 +1,6 @@
 package ru.nachos.core.replanning.events;
 
-import ru.nachos.core.replanning.Event;
+import ru.nachos.core.replanning.lib.Event;
 
 public class CrossedFiresEvent extends Event {
 

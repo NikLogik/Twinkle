@@ -1,15 +1,15 @@
 package ru.nachos.core.replanning.events;
 
-import ru.nachos.core.controller.lib.Controller;
-import ru.nachos.core.replanning.Event;
+import ru.nachos.core.controller.lib.IterationInfo;
+import ru.nachos.core.replanning.lib.Event;
 
 public class BeforeIterationEvent extends Event {
 
-    private Controller controller;
+    private IterationInfo info;
 
-    public BeforeIterationEvent(Controller controller, int iterNum) {
-        super(iterNum);
-        this.controller = controller;
+    public BeforeIterationEvent(IterationInfo info) {
+        super(info.getIterNum());
+        this.info = info;
     }
 
     @Override
@@ -17,5 +17,5 @@ public class BeforeIterationEvent extends Event {
         return "iteration_start_event";
     }
 
-    public Controller getController() { return controller; }
+    public IterationInfo getInfo() { return info; }
 }

@@ -5,7 +5,6 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
@@ -25,13 +24,12 @@ import java.util.stream.Collectors;
 @Service
 public final class NetworkUtils {
 
-    private static Logger logger = Logger.getLogger(Network.class);
+//    private static Logger logger = Logger.getLogger(Network.class);
 
     public static TreeMap<Id<PolygonV2>, Long> networkCashe = new TreeMap<>();
 
     private NetworkUtils(){}
 
-    @Deprecated
     public static PolygonRepositoryImpl getRepository() {
         return repository;
     }
@@ -68,11 +66,11 @@ public final class NetworkUtils {
     }
 
     public static void setPolygonesToAgents(Network network, Map<Id<Agent>, Agent> agents){
-        logger.info("================= Start find geometries for agents =================");
+//        logger.info("================= Start find geometries for agents =================");
         for(Agent agent : agents.values()){
             PolygonV2 polygon = repository.getPolygonByCoordinate(network.getFactory(), agent.getCoordinate());
             if (polygon == null){
-                logger.warn("Geometry for agent id=" + agent.getId() + " not found in database");
+//                logger.warn("Geometry for agent id=" + agent.getId() + " not found in database");
             }
             agent.setPolygonId(polygon.getId());
             network.getPolygones().get(polygon.getPolygonType()).put(polygon.getId(), polygon);
@@ -87,11 +85,17 @@ public final class NetworkUtils {
      */
     public static PolygonV2 findPolygonByAgentCoords(Network network, Coordinate coord){
         GeometryFactory geomFactory = network.getFactory().getGeomFactory();
-        List<Collection<PolygonV2>> polygons = network.getPolygones().values().stream().map(Map::values).collect(Collectors.toList());
+        return findPolygonByAgentCoords(geomFactory, network.getPolygones(), coord);
+    }
+
+    public static PolygonV2 findPolygonByAgentCoords(GeometryFactory geoFactory,
+                                       Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons, Coordinate coordinate)
+    {
+        List<Collection<PolygonV2>> list = polygons.values().stream().map(Map::values).collect(Collectors.toList());
         PolygonV2 polygon = null;
-        for (Collection<PolygonV2> list : polygons){
-            for (PolygonV2 polygonV2 : list){
-                if (isInsidePolygon(geomFactory, polygonV2, coord)){
+        for (Collection<PolygonV2> var : list){
+            for (PolygonV2 polygonV2 : var){
+                if (isInsidePolygon(geoFactory, polygonV2, coordinate)){
                     polygon = polygonV2;
                 }
             }
@@ -113,7 +117,7 @@ public final class NetworkUtils {
         List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon);
         Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toMap(PolygonV2::getId, Function.identity())));
         network.getPolygones().putAll(collect);
-        logger.info("Finished creating network.");
+//        logger.info("Finished creating network.");
         return network;
     }
 

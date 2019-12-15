@@ -3,18 +3,48 @@
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunnerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/Twinkle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/TwinkleUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/lib/Fire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/IterationInfoPrinter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/EventManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/EventManagerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/EventsHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/EventsHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsStoppedBarrierEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AfterIterationEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AfterIterationEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentInsideFirefrontEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentInsideFirefrontEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsChangePolygonEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsChangePolygonEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooCloseMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooCloseMovedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooFarMovedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/AgentsTooFarMovedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/BeforeIterationEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/BeforeIterationEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/CrossedFiresEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/events/CrossedFiresEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentInsideFirefrontHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentInsideFirefrontHandlerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentTooCloseMovedHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentTooCloseMovedHandlerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/lib/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/AgentMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/AgentMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/PolygonRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/EstimateDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/EstimateDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/AgentIterDataImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/CoordinateJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/CoordinateJson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/EstimateDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/RequestDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResponseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResponseDataImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResultDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/ResponseDataContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/AgentIterData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/EstimateData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/RequestData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResultData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/models/lib/ResponseData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/EstimateDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/RequestDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResultDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResponseDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/lib/EstimateDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/lib/RequestDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/lib/ResultDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/lib/ResponseDataService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +168,8 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jsprit-test" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../Java/DEV_OCPJP/lab-1" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -148,7 +179,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2413793" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -267,8 +298,8 @@
       <item itemvalue="JUnit.All in twinkle" />
       <item itemvalue="JUnit.NetworkUtilsTest.createNetworkTest" />
       <item itemvalue="JUnit.NetworkUtilsTest.findCrossPointWithPolygonTest" />
-      <item itemvalue="Spring Boot.TwinkleApplication" />
       <item itemvalue="JUnit.PolygonRepositoryImplTest.getIntersectinoPoint" />
+      <item itemvalue="Spring Boot.TwinkleApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -291,6 +322,9 @@
         </serviceView>
       </list>
     </option>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_FIELDS" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -327,7 +361,12 @@
       <workItem from="1575903165807" duration="3773000" />
       <workItem from="1575907061488" duration="945000" />
       <workItem from="1575926897009" duration="2809000" />
-      <workItem from="1575961602126" duration="60882000" />
+      <workItem from="1575961602126" duration="71057000" />
+      <workItem from="1576108789927" duration="30704000" />
+      <workItem from="1576189857825" duration="4420000" />
+      <workItem from="1576222494823" duration="15758000" />
+      <workItem from="1576316437254" duration="15429000" />
+      <workItem from="1576410206076" duration="7316000" />
     </task>
     <task id="LOCAL-00001" summary=" version 0.2">
       <created>1574065636322</created>
@@ -427,7 +466,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576051798781</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary=" version 0.5 10-12-2019&#10; adding AgentMap to ru.nachos.utils package">
+      <created>1576082524873</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1576082524873</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -458,17 +504,18 @@
     <MESSAGE value=" version 0.5 09-12-2019" />
     <MESSAGE value=" version 0.5 10-12-2019&#10; adding geometry change event" />
     <MESSAGE value=" version 0.5 10-12-2019&#10; adding geometry change event. Search crossing point for agents road through the PostGIS st_intersection function" />
-    <option name="LAST_COMMIT_MESSAGE" value=" version 0.5 10-12-2019&#10; adding geometry change event. Search crossing point for agents road through the PostGIS st_intersection function" />
+    <MESSAGE value=" version 0.5 10-12-2019&#10; adding AgentMap to ru.nachos.utils package" />
+    <option name="LAST_COMMIT_MESSAGE" value=" version 0.5 10-12-2019&#10; adding AgentMap to ru.nachos.utils package" />
   </component>
   <component name="WindowStateProjectService">
     <state x="448" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575554977687">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="448" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575554977687" />
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1576081614432">
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1576336291674">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1576081614432" />
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1576336291674" />
     <state x="683" y="294" width="605" height="517" key="#com.intellij.refactoring.memberPullUp.PullUpDialog" timestamp="1575628405041">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -477,22 +524,22 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="731" y="413" width="519" height="290" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/61.27.1859.1053@61.27.1859.1053" timestamp="1575767734624" />
-    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1576081145904">
+    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1576155636170">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576081145904" />
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575879007360">
+    <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576155636170" />
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1576156848903">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575879007360" />
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576156848903" />
     <state x="522" y="382" width="927" height="341" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1575907574839">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="522" y="382" width="927" height="341" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575907574839" />
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1576051798653">
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1576082524578">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1576051798653" />
+    <state x="458" y="44" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1576082524578" />
     <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog" timestamp="1575553338415">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -501,58 +548,78 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="61" y="208" width="1487" height="872" key="DiffContextDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575890321659" />
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576065980273">
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576165443444">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1576065980273" />
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom" timestamp="1576080706438">
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1576165443444" />
+    <state width="1813" height="375" key="GridCell.Tab.0.bottom" timestamp="1576450715746">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1576080706438" />
-    <state width="1813" height="278" key="GridCell.Tab.0.center" timestamp="1576080706438">
+    <state width="1859" height="270" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1576108600999">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1576080706438" />
-    <state width="1813" height="278" key="GridCell.Tab.0.left" timestamp="1576080706438">
+    <state width="1859" height="270" key="GridCell.Tab.0.bottom.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600999" />
+    <state width="1813" height="375" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715746" />
+    <state width="1813" height="375" key="GridCell.Tab.0.center" timestamp="1576450715746">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1576080706438" />
-    <state width="1813" height="278" key="GridCell.Tab.0.right" timestamp="1576080706438">
+    <state width="1859" height="270" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1576108600997">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="278" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1576080706438" />
-    <state width="1813" height="290" key="GridCell.Tab.1.bottom" timestamp="1576080607021">
+    <state width="1859" height="270" key="GridCell.Tab.0.center.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600997" />
+    <state width="1813" height="375" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715746" />
+    <state width="1813" height="375" key="GridCell.Tab.0.left" timestamp="1576450715745">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="290" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1576080607021" />
-    <state width="1813" height="290" key="GridCell.Tab.1.center" timestamp="1576080607020">
+    <state width="1859" height="270" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1576108600996">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="290" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1576080607020" />
-    <state width="1813" height="290" key="GridCell.Tab.1.left" timestamp="1576080607020">
+    <state width="1859" height="270" key="GridCell.Tab.0.left.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600996" />
+    <state width="1813" height="375" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715745" />
+    <state width="1813" height="375" key="GridCell.Tab.0.right" timestamp="1576450715746">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="290" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1576080607020" />
-    <state width="1813" height="290" key="GridCell.Tab.1.right" timestamp="1576080607021">
+    <state width="1859" height="270" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1576108600998">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="290" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1576080607021" />
-    <state x="479" y="186" width="1024" height="845" key="SettingsEditor" timestamp="1575555058595">
+    <state width="1859" height="270" key="GridCell.Tab.0.right.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600998" />
+    <state width="1813" height="375" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715746" />
+    <state width="1813" height="375" key="GridCell.Tab.1.bottom" timestamp="1576450715667">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="479" y="186" width="1024" height="845" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1575555058595" />
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1576051807165">
+    <state width="1813" height="375" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715667" />
+    <state width="1813" height="375" key="GridCell.Tab.1.center" timestamp="1576450715666">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1576051807165" />
-    <state width="929" height="527" key="XDebugger.FullValuePopup" timestamp="1576077383509">
+    <state width="1813" height="375" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715666" />
+    <state width="1813" height="375" key="GridCell.Tab.1.left" timestamp="1576450715666">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="929" height="527" key="XDebugger.FullValuePopup/61.27.1859.1053@61.27.1859.1053" timestamp="1576077383509" />
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1575961602104">
+    <state width="1813" height="375" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715666" />
+    <state width="1813" height="375" key="GridCell.Tab.1.right" timestamp="1576450715667">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575961602104" />
+    <state width="1813" height="375" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1576450715667" />
+    <state x="576" y="172" width="819" height="761" key="NewModule_or_Project.wizard" timestamp="1576165475537">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="576" y="172" width="819" height="761" key="NewModule_or_Project.wizard/61.27.1859.1053@61.27.1859.1053" timestamp="1576165475537" />
+    <state x="479" y="186" width="1024" height="845" key="SettingsEditor" timestamp="1576108744717">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="479" y="186" width="1024" height="845" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1576108744717" />
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1576082532409">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1576082532409" />
+    <state width="929" height="527" key="XDebugger.FullValuePopup" timestamp="1576083726662">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="929" height="527" key="XDebugger.FullValuePopup/61.27.1859.1053@61.27.1859.1053" timestamp="1576083726662" />
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1576410208532">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576410208532" />
     <state x="758" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575890309720">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -561,6 +628,10 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="721" y="273" width="529" height="559" key="com.intellij.testIntegration.createTest.CreateTestDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575454099989" />
+    <state x="523" y="210" width="925" height="684" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1576191148399">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="523" y="210" width="925" height="684" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/61.27.1859.1053@61.27.1859.1053" timestamp="1576191148399" />
     <state x="723" y="332" width="524" height="440" key="extract.method.dialog" timestamp="1575273549872">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -569,14 +640,14 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="638" y="186" width="869" height="894" key="find.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1575907896361" />
-    <state width="435" height="263" key="javadoc.popup.new" timestamp="1576068924401">
+    <state width="435" height="263" key="javadoc.popup.new" timestamp="1576229199747">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="435" height="263" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1576068924401" />
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1575807686008">
+    <state width="435" height="263" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1576229199747" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1576153530166">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575807686008" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576153530166" />
     <state x="654" y="253" key="run.anything.popup" timestamp="1576058849379">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -585,25 +656,25 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="580" y="214" width="800" height="677" key="scopes/61.27.1859.1053@61.27.1859.1053" timestamp="1575541771197" />
-    <state x="653" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1575896272922">
+    <state x="653" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1576321686442">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="653" y="257" width="672" height="678" key="search.everywhere.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1575896272922" />
+    <state x="653" y="257" width="672" height="678" key="search.everywhere.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1576321686442" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>jar:///usr/lib/jvm/java-8-oracle/src.zip!/javax/swing/event/EventListenerList.java</url>
           <line>274</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ru/nachos/core/fire/FireFactoryImplTest.java</url>
           <line>26</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/org/matsim/matsim/0.10.1/matsim-0.10.1-sources.jar!/org/matsim/core/api/experimental/events/EventsManager.java</url>
           <line>29</line>
           <option name="timeStamp" value="79" />
@@ -619,10 +690,8 @@
         <watch expression="geometry.getGeometryType()" language="JAVA" />
       </configuration>
       <configuration name="Application">
-        <watch expression="agent.getCoordinate()" language="JAVA" />
-        <watch expression="crossingPoint" language="JAVA" />
-        <watch expression="agent.getId()" language="JAVA" />
-        <watch expression="controller.getAgentsForIter(event.getIterNum())" language="JAVA" />
+        <watch expression="agents" language="JAVA" />
+        <watch expression="responseService.getResponseDataByIter(3)" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

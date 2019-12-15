@@ -6,9 +6,7 @@ import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import ru.nachos.core.utils.AgentMap;
 
 /**
  * Class describes firefront
@@ -50,7 +48,7 @@ class FireImpl implements Fire {
     /**
      * Agents, which was created along simulation
      */
-    private Map<Id<Agent>, Agent> twinkles = new LinkedHashMap<>();
+    private AgentMap twinkles = new AgentMap();
     private FireFactory factory = new FireFactoryImpl();
     FireImpl(){}
     FireImpl(Config config){
@@ -79,7 +77,7 @@ class FireImpl implements Fire {
     @Override
     public double getFireSpeed() { return fireSpeed; }
     @Override
-    public Map<Id<Agent>, Agent> getTwinkles() { return twinkles; }
+    public AgentMap getTwinkles() { return twinkles; }
     @Override
     public Agent addAgent(Agent agent){
         if (twinkles.containsKey(agent.getId())){
@@ -92,7 +90,7 @@ class FireImpl implements Fire {
         }
     }
     @Override
-    public boolean removeAgent(Agent agent){ return twinkles.remove(agent.getId(), agent); }
+    public Agent removeAgent(Agent agent){ return twinkles.remove(agent.getId()); }
     @Override
     public Agent removeAgent(Id<Agent> id){ return twinkles.remove(id); }
     void setName(String name){ this.name = name; }

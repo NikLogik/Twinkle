@@ -1,9 +1,8 @@
 package ru.nachos.core;
 
-import ru.nachos.web.models.lib.EstimateData;
-import ru.nachos.web.models.lib.ResultData;
+import ru.nachos.web.models.lib.RequestData;
+import ru.nachos.web.models.lib.ResponseData;
 
 public interface FireModelRunner {
-    void run(EstimateData estimateData);
-    ResultData getResultData();
+    void run(RequestData requestData);
 }

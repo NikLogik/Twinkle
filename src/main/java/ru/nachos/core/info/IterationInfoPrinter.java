@@ -1,21 +1,22 @@
 package ru.nachos.core.info;
 
 import com.opencsv.CSVWriter;
-import org.apache.log4j.Logger;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.web.models.lib.AgentIterData;
-import ru.nachos.web.models.lib.ResultData;
+import ru.nachos.web.models.ResponseDataContainer;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class IterationInfoPrinter implements IterationInfo {
+public class IterationInfoPrinter implements IterationPrinter {
 
-    static Logger logger = Logger.getLogger(IterationInfoPrinter.class);
+//    static Logger logger = Logger.getLogger(IterationInfoPrinter.class);
 
 
     @Override
@@ -26,17 +27,17 @@ public class IterationInfoPrinter implements IterationInfo {
                 "InitialData: " + data.hashCode());
     }
 
-    public static void printResultData(ResultData resultData){
+    public static void printResultData(ResponseDataContainer container){
         AtomicInteger count = new AtomicInteger(2);
-        logger.info("<======================== Print result data ===========================>");
+//        logger.info("<======================== Print result data ===========================>");
         try {
-            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_295_with_poly.txt")));
-            String[] header = new String[]{"iter","id_agent","lon","lat"};
+            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_295_with_close_event.txt")));
+            String[] header = new String[]{"iter","lon","lat"};
             writer.writeNext(header, false);
-            for (Map.Entry<Integer, List<AgentIterData>> entry : resultData.getAgents().entrySet()){
-                entry.getValue().forEach(data-> writer.writeNext(new String[]{String.valueOf(entry.getKey()), data.getAgentId(),
-                        String.valueOf(data.getCordinates().x), String.valueOf(data.getCordinates().y)},false));
-            }
+//            for (Map.Entry<Integer, ResponseData> entry : container.getAgents().entrySet()){
+//                entry.getValue().getData().forEach(data-> writer.writeNext(new String[]{String.valueOf(entry.getKey()),
+//                        String.valueOf(data.getX()), String.valueOf(data.getY())},false));
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,13 +1,17 @@
 package ru.nachos.web.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Coordinate;
-import ru.nachos.web.models.lib.EstimateData;
+import ru.nachos.web.models.lib.RequestData;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class EstimateDataImpl implements EstimateData, Serializable {
+@JsonDeserialize
+@JsonSerialize
+public class RequestDataImpl implements RequestData, Serializable {
 
     private double windSpeed;
     private double windDirection;

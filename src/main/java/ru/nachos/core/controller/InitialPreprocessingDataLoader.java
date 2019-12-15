@@ -37,8 +37,7 @@ class InitialPreprocessingDataLoader {
     }
 
     private void loadNetwork() {
-        double simTime = config.getEndTime() - config.getStartTime();
-        double maxDistance = preprocessingData.getFire().getFireSpeed() * simTime;
+        double maxDistance = preprocessingData.getFire().getFireSpeed() * config.getEndTime();
         Coordinate[] boundaryBox = NetworkUtils.calculateBoundaryBox(preprocessingData.getFire().getCenterPoint(), maxDistance);
         NetworkUtils.createNetwork(preprocessingData.getNetwork(), boundaryBox);
     }
@@ -69,5 +68,6 @@ class InitialPreprocessingDataLoader {
         for (Agent agent : fire.getTwinkles().values()){
             calculator.calculateSpeedOfSpreadWithArbitraryDirection(speed, agent, headFireDirection);
         }
+        fire.getTwinkles().checkSequence();
     }
 }

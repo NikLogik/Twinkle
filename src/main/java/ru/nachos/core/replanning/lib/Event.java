@@ -1,4 +1,4 @@
-package ru.nachos.core.replanning;
+package ru.nachos.core.replanning.lib;
 
 import java.util.concurrent.atomic.AtomicLong;
 

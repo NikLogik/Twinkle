@@ -12,6 +12,7 @@ import ru.nachos.core.replanning.handlers.lib.AgentChangePolygonHandler;
 import ru.nachos.core.replanning.handlers.lib.AgentInsideFirefrontHandler;
 import ru.nachos.core.replanning.handlers.lib.AgentTooCloseMovedHandler;
 import ru.nachos.core.replanning.handlers.lib.AgentTooFarMovedHandler;
+import ru.nachos.core.replanning.lib.Event;
 import ru.nachos.core.replanning.lib.EventHandler;
 import ru.nachos.core.replanning.lib.EventManager;
 

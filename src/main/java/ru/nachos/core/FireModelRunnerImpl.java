@@ -10,46 +10,39 @@ import ru.nachos.core.controller.InitialPreprocessingDataImpl;
 import ru.nachos.core.controller.InitialPreprocessingDataUtils;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.info.IterationInfoPrinter;
 import ru.nachos.core.network.NetworkUtils;
-import ru.nachos.web.models.lib.EstimateData;
-import ru.nachos.web.models.lib.ResultData;
-import ru.nachos.web.services.ResultDataServiceImpl;
+import ru.nachos.core.utils.AgentMap;
+import ru.nachos.web.models.lib.RequestData;
+import ru.nachos.web.services.lib.ResponseDataService;
 
-import java.util.Calendar;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class FireModelRunnerImpl implements FireModelRunner{
 
-    private ResultDataServiceImpl resultService;
-    private ResultData resultData;
-    private Map<Id<Agent>, Agent> agents = new LinkedHashMap<>();
+//    Logger logger = Logger.getLogger(FireModelRunnerImpl.class);
 
-    public FireModelRunnerImpl() {
-        this.resultService = new ResultDataServiceImpl();
+    private ResponseDataService responseService;
+    private Map<Integer, AgentMap> agents = new TreeMap<>();
+
+    public FireModelRunnerImpl(ResponseDataService responseService) {
+        this.responseService = responseService;
     }
 
-    public void run(EstimateData estimateData) {
-        resultData = null;
-        Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(estimateData.getFireCenter()));
-        Calendar calendar = Calendar.getInstance();
-        int second = calendar.get(Calendar.SECOND);
-        int minute = calendar.get(Calendar.MINUTE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int startTime = second + (minute * 60) + (hour * 3600);
-        int lastIteration = (estimateData.getLastIterationTime() - startTime) / estimateData.getIterationStepTime();
+    public void run(RequestData requestData) {
+        Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.getFireCenter()));
+        int startTime = 0;
+        int lastIteration = requestData.getLastIterationTime() / requestData.getIterationStepTime();
         Config config = new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
                 .setStartTime(startTime)
-                .setEndTime(estimateData.getLastIterationTime())
-                .setIterationStepTime(estimateData.getIterationStepTime())
-                .setFireAgentDIstance(estimateData.getFireAgentDistance())
-                .setFuelType(estimateData.getFuelTypeCode())
-                .setFireClass(estimateData.getFireClass())
-                .setWindDirection(estimateData.getWindDirection())
-                .setWindSpeed(estimateData.getWindSpeed())
+                .setEndTime(requestData.getLastIterationTime())
+                .setIterationStepTime(requestData.getIterationStepTime())
+                .setFireAgentDIstance(requestData.getFireAgentDistance())
+                .setFuelType(requestData.getFuelTypeCode())
+                .setFireClass(requestData.getFireClass())
+                .setWindDirection(requestData.getWindDirection())
+                .setWindSpeed(requestData.getWindSpeed())
                 .setFireCenterCoordinate(fireCenterCoordinate)
                 .setLastIteration(lastIteration)
                 .build();
@@ -57,16 +50,11 @@ public class FireModelRunnerImpl implements FireModelRunner{
         InitialPreprocessingDataUtils.loadInitialData(initialData);
         Controller controller = ControllerUtils.createController(initialData);
         controller.run();
-        this.agents.putAll(controller.getFire().getTwinkles());
-        resultData = resultService.prepareResult(agents, initialData);
-        IterationInfoPrinter.printResultData(resultData);
+        this.agents.putAll(controller.getIterationMap());
+        responseService.prepareResult(this.agents, initialData.getReTransformation());
+//        logger.warn("Delete IterationInfoPrinter before deploy to server");
         ConfigUtils.resetToNull(config);
         InitialPreprocessingDataUtils.resetToNull((InitialPreprocessingDataImpl) initialData);
-    }
-
-    @Override
-    public ResultData getResultData() {
-        return this.resultData;
     }
 
     private Coordinate calculateFireCenter(List<Coordinate> coordinateList){

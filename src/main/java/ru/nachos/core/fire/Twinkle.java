@@ -30,6 +30,9 @@ class Twinkle implements Agent {
 
     @Override
     public Id<Agent> getId() { return this.id; }
+    void setId(Id<Agent> id){
+        this.id = id;
+    }
 
     @Override
     public AgentState saveState(int iterNum){

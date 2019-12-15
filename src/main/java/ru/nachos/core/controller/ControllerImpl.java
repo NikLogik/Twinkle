@@ -1,36 +1,38 @@
 package ru.nachos.core.controller;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import org.apache.log4j.Logger;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
+import ru.nachos.core.controller.lib.IterationInfo;
+import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
+import ru.nachos.core.fire.lib.FireFactory;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.replanning.EventManagerImpl;
 import ru.nachos.core.replanning.EventsHandling;
 import ru.nachos.core.replanning.events.AfterIterationEvent;
-import ru.nachos.core.replanning.events.BeforeIterationEvent;
 import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
+import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.PolygonRepositoryImpl;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 @Component
 class ControllerImpl implements Controller {
 
-    private static Logger logger = Logger.getLogger(ControllerImpl.class);
+//    private static Logger logger = Logger.getLogger(ControllerImpl.class);
 
     @Autowired
     private PolygonRepositoryImpl polygonRepository;
@@ -41,7 +43,7 @@ class ControllerImpl implements Controller {
     private InitialPreprocessingData preprocessingData;
     private Fire fire;
     private EventsHandling eventsHandler;
-    private Map<Integer, Set<Id<Agent>>> iterationMap = new TreeMap<>();
+    private Map<Integer, AgentMap> iterationMap = new TreeMap<>();
     public static final String DIVIDER = "###################################################";
     final String MARKER = "#####";
     private int currentIteration;
@@ -56,14 +58,8 @@ class ControllerImpl implements Controller {
         this.currentTime = config.getStartTime();
         this.stepAmount = config.getStepTimeAmount();
         this.fire = preprocessing.getFire();
-        this.eventsHandler = new EventsHandling(new EventManagerImpl(), preprocessing.getConfig());
+        this.eventsHandler = new EventsHandling(new EventManagerImpl());
     }
-
-    @Override
-    public InitialPreprocessingData getPreprocessingData() { return this.preprocessingData; }
-
-    @Override
-    public Config getConfig() { return this.config; }
 
     @Override
     public void run(){
@@ -72,18 +68,18 @@ class ControllerImpl implements Controller {
     }
 
     private void prepareAgentsToStart() {
-        logger.info(MARKER + "Preparing agents for start FIRE!!!");
+//        logger.info(MARKER + "Preparing agents for start FIRE!!!");
         this.currentIteration = 0;
         for(Agent agent : this.fire.getTwinkles().values()){
             Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
             agent.setPolygonId(polygonId);
             agent.saveState(currentIteration);
         }
-        iterationMap.put(currentIteration, fire.getTwinkles().keySet());
+        iterationMap.put(currentIteration, this.fire.getTwinkles());
     }
 
     private void doIteration(){
-        logger.info(MARKER + "Start iterate");
+//        logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
         }
@@ -91,29 +87,26 @@ class ControllerImpl implements Controller {
 
     private void iteration(int iteration) {
         this.currentIteration = iteration;
-        eventsHandler.handleBeforeIterationStart(new BeforeIterationEvent(this, currentIteration));
-        logger.info(DIVIDER + "Iteration #" + currentIteration + " begin");
-
-        currentTime += stepAmount;
-        long timeStart = System.currentTimeMillis();
+//        logger.info(DIVIDER + "Iteration #" + currentIteration + " begin");
+        this.currentTime += stepAmount;
+        iterationMap.put(currentIteration, new AgentMap(iterationMap.get(currentIteration-1)));
         iterationStep(getAgentsForIter(currentIteration));
-        eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(this, currentIteration));
-
-        long timePerIteration = System.currentTimeMillis() - timeStart;
-        logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
+        IterationInfo info = new IterationInfoImpl(currentIteration);
+        eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(currentIteration, info));
+        eventsHandler.persistAndReset(iterationMap.get(currentIteration));
+//        logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
     }
 
-    private void iterationStep(Map<Id<Agent>, Agent> agents){
-        logger.info("Move agents to new locations");
-        AgentMap list = new AgentMap(agents);
-        Iterator<Agent> iterator = list.iterator();
+    private void iterationStep(AgentMap agents){
+//        logger.info("Move agents to new locations");
+        Iterator<Agent> iterator = agents.iterator();
         while (iterator.hasNext()){
             Agent agent = iterator.next();
             if (agent.getSpeed() == 0.0){
                 continue;
             }
-            double incDistance = 0.0;
-            Coordinate newCoordinate = null;
+            double incDistance;
+            Coordinate newCoordinate;
             AgentState lastState;
             lastState = agent.getLastState();
             incDistance = agent.getSpeed() * (stepAmount/60);
@@ -126,14 +119,10 @@ class ControllerImpl implements Controller {
     }
 
     @Override
-    public Map<Id<Agent>, Agent> getAgentsForIter(int iterNum){
-        Map<Id<Agent>, Agent> twinkles = new TreeMap<>();
-        for (Map.Entry<Id<Agent>, Agent> entry : fire.getTwinkles().entrySet()){
-            if (iterationMap.get(iterNum).contains(entry.getKey())){
-                twinkles.put(entry.getKey(), entry.getValue());
-            }
-        }
-        return twinkles;
+    public AgentMap getAgentsForIter(int iterNum){
+        AgentMap agents = iterationMap.get(iterNum);
+        agents.checkSequence();
+        return agents;
     }
 
     @Override
@@ -143,5 +132,76 @@ class ControllerImpl implements Controller {
     public Network getNetwork() { return network; }
 
     @Override
-    public Map<Integer, Set<Id<Agent>>> getIterationMap() { return iterationMap; }
+    public InitialPreprocessingData getPreprocessingData() { return this.preprocessingData; }
+
+    @Override
+    public Config getConfig() { return this.config; }
+
+    @Override
+    public Map<Integer, AgentMap> getIterationMap() {
+        return iterationMap;
+    }
+
+    public class IterationInfoImpl implements IterationInfo {
+
+        private int iterNum;
+        private int iterStepTime;
+        private AgentMap agents;
+        private int agentDistance;
+        private FireSpreadCalculator calculator;
+        private FireFactory fireFactory;
+        private double fireSpeed;
+        private GeometryFactory geomFactory;
+        private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons;
+        private double headDirection;
+
+        public IterationInfoImpl(int iterNum){
+            this.iterNum = iterNum;
+            //полуачем агентов, которые не умерли в конце предыдущей итерации для начала текущей
+            this.agents = new AgentMap(getAgentsForIter(iterNum));
+            this.agentDistance = config.getFireAgentsDistance();
+            this.calculator = preprocessingData.getCalculator();
+            this.fireFactory = fire.getFactory();
+            this.geomFactory = network.getFactory().getGeomFactory();
+            this.polygons = network.getPolygones();
+            this.fireSpeed = fire.getFireSpeed();
+            this.iterStepTime = config.getStepTimeAmount();
+            this.headDirection = fire.getHeadDirection();
+        }
+
+        @Override
+        public AgentMap getAgents() {
+            return agents;
+        }
+        @Override
+        public double getFireSpeed() { return fireSpeed; }
+        @Override
+        public int getIterNum() {
+            return iterNum;
+        }
+        @Override
+        public int getAgentDistance() {
+            return agentDistance;
+        }
+        @Override
+        public FireSpreadCalculator getCalculator() {
+            return calculator;
+        }
+        @Override
+        public FireFactory getFireFactory() {
+            return fireFactory;
+        }
+        @Override
+        public GeometryFactory getGeomFactory() {
+            return geomFactory;
+        }
+        @Override
+        public Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> getPolygons() {
+            return polygons;
+        }
+        @Override
+        public int getIterStepTime() { return iterStepTime; }
+        @Override
+        public double getHeadDirection() { return headDirection; }
+    }
 }

@@ -16,6 +16,10 @@ public class CoordinateJson extends Coordinate {
         super(x, y);
     }
 
+    public CoordinateJson(Coordinate coordinate){
+        this(coordinate.x, coordinate.y);
+    }
+
     public double getX() {
         return super.x;
     }

@@ -1,6 +1,7 @@
 package ru.nachos.core.fire;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.utils.GeodeticCalculator;
@@ -22,6 +23,10 @@ public final class TwinkleUtils {
                 plan = plan1;
         }
         return plan;
+    }
+
+    public static void changeId(Agent twinkle, Id<Agent> newId){
+        ((Twinkle) twinkle).setId(newId);
     }
 
     public static void changeSpeed(Agent agent, double speed){
