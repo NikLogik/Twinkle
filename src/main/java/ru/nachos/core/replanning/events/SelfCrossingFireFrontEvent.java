@@ -3,19 +3,19 @@ package ru.nachos.core.replanning.events;
 import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.replanning.lib.Event;
 
-public class AgentsTooFarMovedEvent extends Event {
+public class SelfCrossingFireFrontEvent extends Event {
 
     private IterationInfo info;
 
-    public AgentsTooFarMovedEvent(int iterNum, IterationInfo info) {
+    public SelfCrossingFireFrontEvent(int iterNum, IterationInfo info) {
         super(iterNum);
         this.info = info;
     }
 
-    public IterationInfo getInfo() { return info; }
+    public IterationInfo getInfo() { return this.info; }
 
     @Override
     public String getEventType() {
-        return "moved_away";
+        return "self_crossing_event";
     }
 }

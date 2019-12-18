@@ -57,4 +57,9 @@ public interface Agent extends HasID {
     boolean isStopped();
 
     void setStopped(boolean stopped);
+
+    AgentStatus getStatus();
+
+    void setStatus(AgentStatus status);
+
 }

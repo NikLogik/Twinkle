@@ -125,7 +125,7 @@ public class Rotermel implements FireSpreadCalculator {
         int height2 = 0;
         int deltaHeight = height2 - height1;
 
-        double[] p1 = new double[]{lastState.getCoord().x, lastState.getCoord().y};
+        double[] p1 = new double[]{lastState.getCoordinate().x, lastState.getCoordinate().y};
         double[] p2 = new double[]{coord.x, coord.y};
         int distance = (int) MathUtils.distance1(p1, p2);
 

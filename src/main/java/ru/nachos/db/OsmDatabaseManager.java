@@ -35,7 +35,7 @@ public class OsmDatabaseManager {
         this.dataSource = dataSource;
     }
 
-    static class Definitions{
+    public static class Definitions{
         //types
         public static final String POLYGON = "Polygon";
         public static final String LINE_STRING = "LineString";

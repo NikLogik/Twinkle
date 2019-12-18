@@ -12,7 +12,7 @@ public interface AgentState {
 
     double getDistanceFromStart();
 
-    Coordinate getCoord();
+    Coordinate getCoordinate();
 
     double getSpeed();
 
@@ -21,6 +21,8 @@ public interface AgentState {
     Agent getRightNeighbour();
 
     boolean isHead();
+
+    AgentStatus getStatus();
 
     int getIterNum();
 }

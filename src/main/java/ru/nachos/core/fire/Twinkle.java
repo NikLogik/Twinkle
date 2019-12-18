@@ -4,6 +4,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.fire.lib.AgentStatus;
 import ru.nachos.core.network.lib.PolygonV2;
 
 import java.util.Map;
@@ -19,6 +20,7 @@ class Twinkle implements Agent {
     private Agent rightNeighbour;
     private double distanceFromStart;
     private Id<PolygonV2> polygonId;
+    private AgentStatus status;
 
     private boolean isStopped = false;
 
@@ -110,6 +112,15 @@ class Twinkle implements Agent {
     @Override
     public void setStopped(boolean stopped) { isStopped = stopped; }
 
+    @Override
+    public AgentStatus getStatus() {
+        return status;
+    }
+    @Override
+    public void setStatus(AgentStatus status) {
+        this.status = status;
+    }
+
     public class TwinkleStateV2 implements AgentState {
 
         private Id<Agent> agent;
@@ -120,6 +131,7 @@ class Twinkle implements Agent {
         private Agent rightNeighbour;
         private boolean head;
         private int iterNum;
+        private AgentStatus status;
 
         private Id<PolygonV2> polygonId;
 
@@ -133,6 +145,7 @@ class Twinkle implements Agent {
             this.rightNeighbour = agent.getRightNeighbour();
             this.head = agent.isHead();
             this.polygonId = agent.getPolygonId();
+            this.status = agent.getStatus();
         }
 
         @Override
@@ -144,7 +157,7 @@ class Twinkle implements Agent {
         @Override
         public double getDistanceFromStart() { return this.distanceFromStart; }
         @Override
-        public Coordinate getCoord() {
+        public Coordinate getCoordinate() {
             return this.coord;
         }
         @Override
@@ -167,5 +180,7 @@ class Twinkle implements Agent {
         public int getIterNum() {
             return this.iterNum;
         }
+        @Override
+        public AgentStatus getStatus() { return this.status; }
     }
 }

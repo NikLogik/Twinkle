@@ -1,22 +1,22 @@
 package ru.nachos.core.info;
 
-import com.opencsv.CSVWriter;
+import org.apache.log4j.Logger;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
+import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.web.models.CoordinateJson;
 import ru.nachos.web.models.ResponseDataContainer;
+import ru.nachos.web.models.lib.ResponseData;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 
 public class IterationInfoPrinter implements IterationPrinter {
 
-//    static Logger logger = Logger.getLogger(IterationInfoPrinter.class);
+    static Logger logger = Logger.getLogger(IterationInfoPrinter.class);
 
 
     @Override
@@ -28,23 +28,44 @@ public class IterationInfoPrinter implements IterationPrinter {
     }
 
     public static void printResultData(ResponseDataContainer container){
-        AtomicInteger count = new AtomicInteger(2);
-//        logger.info("<======================== Print result data ===========================>");
-        try {
-            CSVWriter writer = new CSVWriter(new FileWriter(new File("result_info_295_with_close_event.txt")));
-            String[] header = new String[]{"iter","lon","lat"};
-            writer.writeNext(header, false);
-//            for (Map.Entry<Integer, ResponseData> entry : container.getAgents().entrySet()){
-//                entry.getValue().getData().forEach(data-> writer.writeNext(new String[]{String.valueOf(entry.getKey()),
-//                        String.valueOf(data.getX()), String.valueOf(data.getY())},false));
-//            }
-        } catch (IOException e) {
+        logger.warn("Delete this method from FireModelRunner before deploy to server");
+        for (Map.Entry<Integer, ResponseData> entry : container.getAgents().entrySet()){
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("result_info_295_"+entry.getKey()+".txt")))) {
+                message(entry.getKey());
+                String header = "osm_id,lon,lat";
+                writer.write(header);
+                CoordinateJson[] data1 = entry.getValue().getData();
+                for (int i=0; i<data1.length; i++){
+                    writer.newLine();
+                    writer.write(entry.getKey() + "," + data1[i].getX() + "," + data1[i].getY());
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void printResultData(int iterNum, LinkedList<AgentState> iterationList){
+        logger.warn("Delete this method from ControllerImpl before deploy to server");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("iteration_info_"+iterNum+".txt")))){
+            message(iterNum);
+            String header = "osm_id,lon,lat";
+            writer.write(header);
+            for (AgentState state : iterationList){
+                writer.newLine();
+                writer.write(state.getAgent().toString() + "," + state.getCoordinate().x + "," + state.getCoordinate().y);
+            }
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
+    private static void message(int iterNum){
+        logger.info("<======================== Print result data for iteration #"+iterNum+"===========================>");
+    }
+
     @Override
-    public void printGeometryTipes(List<String> polygons){
+    public void printGeometryTypes(List<String> polygons){
         System.out.println("<=============== Print natural types ====================>");
         Set<String> collect = new HashSet<>(polygons);
         String[] strings = collect.toArray(new String[0]);

@@ -1,10 +1,11 @@
 package ru.nachos.core.replanning.handlers;
 
+import org.apache.log4j.Logger;
 import ru.nachos.core.Id;
+import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.replanning.events.AgentsTooCloseMovedEvent;
 import ru.nachos.core.replanning.handlers.lib.AgentTooCloseMovedHandler;
-import ru.nachos.core.utils.AgentMap;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,33 +13,35 @@ import java.util.List;
 
 public class AgentTooCloseMovedHandlerImpl implements AgentTooCloseMovedHandler {
 
-//    Logger logger = Logger.getLogger(AgentTooCloseMovedHandler.class);
+    Logger logger = Logger.getLogger(AgentTooCloseMovedHandler.class);
 
-    List<Id<Agent>> removeCandidates;
+    private List<Id<Agent>> removeCandidates = new LinkedList<>();
+    private IterationInfo info;
 
     @Override
     public void handleEvent(AgentsTooCloseMovedEvent event) {
-        removeCandidates = new LinkedList<>();
-        AgentMap map = event.getAgents();
-        Iterator<Agent> iterator = map.iterator();
+        this.info = event.getInfo();
+        Iterator<Agent> iterator = info.getAgents().iterator();
         Agent source;
         Agent neighbour;
         while (iterator.hasNext()){
             source = iterator.next();
             neighbour = source.getRightNeighbour();
-            if (source.getCoordinate().distance(neighbour.getCoordinate()) < event.getMinDistance()){
+            if (source.getCoordinate().distance(neighbour.getCoordinate()) < info.getAgentDistance()/3){
                 removeCandidates.add(source.getId());
             }
         }
         if (!removeCandidates.isEmpty()){
-            Id<Agent> agentId = removeCandidates.get(0);
-            map.remove(agentId);
+            removeCandidates.forEach(info.getAgents()::setToDisable);
         }
-//        logger.info("Removed " + removeCandidates.size() + " agents");
+        logger.info("Removed " + removeCandidates.size() + " agents");
     }
 
     @Override
-    public void resetHandler() { removeCandidates.clear(); }
+    public void resetHandler() {
+        this.info = null;
+        removeCandidates.clear();
+    }
 
     @Override
     public void persistEvents() {

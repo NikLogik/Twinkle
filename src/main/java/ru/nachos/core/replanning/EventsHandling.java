@@ -1,13 +1,15 @@
 package ru.nachos.core.replanning;
 
 
+import org.apache.log4j.Logger;
 import ru.nachos.core.controller.lib.IterationInfo;
-import ru.nachos.core.replanning.events.AfterIterationEvent;
-import ru.nachos.core.replanning.events.AgentsChangePolygonEvent;
-import ru.nachos.core.replanning.events.AgentsTooCloseMovedEvent;
-import ru.nachos.core.replanning.events.BeforeIterationEvent;
+import ru.nachos.core.fire.FireUtils;
+import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.replanning.events.*;
 import ru.nachos.core.replanning.lib.EventManager;
-import ru.nachos.core.utils.AgentMap;
+
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Принимает в конструктор EventManager, конфиг. Потом через методы handleWhenIterationEnd() получает состояние контроллера.
@@ -16,7 +18,7 @@ import ru.nachos.core.utils.AgentMap;
  */
 public final class EventsHandling {
 
-//    Logger logger = Logger.getLogger(EventsHandling.class);
+    Logger logger = Logger.getLogger(EventsHandling.class);
 
     private IterationInfo info;
     private EventManager eventManager;
@@ -31,20 +33,20 @@ public final class EventsHandling {
     }
 
     public void handleAfterIterationEnd(AfterIterationEvent event){
-//        logger.info("Start manage events after iteration #" + event.getIterNum() + " with " + event.getInfo().getAgents().size() + " agents.");
+        logger.info("Start manage events after iteration #" + event.getIterNum() + " with " + event.getInfo().getAgents().size() + " agents.");
         this.info = event.getInfo();
         this.iterNum = event.getIterNum();
-        //        eventManager.computeEvent(new AgentsTooFarMovedEvent(event.getIterNum(), config.getFireAgentsDistance(), controller.getFire(), controller.getNetwork()));
         eventManager.computeEvent(new AgentsChangePolygonEvent(iterNum, info));
-        eventManager.computeEvent(new AgentsTooCloseMovedEvent(event.getIterNum(), info.getAgentDistance() / 2, info.getAgents()));
-//        eventManager.computeEvent(new AgentInsideFirefrontEvent(event.getIterNum(), info.getGeomFactory(), info.getAgents(), info.getPolygons()));
+        eventManager.computeEvent(new AgentsTooFarMovedEvent(iterNum, info));
+        eventManager.computeEvent(new SelfCrossingFireFrontEvent(iterNum, info));
+        eventManager.computeEvent(new AgentsTooCloseMovedEvent(iterNum, info));
         info.getAgents().forEach(agent -> agent.saveState(iterNum));
-//        logger.info("Finished manage events with " + event.getInfo().getAgents().size() + " agents.");
+        logger.info("Finished manage events with " + event.getInfo().getAgents().size() + " agents.");
     }
 
-    public void persistAndReset(AgentMap twinkles){
-        twinkles.merge(info.getAgents());
-        twinkles.checkSequence();
+    public void persistAndReset(Map<Integer, LinkedList<AgentState>> twinkles){
+        LinkedList<AgentState> listOfStates = FireUtils.getListOfStates(info.getAgents(), iterNum);
+        twinkles.put(iterNum, listOfStates);
         eventManager.resetHandlers();
     }
 }

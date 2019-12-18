@@ -1,5 +1,6 @@
 package ru.nachos.core.controller.lib;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
@@ -30,4 +31,6 @@ public interface IterationInfo {
     int getIterStepTime();
 
     double getHeadDirection();
+
+    Coordinate getFireCenter();
 }

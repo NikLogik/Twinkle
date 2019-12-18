@@ -3,6 +3,7 @@ package ru.nachos.core;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPoint;
+import org.apache.log4j.Logger;
 import ru.nachos.core.config.ConfigUtils;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.ControllerUtils;
@@ -11,20 +12,16 @@ import ru.nachos.core.controller.InitialPreprocessingDataUtils;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.network.NetworkUtils;
-import ru.nachos.core.utils.AgentMap;
 import ru.nachos.web.models.lib.RequestData;
 import ru.nachos.web.services.lib.ResponseDataService;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class FireModelRunnerImpl implements FireModelRunner{
 
-//    Logger logger = Logger.getLogger(FireModelRunnerImpl.class);
+    Logger logger = Logger.getLogger(FireModelRunnerImpl.class);
 
     private ResponseDataService responseService;
-    private Map<Integer, AgentMap> agents = new TreeMap<>();
 
     public FireModelRunnerImpl(ResponseDataService responseService) {
         this.responseService = responseService;
@@ -50,9 +47,7 @@ public class FireModelRunnerImpl implements FireModelRunner{
         InitialPreprocessingDataUtils.loadInitialData(initialData);
         Controller controller = ControllerUtils.createController(initialData);
         controller.run();
-        this.agents.putAll(controller.getIterationMap());
-        responseService.prepareResult(this.agents, initialData.getReTransformation());
-//        logger.warn("Delete IterationInfoPrinter before deploy to server");
+        responseService.prepareResult(controller.getIterationMap(), initialData.getReTransformation());
         ConfigUtils.resetToNull(config);
         InitialPreprocessingDataUtils.resetToNull((InitialPreprocessingDataImpl) initialData);
     }

@@ -5,6 +5,7 @@ import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKBReader;
 import com.vividsolutions.jts.io.WKTWriter;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
@@ -26,16 +27,20 @@ import java.util.List;
 @Component
 public class PolygonRepositoryImpl implements PolygonRepository {
 
-//    private static Logger logger = Logger.getLogger(PolygonRepositoryImpl.class);
+    private static Logger logger = Logger.getLogger(PolygonRepositoryImpl.class);
 
-    @Autowired
-    OsmDatabaseManager manager;
+    private OsmDatabaseManager manager;
     private GeometryFactory geoFactory = new GeometryFactory();
     private static WKBReader reader = new WKBReader();
     private static  WKTWriter writer = new WKTWriter(2);
     private static int SRID;
 
     private static final String GET_SRID = "select Find_SRID('public', 'planet_osm_polygon', 'way') as srid";
+
+    @Autowired
+    public PolygonRepositoryImpl(OsmDatabaseManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public int getSRID() {
@@ -78,7 +83,8 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         return polygon;
     }
 
-    public Coordinate getIntersectionPoint(Coordinate[] coordinate, PolygonV2 polygonV2){
+    public Coordinate getIntersectionPointWithPolygon(Coordinate[] coordinate, PolygonV2 polygonV2){
+        logger.info("Try to find intersection point for line with coordinates:{"+coordinate[0] + "," + coordinate[1] + "}.");
         LineString lineString = geoFactory.createLineString(coordinate);
         String wLine = writer.write(lineString);
         String wPolygon = writer.write(polygonV2);
@@ -101,6 +107,15 @@ public class PolygonRepositoryImpl implements PolygonRepository {
         }
         assert geometry != null;
         return geometry.getCoordinate();
+    }
+
+    @Deprecated
+    public Coordinate getIntersectionPointForLines(Coordinate p1, Coordinate p2, Coordinate p3, Coordinate p4){
+        LineString line_1 = geoFactory.createLineString(new Coordinate[]{p1, p2});
+        LineString line_2 = geoFactory.createLineString(new Coordinate[]{p3, p4});
+        String wLine_1 = writer.write(line_1);
+        String wLine_2 = writer.write(line_2);
+        return new Coordinate();
     }
 
     public void getAllPolygons(){
@@ -127,7 +142,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
     public PolygonV2 getPolygonByCoordinate(NetworkFactory netFactory, Coordinate coordinate) {
         Point point = this.geoFactory.createPoint(coordinate);
         String pointS = writer.write(point);
-//        logger.info("Get geometry by coordinate "+pointS);
+        logger.info("Get geometry by coordinate "+pointS);
         String POLYGON_WHERE_POINT = "select planet_osm_polygon.osm_id as osm_id, ST_AsEWKB(way) as way, planet_osm_polygon.landuse as landuse, planet_osm_polygon.natural as natural, planet_osm_polygon.water as water, planet_osm_polygon,waterway as waterway from planet_osm_polygon where ST_Contains(ST_GeometryFromText('" +
                 pointS + "'," + SRID + "), way)";
         PolygonV2 polygon = null;
@@ -181,7 +196,7 @@ public class PolygonRepositoryImpl implements PolygonRepository {
     @Override
     public List<PolygonV2> getPolygonsFromBoundaryBox(NetworkFactory factory, Geometry geometry) {
 
-//        logger.info("Start loading geometries from Database");
+        logger.info("Start loading geometries from Database");
 
         List<PolygonV2> result = new ArrayList<>();
         getSRID();
@@ -231,12 +246,33 @@ public class PolygonRepositoryImpl implements PolygonRepository {
                     result.add(polygonV2);
                 }
             }
-//            logger.info("Finished loading geometries from Database: " + result.size());
+            logger.info("Finished loading geometries from Database: " + result.size());
             statement.close();
             connection.close();
         } catch (SQLException | ParseException e){
             e.printStackTrace();
         }
+        return result;
+    }
+
+    public Polygon splitPolygonByLine(Coordinate p1, Coordinate p2, Polygon polygon){
+        LineString line = geoFactory.createLineString(new Coordinate[]{p1, p2});
+        String wLine = writer.write(line);
+        String wPolygon = writer.write(polygon);
+        String SPLIT_POLYGON = "select st_astext(st_split(poly, line)) from (select st_geomfromtext('"+ wPolygon +"') as poly, st_geomfromtext('"+ wLine +"') as line) as result";
+        Polygon result = null;
+        try{
+            Connection connection = manager.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SPLIT_POLYGON);
+            String result1 = resultSet.getString("result");
+
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 

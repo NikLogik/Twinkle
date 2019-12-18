@@ -104,7 +104,7 @@ public final class NetworkUtils {
     }
 
     public static Coordinate findIntersectionPoint(Coordinate start, Coordinate end, PolygonV2 polygonV2){
-        Coordinate intersectionPoint = repository.getIntersectionPoint(new Coordinate[]{start, end}, polygonV2);
+        Coordinate intersectionPoint = repository.getIntersectionPointWithPolygon(new Coordinate[]{start, end}, polygonV2);
         if (intersectionPoint == null){
             return end;
         } else {
@@ -121,26 +121,6 @@ public final class NetworkUtils {
         return network;
     }
 
-    public static Coordinate[] findNearestLine(Coordinate coordinate, PolygonV2 polygonV2){
-        Coordinate c1 = null;
-        Coordinate c2 = null;
-        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
-        double tempHeight = Double.MAX_VALUE;
-        for (int i=0; i < exteriorRing.length-1; i++){
-            double s1 = exteriorRing[i].distance(coordinate);
-            double s2 = exteriorRing[i+1].distance(coordinate);
-            double s3 = exteriorRing[i].distance(exteriorRing[i+1]);
-            double hP = (s1 + s2 + s3) / 2;
-            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-s2) * (hP-s3));
-            if (height < tempHeight){
-                c1 = exteriorRing[i];
-                c2 = exteriorRing[i+1];
-                tempHeight = height;
-            }
-        }
-        return new Coordinate[]{c1, c2};
-    }
-
     public static Coordinate[] calculateBoundaryBox(Coordinate center, double distance){
         Coordinate[] boundaryBox = new Coordinate[4];
         boundaryBox[0] = new Coordinate(center.x + distance, center.y); //max X longitude (долгота)
@@ -148,6 +128,11 @@ public final class NetworkUtils {
         boundaryBox[2] = new Coordinate(center.x - distance, center.y); //min X longitude (долгота)
         boundaryBox[3] = new Coordinate(center.x, center.y + distance); //max Y latitude (широта
         return boundaryBox;
+    }
+
+    public static Polygon splitPolygonByLine(Coordinate p1, Coordinate p2, Polygon polygon){
+        Polygon polygon1 = repository.splitPolygonByLine(p1, p2, polygon);
+        return polygon1;
     }
 
     public static Coordinate centerLine(Coordinate coord1, Coordinate coord2){

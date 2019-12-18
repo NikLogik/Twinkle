@@ -98,6 +98,18 @@ public enum  PolygonType {
         }
     }
 
+    public static boolean isFireproof(PolygonType type){
+        switch (type){
+            case WATER:
+            case BEACH:
+            case BAY:
+            case MOOR:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static PolygonType valueOfLanduse(String label){
         PolygonType type = BY_LABEL.get(label);
         if (type==null){

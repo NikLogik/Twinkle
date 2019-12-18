@@ -1,12 +1,19 @@
 package ru.nachos.core.fire;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.exceptions.FireLeaderException;
 import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.fire.lib.AgentState;
+import ru.nachos.core.fire.lib.AgentStatus;
 import ru.nachos.core.fire.lib.Fire;
+import ru.nachos.core.utils.AgentMap;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -75,5 +82,30 @@ public final class FireUtils {
             }
             return agentList.get(0);
         }
+    }
+
+    public static Polygon getPolygonFromAgentMap(AgentMap map, GeometryFactory factory){
+        Iterator<Agent> iterator = map.iterator();
+        LinkedList<Coordinate> coordinates = new LinkedList<>();
+        Agent head = iterator.next();
+        coordinates.add(head.getCoordinate());
+        while (iterator.hasNext()){
+            Agent next = iterator.next();
+            coordinates.add(next.getCoordinate());
+        }
+        coordinates.add(head.getCoordinate());
+        return factory.createPolygon(coordinates.toArray(new Coordinate[0]));
+    }
+
+    public static LinkedList<AgentState> getListOfStates(AgentMap agents, int iterNum){
+        LinkedList<AgentState> states = new LinkedList<>();
+        Iterator<Agent> iterator = agents.iterator();
+        while (iterator.hasNext()){
+            Agent next = iterator.next();
+            if (next.getStates().keySet().contains(iterNum) && !next.getStatus().equals(AgentStatus.DISABLED)){
+                states.add(next.getStateByIter(iterNum));
+            }
+        }
+        return states;
     }
 }

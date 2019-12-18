@@ -49,6 +49,26 @@ public class GeodeticCalculator {
         return result;
     }
 
+    public static Coordinate[] findNearestLine(Coordinate coordinate, PolygonV2 polygonV2){
+        Coordinate c1 = null;
+        Coordinate c2 = null;
+        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
+        double tempHeight = Double.MAX_VALUE;
+        for (int i=0; i < exteriorRing.length-1; i++){
+            double s1 = exteriorRing[i].distance(coordinate);
+            double s2 = exteriorRing[i+1].distance(coordinate);
+            double s3 = exteriorRing[i].distance(exteriorRing[i+1]);
+            double hP = (s1 + s2 + s3) / 2;
+            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-s2) * (hP-s3));
+            if (height < tempHeight){
+                c1 = exteriorRing[i];
+                c2 = exteriorRing[i+1];
+                tempHeight = height;
+            }
+        }
+        return new Coordinate[]{c1, c2};
+    }
+
     public static double convertDirection(double direction){
         double var = direction;
         if (var < 180.000){
@@ -59,92 +79,14 @@ public class GeodeticCalculator {
         return var;
     }
 
-    public static boolean checkIntersection(Coordinate c1, Coordinate c2, Coordinate c3, Coordinate c4) {
-        //сначала расставим точки по порядку, т.е. чтобы было c1.x <= c2.x
-        if (c2.x < c1.x) {
-            Coordinate tmp = c1;
-            c1 = c2;
-            c2 = tmp;
-        }
-        //и c3.x <= c4.x
-        if (c4.x < c3.x) {
-            Coordinate tmp = c3;
-            c3 = c4;
-            c4 = tmp;
-        }
-        //проверим существование потенциального интервала для точки пересечения отрезков
-        if (c2.x < c3.x) {
-            return false; //ибо у отрезков нету взаимной абсциссы
-        }
-        //если оба отрезка вертикальные
-        if((c1.x - c2.x == 0) && (c3.x - c4.x == 0)) {
-            //если они лежат на одном X
-            if(c1.x == c3.x) {
-                //проверим пересекаются ли они, т.е. есть ли у них общий Y
-                //для этого возьмём отрицание от случая, когда они НЕ пересекаются
-                if (!((Math.max(c1.y, c2.y) < Math.min(c3.y, c4.y)) ||
-                        (Math.min(c1.y, c2.y) > Math.max(c3.y, c4.y)))) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        //найдём коэффициенты уравнений, содержащих отрезки
-        //f1(x) = A1*x + b1 = y
-        //f2(x) = A2*x + b2 = y
-
-        //если первый отрезок вертикальный
-        if ((c1.x - c2.x) == 0.00) {
-            //найдём Xa, Ya - точки пересечения двух прямых
-            double Xa = c1.x;
-            double A2 = (c3.y - c4.y) / (c3.x - c4.x);
-            double b2 = c3.y - A2 * c3.x;
-            double Ya = A2 * Xa + b2;
-            if (c3.x <= Xa && c4.x >= Xa && Math.min(c1.y, c2.y) <= Ya &&
-                    Math.max(c1.y, c2.y) >= Ya) {
-                return true;
-            }
-            return false;
-        }
-        //если второй отрезок вертикальный
-        if ((c3.x - c4.x) == 0.00) {
-            //найдём Xa, Ya - точки пересечения двух прямых
-            double Xa = c3.x;
-            double A1 = (c1.y - c2.y) / (c1.x - c2.x);
-            double b1 = c1.y - A1 * c1.x;
-            double Ya = A1 * Xa + b1;
-            if (c1.x <= Xa && c2.x >= Xa && Math.min(c3.y, c4.y) <= Ya &&
-                    Math.max(c3.y, c4.y) >= Ya) {
-                return true;
-            }
-            return false;
-        }
-        //оба отрезка невертикальные
-        double A1 = (c1.y - c2.y) / (c1.x - c2.x);
-        double A2 = (c3.y - c4.y) / (c3.x - c4.x);
-        double b1 = c1.y - A1 * c1.x;
-        double b2 = c3.y - A2 * c3.x;
-        if (A1 == A2) {
-            return false; //отрезки параллельны
-        }
-        //Xa - абсцисса точки пересечения двух прямых
-        double Xa = (b2 - b1) / (A1 - A2);
-        if ((Xa < Math.max(c1.x, c3.x)) || (Xa > Math.min( c2.x, c4.x))) {
-            return false; //точка Xa находится вне пересечения проекций отрезков на ось X
-        }
-        else {
-            return true;
-        }
-    }
-
     /**
      * Метода находит точку пересечения отрезка со стороной полигона.
-     * @param coord1
-     * @param coord2
-     * @param polygonV2
-     * @return массив координат, где под индексами:
-     * <p>0 - точка пересечения отрезка и полигона</p>
-     * <p>1, 2 - координаты стороны полигона, с которой пересекается отрезок</p>
+     * @param coord1 - start point of line segment
+     * @param coord2 - end point of line segment
+     * @param polygonV2 - geometry, where intersection finds
+     * @return Array coordinates, where:
+     * <p>0 - intersection point</p>
+     * <p>1, 2 - polygon segment, where intersection point is placed</p>
      */
     public static Coordinate[] findCrossPointWithPolygon(Coordinate coord1, Coordinate coord2, PolygonV2 polygonV2){
         Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
@@ -183,12 +125,25 @@ public class GeodeticCalculator {
         return new Coordinate[]{new Coordinate(xi, yi), start, end};
     }
 
+    /**
+     * Calculate middle coordinate - center point of line segment between two source points
+     * @param first
+     * @param second
+     * @return  - middle coordinate
+     */
     public static Coordinate middleCoordinate(Coordinate first, Coordinate second) {
         double nX = (first.x + second.x) / 2;
         double nY = (first.y + second.y) / 2;
         return new Coordinate(nX, nY);
     }
 
+    /**
+     * Calculate median of triangle from the length three sides to side 'c'
+     * @param a - length side a
+     * @param b - length side b
+     * @param c - length side c
+     * @return length median from vertex of triangle to side 'c'
+     */
     public static double median(double a, double b, double c){
         double var = (2 * Math.pow(a, 2)) + (2 * Math.pow(b, 2)) - Math.pow(c, 2);
         return Math.sqrt(var/4);
@@ -200,4 +155,56 @@ public class GeodeticCalculator {
         return Math.sqrt(dX + dY);
     }
 
+    /**
+     * Calculate closest coordinate on line for arbitrary point
+     * @param start - start point of line segment
+     * @param end - end point of line segment
+     * @param vertex - point opposite line segment
+     * @param direction
+     * @return {@link Coordinate} - closest point on line segment for vertex
+     */
+    public static Coordinate closestPoint(Coordinate start, Coordinate end, Coordinate vertex, double direction){
+        //находим оринетацию линии в координатной системе (дирекционный угол к линии)
+        double side = height(start, end, vertex);
+        double hypotenuse = start.distance(vertex);
+        double var = Math.pow(hypotenuse, 2) - Math.pow(side, 2);
+        //длина стороны внутреннего треугольника, состоящего из точек: start, vertex и точки пересечения высоты большего треугольника с его основанием (start, end)
+        double side2 = Math.sqrt(var);
+        Coordinate coordinate = directProblem(start, side2, direction);
+        return coordinate;
+    }
+
+    /**
+     * Calculate triangle height for side between points v1 and v2. v3 is vertex opposite base.
+     * @param v1
+     * @param v2
+     * @param v3
+     * @return triangle height
+     */
+    public static double height(Coordinate v1, Coordinate v2, Coordinate v3){
+        double s1 = v1.distance(v3);
+        double s2 = v2.distance(v3);
+        double s3 = v1.distance(v2);
+        double hP = (s1 + s2 + s3) / 2;
+        double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-s2) * (hP-s3));
+        return height;
+    }
+
+    public static boolean crossingSegment(Coordinate p1, Coordinate p2, Coordinate p3, Coordinate p4){
+        double v1, v2, v3, v4;
+        v1 = findVector(p4.x - p3.x, p4.y - p3.y, p1.x - p3.x, p1.y - p3.y);
+        v2 = findVector(p4.x - p3.x, p4.y - p3.y, p2.x - p3.x, p2.y - p3.y);
+        v3 = findVector(p2.x - p1.x, p2.y - p1.y, p3.x - p1.x, p3.y - p1.y);
+        v4 = findVector(p2.x - p1.x, p2.y - p1.y, p4.x - p1.x, p4.y - p1.y);
+        if (v1*v2 < 0 && v3*v4 < 0){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    private static double findVector(double x1, double y1, double x2, double y2){
+        double vector = (x1 * y2) - (x2 * y1);
+        return vector;
+    }
 }

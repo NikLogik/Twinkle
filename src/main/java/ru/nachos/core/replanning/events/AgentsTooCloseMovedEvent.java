@@ -1,24 +1,21 @@
 package ru.nachos.core.replanning.events;
 
+import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.replanning.lib.Event;
-import ru.nachos.core.utils.AgentMap;
 
 public class AgentsTooCloseMovedEvent extends Event {
 
-    private int minDistance;
-    private AgentMap agents;
+    private IterationInfo info;
 
-    public AgentsTooCloseMovedEvent(int iterNum, int minDistance, AgentMap agents) {
+    public AgentsTooCloseMovedEvent(int iterNum, IterationInfo info) {
         super(iterNum);
-        this.minDistance = minDistance;
-        this.agents = agents;
+        this.info = info;
     }
+
+    public IterationInfo getInfo() { return info; }
+
     @Override
     public String getEventType() {
         return "move_close";
     }
-
-    public int getMinDistance() { return minDistance; }
-
-    public AgentMap getAgents() { return agents; }
 }

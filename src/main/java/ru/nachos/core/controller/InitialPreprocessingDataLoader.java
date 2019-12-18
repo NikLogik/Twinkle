@@ -68,6 +68,5 @@ class InitialPreprocessingDataLoader {
         for (Agent agent : fire.getTwinkles().values()){
             calculator.calculateSpeedOfSpreadWithArbitraryDirection(speed, agent, headFireDirection);
         }
-        fire.getTwinkles().checkSequence();
     }
 }
