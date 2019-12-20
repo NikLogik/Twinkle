@@ -27,6 +27,7 @@ public class SelfCrossingFireFrontHandlerImpl implements SelfCrossingFireFrontHa
 
     @Override
     public void handleEvent(SelfCrossingFireFrontEvent event) {
+        logger.info("Start find self crossing fire events");
         this.info = event.getInfo();
         Polygon polygon = FireUtils.getPolygonFromAgentMap(info.getAgents(), info.getGeomFactory());
         while (!polygon.isSimple()){

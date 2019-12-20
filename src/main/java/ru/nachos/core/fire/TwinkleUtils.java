@@ -33,18 +33,29 @@ public final class TwinkleUtils {
         agent.setSpeed(speed);
     }
 
-    public static void calculateMiddleParameters(Agent first, Agent second, Agent newA){
-        double var = second.getDirection() < first.getDirection() ? second.getDirection() + 360.00 : second.getDirection();
-        double direction = ((var - first.getDirection()) / 2) + first.getDirection();
-        double speed = (first.getSpeed() + second.getSpeed()) / 2;
-        Coordinate position = GeodeticCalculator.middleCoordinate(first.getCoordinate(), second.getCoordinate());
-        double distanceFromStart = GeodeticCalculator.median(first.getDistanceFromStart(), second.getDistanceFromStart(),
-                first.getCoordinate().distance(second.getCoordinate()));
-        newA.setDirection(direction);
-        newA.setCoordinate(position);
-        newA.setSpeed(speed);
-        newA.setDistanceFromStart(distanceFromStart);
-        newA.setHead(false);
+    public static void createMiddleAgent(Agent left, Agent right, Agent newAgent){
+        left.setRightNeighbour(newAgent);
+        right.setLeftNeighbour(newAgent);
+        newAgent.setLeftNeighbour(left);
+        newAgent.setRightNeighbour(right);
+        double var = right.getDirection() < left.getDirection() ? right.getDirection() + 360.00 : right.getDirection();
+        double direction = ((var - left.getDirection()) / 2) + left.getDirection();
+        double speed = (left.getSpeed() + right.getSpeed()) / 2;
+        Coordinate position = GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate());
+        double distanceFromStart = GeodeticCalculator.median(left.getDistanceFromStart(), right.getDistanceFromStart(),
+                left.getCoordinate().distance(right.getCoordinate()));
+        newAgent.setDirection(direction);
+        newAgent.setCoordinate(position);
+        newAgent.setSpeed(speed);
+        newAgent.setDistanceFromStart(distanceFromStart);
+        newAgent.setHead(false);
+    }
+
+    public static void setAgentBetween(Agent left, Agent right, Agent target){
+        target.setLeftNeighbour(left);
+        target.setRightNeighbour(right);
+        left.setRightNeighbour(target);
+        right.setLeftNeighbour(target);
     }
 
     /**

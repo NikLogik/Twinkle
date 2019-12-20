@@ -8,7 +8,6 @@ import com.vividsolutions.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
-import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
@@ -63,18 +62,6 @@ public final class NetworkUtils {
     public static boolean isInsidePolygon(GeometryFactory factory, PolygonV2 polygon, Coordinate coord){
         Point point = factory.createPoint(coord);
         return polygon.contains(point);
-    }
-
-    public static void setPolygonesToAgents(Network network, Map<Id<Agent>, Agent> agents){
-//        logger.info("================= Start find geometries for agents =================");
-        for(Agent agent : agents.values()){
-            PolygonV2 polygon = repository.getPolygonByCoordinate(network.getFactory(), agent.getCoordinate());
-            if (polygon == null){
-//                logger.warn("Geometry for agent id=" + agent.getId() + " not found in database");
-            }
-            agent.setPolygonId(polygon.getId());
-            network.getPolygones().get(polygon.getPolygonType()).put(polygon.getId(), polygon);
-        }
     }
 
     /**

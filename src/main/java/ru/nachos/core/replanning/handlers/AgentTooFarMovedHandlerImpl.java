@@ -1,7 +1,8 @@
 package ru.nachos.core.replanning.handlers;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryCollection;
 import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.IterationInfo;
@@ -14,6 +15,7 @@ import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.replanning.events.AgentsTooFarMovedEvent;
 import ru.nachos.core.replanning.handlers.lib.AgentTooFarMovedHandler;
 import ru.nachos.core.utils.GeodeticCalculator;
+import ru.nachos.core.utils.JtsTools;
 import ru.nachos.core.utils.PolygonType;
 
 import java.util.*;
@@ -31,56 +33,56 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
         this.info = event.getInfo();
         this.firePolygon = FireUtils.getPolygonFromAgentMap(info.getAgents(), info.getGeomFactory());
         double multiDistance = info.getAgentDistance() * 1.5;
-        Agent newAgent;
         Iterator<Agent> iterator = info.getAgents().iterator();
         while (iterator.hasNext()){
             Agent agent = iterator.next();
             if (agent.getCoordinate().distance(agent.getRightNeighbour().getCoordinate()) > multiDistance) {
-                newAgent = setMiddleNeighbour(agent, agent.getRightNeighbour(), event.getCounter() + "-" + event.getIterNum());
-                newAgent.saveState(info.getIterNum());
-                cacheActive.put(newAgent.getId(), newAgent);
+                setMiddleNeighbour(agent, agent.getRightNeighbour(), event.getCounter() + "-" + event.getIterNum());
             }
         }
         cacheActive.forEach(info.getAgents()::put);
         if (!cacheStopped.isEmpty()){
             cacheStopped.forEach(info.getAgents()::setToStopped);
         }
-        cacheActive.clear();
     }
 
-    private Agent setMiddleNeighbour(Agent left, Agent right, String numberId){
-        Agent newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX));
-        left.setRightNeighbour(newAgent);
-        right.setLeftNeighbour(newAgent);
-        newAgent.setLeftNeighbour(left);
-        newAgent.setRightNeighbour(right);
-        TwinkleUtils.calculateMiddleParameters(left, right, newAgent);
-        PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(info.getGeomFactory(), info.getPolygons(), newAgent.getCoordinate());
+    private void setMiddleNeighbour(Agent left, Agent right, String numberId){
+        Coordinate position = GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate());
+        PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(info.getGeomFactory(), info.getPolygons(), position);
         if (PolygonType.isFireproof(geometry.getPolygonType())) {
-            Coordinate[] nearestLine = GeodeticCalculator.findNearestLine(newAgent.getCoordinate(), geometry);
-            //находим оринетацию линии в координатной системе (дирекционный угол к линии)
-            double direction = GeodeticCalculator.reverseProblem(nearestLine[0], nearestLine[1]);
-            Coordinate coordinate = GeodeticCalculator.closestPoint(nearestLine[0], nearestLine[1], newAgent.getCoordinate(), direction);
-            newAgent.setCoordinate(coordinate);
-            cacheStopped.add(newAgent.getId());
-            newAgent.setPolygonId(left.getPolygonId());
-        } else {
-            newAgent.setPolygonId(geometry.getId());
-        }
-        newAgent.setStatus(AgentStatus.ACTIVE);
-        return newAgent;
-    }
-
-    private Coordinate[] insideFirefront(Polygon polygon){
-        Coordinate[] coordinates = polygon.getExteriorRing().getCoordinates();
-        LinkedList<Coordinate> inside = new LinkedList<>();
-        for (int i=0; i<coordinates.length; i++){
-            Point point = info.getGeomFactory().createPoint(coordinates[i]);
-            if (point.within(firePolygon)){
-                inside.add(point.getCoordinate());
+            GeometryCollection geometryCollection = JtsTools.splitPolygon(geometry, left.getCoordinate(), right.getCoordinate());
+            for (int i=0; i<geometryCollection.getNumGeometries(); i++){
+                if (geometryCollection.getGeometryN(i).within(firePolygon)){
+                    Geometry geometryN = geometryCollection.getGeometryN(i);
+                    Agent r = right;
+                    for (int j=1; j<geometryN.getCoordinates().length-1; j++) {
+                        Agent newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX + "-" + j));
+                        TwinkleUtils.setAgentBetween(left, r, newAgent);
+                        newAgent.setPolygonId(r.getPolygonId());
+                        newAgent.setCoordinate(geometryN.getCoordinates()[j]);
+                        double direction = GeodeticCalculator.reverseProblem(newAgent.getCoordinate(), info.getFireCenter());
+                        newAgent.setDirection(direction);
+                        info.getCalculator().calculateSpeedOfSpreadWithArbitraryDirection(info.getFireSpeed(), newAgent, info.getHeadDirection());
+                        newAgent.setStatus(AgentStatus.STOPPED);
+                        newAgent.setDistanceFromStart(info.getFireCenter().distance(newAgent.getCoordinate()));
+                        cacheActive.put(newAgent.getId(), newAgent);
+                        cacheStopped.add(newAgent.getId());
+                        r = newAgent;
+                    }
+                }
             }
+        } else {
+            Agent newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX));
+            TwinkleUtils.createMiddleAgent(left, right, newAgent);
+            newAgent.setPolygonId(geometry.getId());
+            if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.STOPPED)){
+                newAgent.setStatus(AgentStatus.STOPPED);
+                cacheStopped.add(newAgent.getId());
+            } else {
+                newAgent.setStatus(AgentStatus.ACTIVE);
+            }
+            cacheActive.put(newAgent.getId(), newAgent);
         }
-        return inside.toArray(new Coordinate[0]);
     }
 
     private boolean isWithin(Coordinate p1){

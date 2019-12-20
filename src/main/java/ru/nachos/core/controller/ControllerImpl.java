@@ -13,7 +13,6 @@ import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.*;
-import ru.nachos.core.info.IterationInfoPrinter;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
@@ -96,7 +95,6 @@ class ControllerImpl implements Controller {
         IterationInfo info = new IterationInfoImpl(currentIteration);
         eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(currentIteration, info));
         eventsHandler.persistAndReset(iterationMap);
-        IterationInfoPrinter.printResultData(currentIteration, iterationMap.get(currentIteration));
         logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
     }
 

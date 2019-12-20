@@ -1,6 +1,8 @@
 package ru.nachos.core.replanning.handlers;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.LineString;
 import org.apache.log4j.Logger;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.IterationInfo;
@@ -42,7 +44,9 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
             currentGeom = agent.getPolygonId();
             lastGeom = agent.getLastState().getPolygonId();
             if (currentGeom.equals(lastGeom)){
-                continue;
+                if (checkMissedIntersection(agent)){
+                    agent.setPolygonId(lastGeom);
+                }
             } else {
                 PolygonType currentPolygonType = null;
                 for(PolygonType value : polygons.keySet()) {
@@ -70,8 +74,9 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
             case BEACH:
             case DEFAULT:
                 PolygonV2 currentPolygon = polygons.get(currentPolygonType).get(agent.getPolygonId());
-                Coordinate crossingPoint = NetworkUtils.findIntersectionPoint(agent.getLastState().getCoordinate(), agent.getCoordinate(), polygons.get(currentPolygonType).get(agent.getPolygonId()));
-                agent.setCoordinate(crossingPoint);
+                Coordinate crossingPoint = NetworkUtils.findIntersectionPoint(agent.getLastState().getCoordinate(), agent.getCoordinate(), currentPolygon);
+                Coordinate coordinate = GeodeticCalculator.directProblem(crossingPoint, -0.5, agent.getDirection());
+                agent.setCoordinate(coordinate);
                 Coordinate[] directionLine = GeodeticCalculator.findNearestLine(crossingPoint, currentPolygon);
                 double leftDistance = agent.getLastState().getCoordinate().distance(agent.getCoordinate());
                 int leftTime = (info.getIterStepTime()/60) - (int)(leftDistance / agent.getSpeed());
@@ -79,6 +84,47 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
 //                setNewOppositeAgents(agent, leftTime, crossingPoint, directionLine);
                 stoppedAgents.add(agent.getId());
                 break;
+            default:
+                checkMissedIntersection(agent);
+        }
+    }
+
+    private boolean checkMissedIntersection(Agent agent){
+        Coordinate last = agent.getLastState().getCoordinate();
+        Coordinate current = agent.getCoordinate();
+        LineString lineString = info.getGeomFactory().createLineString(new Coordinate[]{last, current});
+        List<Geometry> intersections = new ArrayList<>();
+        for (Map.Entry<PolygonType, Map<Id<PolygonV2>, PolygonV2>> entry : polygons.entrySet()){
+            if (PolygonType.isFireproof(entry.getKey())) {
+                for (PolygonV2 polygon : entry.getValue().values()) {
+                    if (lineString.intersects(polygon)) {
+                        intersections.add(lineString.intersection(polygon));
+                    }
+                }
+            }
+        }
+        if (!intersections.isEmpty()){
+            Coordinate position = null;
+            double distance = last.distance(current);
+            for (Geometry geom : intersections){
+                for (Coordinate coordinate : geom.getCoordinates()){
+                    if (last.distance(coordinate) < distance){
+                        position = coordinate;
+                        distance = last.distance(coordinate);
+                    }
+                }
+            }
+            if (position != null){
+                agent.setCoordinate(position);
+                agent.setDistanceFromStart(distance);
+                stoppedAgents.add(agent.getId());
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

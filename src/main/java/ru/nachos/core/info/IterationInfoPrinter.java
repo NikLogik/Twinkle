@@ -30,7 +30,7 @@ public class IterationInfoPrinter implements IterationPrinter {
     public static void printResultData(ResponseDataContainer container){
         logger.warn("Delete this method from FireModelRunner before deploy to server");
         for (Map.Entry<Integer, ResponseData> entry : container.getAgents().entrySet()){
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("result_info_295_"+entry.getKey()+".txt")))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("results/result_info_295_"+entry.getKey()+".txt")))) {
                 message(entry.getKey());
                 String header = "osm_id,lon,lat";
                 writer.write(header);
@@ -47,7 +47,7 @@ public class IterationInfoPrinter implements IterationPrinter {
 
     public static void printResultData(int iterNum, LinkedList<AgentState> iterationList){
         logger.warn("Delete this method from ControllerImpl before deploy to server");
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("iteration_info_"+iterNum+".txt")))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File("results/iteration_info_"+iterNum+".txt")))){
             message(iterNum);
             String header = "osm_id,lon,lat";
             writer.write(header);
