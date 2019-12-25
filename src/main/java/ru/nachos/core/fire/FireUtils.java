@@ -94,7 +94,9 @@ public final class FireUtils {
             coordinates.add(next.getCoordinate());
         }
         coordinates.add(head.getCoordinate());
-        return factory.createPolygon(coordinates.toArray(new Coordinate[0]));
+        Polygon polygon = factory.createPolygon(coordinates.toArray(new Coordinate[0]));
+        polygon.setSRID(4326);
+        return polygon;
     }
 
     public static LinkedList<AgentState> getListOfStates(AgentMap agents, int iterNum){

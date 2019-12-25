@@ -27,7 +27,7 @@ public class AgentTooCloseMovedHandlerImpl implements AgentTooCloseMovedHandler 
         while (iterator.hasNext()){
             source = iterator.next();
             neighbour = source.getRightNeighbour();
-            if (source.getCoordinate().distance(neighbour.getCoordinate()) < info.getAgentDistance()/3){
+            if (source.getCoordinate().distance(neighbour.getCoordinate()) < (double) info.getAgentDistance()/3){
                 removeCandidates.add(source.getId());
             }
         }

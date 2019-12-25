@@ -1,23 +1,17 @@
 package ru.nachos.core.network;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
-import ru.nachos.core.network.lib.Link;
 import ru.nachos.core.network.lib.NetworkFactory;
-import ru.nachos.core.network.lib.Node;
 import ru.nachos.core.network.lib.PolygonV2;
-import ru.nachos.db.repository.PolygonRepository;
-
-import java.util.Arrays;
-import java.util.Collection;
+import ru.nachos.core.utils.PolygonType;
+import ru.nachos.db.model.osm.PolygonOsmModel;
 
 final class NetworkFactoryImpl implements NetworkFactory {
 
     private static final GeometryFactory factory = new GeometryFactory();
-    private PolygonRepository repository;
 
     @Override
     public GeometryFactory getGeomFactory() {
@@ -25,30 +19,39 @@ final class NetworkFactoryImpl implements NetworkFactory {
     }
 
     @Override
-    public PolygonV2 createPolygon(Id<PolygonV2> id, Point... externalRing) {
-        Coordinate[] coordinates = Arrays.stream(externalRing).map(Point::getCoordinate).toArray(Coordinate[]::new);
-        return createPolygon(id, coordinates);
+    public PolygonV2 createPolygon(String id, PolygonOsmModel model){
+        PolygonV2 polygonV2 = null;
+        Geometry way = model.getWay();
+        polygonV2 = new PolygonV2Impl(Id.createPolygonId(id), factory.createLinearRing(((Polygon)way).getExteriorRing().getCoordinates()), null, factory);
+        setPolygonType(polygonV2, model);
+        return polygonV2;
+    }
+    @Override
+    public PolygonV2 createPolygon(String id, Polygon polygon, PolygonOsmModel model){
+        PolygonV2 polygonV2 = new PolygonV2Impl(Id.createPolygonId(id), factory.createLinearRing(polygon.getExteriorRing().getCoordinates()), null, factory);
+        setPolygonType(polygonV2, model);
+        return polygonV2;
+    }
+
+    private void setPolygonType(PolygonV2 polygonV2, PolygonOsmModel model){
+        PolygonType polygonType = PolygonType.valueOfType(model.getNatural());
+        String water = model.getWater();
+        if (water != null && !water.isEmpty()) {
+            polygonType = PolygonType.WATER;
+        }
+        String waterway = model.getWaterway();
+        if (waterway != null && !waterway.isEmpty()) {
+            polygonType = PolygonType.WATER;
+        }
+        if (polygonType.getParam().equals(PolygonType.DEFAULT.getParam())) {
+            String landuse = model.getLanduse();
+            polygonType = PolygonType.valueOfLanduse(landuse);
+        }
+        polygonV2.setType(polygonType);
     }
 
     @Override
-    public PolygonV2 createPolygon(Id<PolygonV2> id, Collection<Coordinate> externalRing){
-        return createPolygon(id, externalRing.toArray(new Coordinate[0]));
+    public PolygonV2 createPolygon(long id, PolygonOsmModel model){
+        return createPolygon(String.valueOf(id), model);
     }
-
-    @Override
-    public PolygonV2 createPolygon(Id<PolygonV2> id, Coordinate[] externalRing){
-        LinearRing linearRing = factory.createLinearRing(externalRing);
-        return new PolygonV2Impl(id, linearRing, null, factory);
-    }
-
-    @Override
-    public Node createNode(Id<Node> id) { return new NodeImpl(id); }
-
-    @Override
-    public Node createNode(Id<Node> id, Coordinate coordinate) {
-        return new NodeImpl(id, coordinate);
-    }
-
-    @Override
-    public Link createLink(Id<Link> id, Node fromNode, Node toNode) { return new LinkImpl(id, fromNode, toNode); }
 }

@@ -1,23 +1,14 @@
 package ru.nachos.core.network;
 
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vividsolutions.jts.geom.*;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.PolygonRepositoryImpl;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,17 +19,6 @@ public final class NetworkUtils {
     public static TreeMap<Id<PolygonV2>, Long> networkCashe = new TreeMap<>();
 
     private NetworkUtils(){}
-
-    public static PolygonRepositoryImpl getRepository() {
-        return repository;
-    }
-
-    private static PolygonRepositoryImpl repository;
-
-    @Autowired
-    public void setPolygonRepository(PolygonRepositoryImpl repository){
-        NetworkUtils.repository = repository;
-    }
 
     public static Network createNetwork(){
         return new NetworkImpl(new NetworkFactoryImpl());
@@ -90,22 +70,27 @@ public final class NetworkUtils {
         return polygon;
     }
 
-    public static Coordinate findIntersectionPoint(Coordinate start, Coordinate end, PolygonV2 polygonV2){
-        Coordinate intersectionPoint = repository.getIntersectionPointWithPolygon(new Coordinate[]{start, end}, polygonV2);
-        if (intersectionPoint == null){
-            return end;
+    public static Coordinate findIntersectionPoint(Coordinate start, Coordinate end, PolygonV2 polygonV2, GeometryFactory geomFactory){
+        LineString lineString = geomFactory.createLineString(new Coordinate[]{start, end});
+        Geometry geometry = lineString.intersection(polygonV2);
+        Coordinate position = null;
+        if (geometry != null){
+            double distance = start.distance(end);
+            for (Coordinate coordinate : geometry.getCoordinates()){
+                if (start.distance(coordinate) < distance){
+                    position = coordinate;
+                    distance = start.distance(coordinate);
+                }
+            }
+            if (position != null){
+                return position;
+            }
+            else {
+                return end;
+            }
         } else {
-            return intersectionPoint;
+            return end;
         }
-    }
-
-    public static Network createNetwork(Network network, Coordinate[] boundaryBox){
-        Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
-        List<PolygonV2> polygonsFromBoundaryBox = repository.getPolygonsFromBoundaryBox(network.getFactory(), polygon);
-        Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> collect = polygonsFromBoundaryBox.stream().collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toMap(PolygonV2::getId, Function.identity())));
-        network.getPolygones().putAll(collect);
-//        logger.info("Finished creating network.");
-        return network;
     }
 
     public static Coordinate[] calculateBoundaryBox(Coordinate center, double distance){
@@ -115,11 +100,6 @@ public final class NetworkUtils {
         boundaryBox[2] = new Coordinate(center.x - distance, center.y); //min X longitude (долгота)
         boundaryBox[3] = new Coordinate(center.x, center.y + distance); //max Y latitude (широта
         return boundaryBox;
-    }
-
-    public static Polygon splitPolygonByLine(Coordinate p1, Coordinate p2, Polygon polygon){
-        Polygon polygon1 = repository.splitPolygonByLine(p1, p2, polygon);
-        return polygon1;
     }
 
     public static Coordinate centerLine(Coordinate coord1, Coordinate coord2){

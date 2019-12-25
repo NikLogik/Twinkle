@@ -80,52 +80,6 @@ public class GeodeticCalculator {
     }
 
     /**
-     * Метода находит точку пересечения отрезка со стороной полигона.
-     * @param coord1 - start point of line segment
-     * @param coord2 - end point of line segment
-     * @param polygonV2 - geometry, where intersection finds
-     * @return Array coordinates, where:
-     * <p>0 - intersection point</p>
-     * <p>1, 2 - polygon segment, where intersection point is placed</p>
-     */
-    public static Coordinate[] findCrossPointWithPolygon(Coordinate coord1, Coordinate coord2, PolygonV2 polygonV2){
-        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
-        if (coord1.x < coord2.x) {
-            double tmp = coord1.x;
-            coord1.x = coord2.x;
-            coord2.x = tmp;
-        }
-        if (coord1.y < coord2.y){
-            double tmp = coord1.y;
-            coord1.y = coord2.y;
-            coord2.y = tmp;
-        }
-        double a1 = coord1.y - coord2.y;
-        double b1 = coord1.x - coord2.x;
-        double a2, b2, d, c1, c2;
-        double xi = 0.0;
-        double yi = 0.0;
-        Coordinate start = null;
-        Coordinate end = null;
-        // параметры отрезков
-        for (int i=0; i<exteriorRing.length-1; i++){
-            a2 = exteriorRing[i].y - exteriorRing[i+1].y;
-            b2 = exteriorRing[i].x - exteriorRing[i+1].x;
-            d = a1 * b2 - a2 * b1;
-            if (d!=0){
-                c1 = coord2.y * coord1.x - coord2.x * coord1.y;
-                c2 = exteriorRing[i+1].y * exteriorRing[i].x - exteriorRing[i+1].x * exteriorRing[i].y;
-                // координаты точки пересечения
-                xi = (b1 * c2 - b2 * c1) / d;
-                yi = (a2 * c1 - a1 * c2) / d;
-                start = exteriorRing[i];
-                end = exteriorRing[i+1];
-            }
-        }
-        return new Coordinate[]{new Coordinate(xi, yi), start, end};
-    }
-
-    /**
      * Calculate middle coordinate - center point of line segment between two source points
      * @param first
      * @param second

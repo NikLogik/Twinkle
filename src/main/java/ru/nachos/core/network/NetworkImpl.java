@@ -8,13 +8,16 @@ import ru.nachos.core.utils.PolygonType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class NetworkImpl implements Network {
 
     private String name;
     private NetworkFactory factory;
     private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
+    private TreeMap<Id<ContourLine>, ContourLine> relief = new TreeMap<>();
     private ForestFuelTypeImpl fuelType;
+
 
     NetworkImpl(NetworkFactory factory){
         this.factory = factory;
@@ -36,4 +39,12 @@ public class NetworkImpl implements Network {
     public ForestFuelTypeImpl getFuelType(){ return this.fuelType; }
     @Override
     public void setFuelType(ForestFuelTypeImpl type){ this.fuelType = type; }
+    @Override
+    public TreeMap<Id<ContourLine>, ContourLine> getRelief() {
+        return relief;
+    }
+    @Override
+    public void addAllReliefLines(TreeMap<Id<ContourLine>, ContourLine> relief) {
+        this.relief = relief;
+    }
 }

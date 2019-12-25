@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://185.124.188.247:5432/model</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="fires" uuid="77873f7f-8998-4580-b445-c979e20db7ca">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/fires</jdbc-url>
+    </data-source>
   </component>
 </project>

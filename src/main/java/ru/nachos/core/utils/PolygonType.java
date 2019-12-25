@@ -102,8 +102,6 @@ public enum  PolygonType {
         switch (type){
             case WATER:
             case BEACH:
-            case BAY:
-            case MOOR:
                 return true;
             default:
                 return false;

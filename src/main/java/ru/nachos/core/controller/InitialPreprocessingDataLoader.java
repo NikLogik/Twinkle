@@ -3,7 +3,6 @@ package ru.nachos.core.controller;
 import com.vividsolutions.jts.geom.Coordinate;
 import org.geotools.geometry.jts.JTS;
 import org.opengis.referencing.operation.TransformException;
-import org.springframework.stereotype.Service;
 import ru.nachos.core.DatabaseManager;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
@@ -16,18 +15,20 @@ import ru.nachos.core.fire.lib.FireFactory;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.utils.GeodeticCalculator;
+import ru.nachos.db.services.GeometryDatabaseService;
 
 import java.util.Map;
 
-@Service
 class InitialPreprocessingDataLoader {
 
     private Config config;
     private InitialPreprocessingData preprocessingData;
+    private GeometryDatabaseService geometryService;
 
     InitialPreprocessingDataLoader(InitialPreprocessingData preprocessingData) {
         this.config = preprocessingData.getConfig();
         this.preprocessingData = preprocessingData;
+        this.geometryService = preprocessingData.getGeometryService();
     }
 
     InitialPreprocessingData loadPreprocessingData(){
@@ -39,7 +40,7 @@ class InitialPreprocessingDataLoader {
     private void loadNetwork() {
         double maxDistance = preprocessingData.getFire().getFireSpeed() * config.getEndTime();
         Coordinate[] boundaryBox = NetworkUtils.calculateBoundaryBox(preprocessingData.getFire().getCenterPoint(), maxDistance);
-        NetworkUtils.createNetwork(preprocessingData.getNetwork(), boundaryBox);
+        geometryService.createNetworkFromBoundaryBox(preprocessingData.getNetwork(), boundaryBox);
     }
 
     private void loadFire() {

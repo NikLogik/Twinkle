@@ -16,18 +16,15 @@ class FireImpl implements Fire {
      * Name for idetification fire instance
      */
     private String name;
-
     /**
      * Center point, where fire is started to spread.
      * Use rectangular coordinates WGS84
      */
     private Coordinate center;
-
     /**
      * Главное направление распространение огня (соответствует направлению скорости ветра)
      */
     private double headDirection;
-
     /**
      * Length of firefront at the beginning of simulation
      */
@@ -58,10 +55,8 @@ class FireImpl implements Fire {
         this.center = config.getFireCenterCoordinate();
         this.fireClass = config.getFireClass().getValue();
     }
-
     @Override
     public FireFactory getFactory(){ return this.factory; }
-
     @Override
     public String getName() { return name; }
     @Override
@@ -93,20 +88,11 @@ class FireImpl implements Fire {
     public Agent removeAgent(Agent agent){ return twinkles.remove(agent.getId()); }
     @Override
     public Agent removeAgent(Id<Agent> id){ return twinkles.remove(id); }
-    void setName(String name){ this.name = name; }
     @Override
     public void setCenterPoint(Coordinate center){
         this.center = center;
     }
-
-    void setPerimeter(int perimeter){ this.perimeter = perimeter; }
-
-    void setAgentDistance(int agentDistance){ this.agentDistance = agentDistance; }
-
     @Override
     public void setFireSpeed(double fireSpeed){ this.fireSpeed = fireSpeed; }
-
-    public void setFireClass(int fireClass) { this.fireClass = fireClass; }
-
     void setHeadDirection(double direction){ this.headDirection = direction; }
 }

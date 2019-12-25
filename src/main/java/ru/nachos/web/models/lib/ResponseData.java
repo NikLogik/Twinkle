@@ -8,6 +8,7 @@ import ru.nachos.web.models.ResponseDataImpl;
 @JsonDeserialize(as = ResponseDataImpl.class)
 @JsonSerialize(as = ResponseDataImpl.class)
 public interface ResponseData {
+    long getFireId();
     int getIterNum();
     int getCurrentIterNum();
     CoordinateJson[] getData();

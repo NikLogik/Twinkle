@@ -9,7 +9,6 @@ import java.util.TreeMap;
 
 import static ru.nachos.core.config.lib.Config.Definitions.*;
 
-@Component
 public class ConfigImpl implements Config {
 
     private String fireName;
@@ -31,32 +30,14 @@ public class ConfigImpl implements Config {
     private int fireAgentsDistance;
     private TreeMap<String, Object> params = new TreeMap<>();
     ConfigImpl(){
-//        this.fireName = "default";
         this.firstIteration = 1;
-//        this.lastIteration = 11;
-//        this.stepTimeAmount = 300;
-//        this.startTime = 0;
-//        this.endTime = 3600;
         this.calculator = FireSpreadModels.Rotermel;
-//        this.fuelType = ForestFuelType.PineSparse;
-//        this.windSpeed = 4.6;
-//        this.windDirection = 45;
-//        this.temperature = 17.5;
-//        this.humidity = 60;
-//        this.fireClass = FirePowerClassification.Ignition;
         this.firePerimeter = 500; //for 20.000 square meters
-//        this.fireAgentsDistance = 10; //meters between agents
         this.srid = "EPSG:4326";
-//        this.fireCenterCoordinate = new Coordinate(44.97385, 33.88063);
     }
 
     @Override
     public String getFireName() { return this.fireName; }
-
-    public void setFireName(String fireName) {
-        updateParams(FIRE_NAME.getParam(), fireName);
-        this.fireName = fireName;
-    }
 
     @Override
     public void addParam(String paramName, String value) { this.params.put(paramName, value); }

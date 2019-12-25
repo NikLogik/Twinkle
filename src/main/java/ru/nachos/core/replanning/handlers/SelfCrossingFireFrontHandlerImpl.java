@@ -11,7 +11,7 @@ import ru.nachos.core.fire.lib.AgentStatus;
 import ru.nachos.core.replanning.events.SelfCrossingFireFrontEvent;
 import ru.nachos.core.replanning.handlers.lib.SelfCrossingFireFrontHandler;
 import ru.nachos.core.utils.AgentMap;
-import ru.nachos.db.OsmDatabaseManager;
+import ru.nachos.db.repository.osm.OsmDatabaseManager;
 
 import java.util.Iterator;
 import java.util.Set;

@@ -2,9 +2,9 @@ package ru.nachos.core.controller;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
@@ -13,6 +13,7 @@ import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.*;
+import ru.nachos.core.info.IterationInfoPrinter;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
@@ -22,26 +23,23 @@ import ru.nachos.core.replanning.events.AfterIterationEvent;
 import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.PolygonRepositoryImpl;
+import ru.nachos.db.model.fire.FireModel;
+import ru.nachos.db.services.FireDatabaseService;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
-@Component
 class ControllerImpl implements Controller {
 
     private static Logger logger = Logger.getLogger(ControllerImpl.class);
-
-    @Autowired
-    private PolygonRepositoryImpl polygonRepository;
-
+    private FireDatabaseService fireService;
     private Network network;
-
     private Config config;
     private InitialPreprocessingData preprocessingData;
     private Fire fire;
+    private FireModel model;
     private EventsHandling eventsHandler;
     private Map<Integer, LinkedList<AgentState>> iterationMap = new TreeMap<>();
     public static final String DIVIDER = "###################################################";
@@ -50,8 +48,8 @@ class ControllerImpl implements Controller {
     private double currentTime;
     private double stepAmount;
 
-    ControllerImpl(){}
-    ControllerImpl(InitialPreprocessingData preprocessing){
+    ControllerImpl(InitialPreprocessingData preprocessing, FireDatabaseService fireService){
+        this.fireService = fireService;
         this.config = preprocessing.getConfig();
         this.preprocessingData = preprocessing;
         this.network = preprocessing.getNetwork();
@@ -63,6 +61,12 @@ class ControllerImpl implements Controller {
 
     @Override
     public void run(){
+        Point point = network.getFactory().getGeomFactory().createPoint(config.getFireCenterCoordinate());
+        point.setSRID(4326);
+        this.model = fireService.createAndGetFireModel(fire, point, config.getLastIteration());
+        if (fireService == null){
+            throw new NullPointerException("Fire Service is null");
+        }
         prepareAgentsToStart();
         doIteration();
     }
@@ -78,12 +82,15 @@ class ControllerImpl implements Controller {
         }
         LinkedList<AgentState> listOfStates = FireUtils.getListOfStates(fire.getTwinkles(), currentIteration);
         iterationMap.put(currentIteration, listOfStates);
+        Polygon iterPolygon = FireUtils.getPolygonFromAgentMap(fire.getTwinkles(), network.getFactory().getGeomFactory());
+        fireService.saveIterationByFireId(currentIteration, iterPolygon, model);
     }
 
     private void doIteration(){
         logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
+            IterationInfoPrinter.printResultData(currentIteration, iterationMap.get(currentIteration));
         }
     }
 
@@ -95,6 +102,8 @@ class ControllerImpl implements Controller {
         IterationInfo info = new IterationInfoImpl(currentIteration);
         eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(currentIteration, info));
         eventsHandler.persistAndReset(iterationMap);
+        Polygon iterPolygon = FireUtils.getPolygonFromAgentMap(fire.getTwinkles(), network.getFactory().getGeomFactory());
+        fireService.saveIterationByFireId(currentIteration, iterPolygon, model);
         logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
     }
 
@@ -112,14 +121,12 @@ class ControllerImpl implements Controller {
                 newCoordinate = GeodeticCalculator.directProblem(lastState.getCoordinate(), incDistance, agent.getDirection());
                 agent.setCoordinate(newCoordinate);
                 agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
-                Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+                Id<PolygonV2> polygonId = null;
+                polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
                 agent.setPolygonId(polygonId);
             }
         }
     }
-
-
-
     @Override
     public Fire getFire() { return fire; }
 
@@ -136,6 +143,8 @@ class ControllerImpl implements Controller {
     public Map<Integer, LinkedList<AgentState>> getIterationMap() {
         return this.iterationMap;
     }
+    @Override
+    public FireModel getModel() { return model; }
 
     public class IterationInfoImpl implements IterationInfo {
 

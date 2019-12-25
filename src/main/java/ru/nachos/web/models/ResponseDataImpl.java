@@ -7,15 +7,20 @@ import ru.nachos.web.models.lib.ResponseData;
 @JsonDeserialize
 @JsonSerialize
 public class ResponseDataImpl implements ResponseData {
+    private long fireId;
     private int currentIterNum;
     private int iterNum;
     private CoordinateJson[] coordinates;
 
-    public ResponseDataImpl(int iterNum, int currentIterNum, CoordinateJson[] coordinates) {
+    public ResponseDataImpl(long fireId, int iterNum, int currentIterNum, CoordinateJson[] coordinates) {
+        this.fireId = fireId;
         this.iterNum = iterNum;
         this.currentIterNum = currentIterNum;
         this.coordinates = coordinates;
     }
+
+    @Override
+    public long getFireId() { return this.fireId; }
 
     @Override
     public int getCurrentIterNum() {

@@ -4,7 +4,6 @@ import org.geotools.referencing.CRS;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
-import org.springframework.stereotype.Component;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.fire.FireUtils;
@@ -15,9 +14,8 @@ import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.weather.WeatherUtils;
 import ru.nachos.core.weather.lib.Weather;
-import ru.nachos.db.repository.PolygonRepository;
+import ru.nachos.db.services.GeometryDatabaseService;
 
-@Component
 public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
     private Config config;
@@ -26,28 +24,28 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
     private Network network;
     private FireSpreadCalculator calculator;
     private MathTransform transformation;
-    private PolygonRepository repository;
     private MathTransform reTransformation;
+    private int databaseSRID;
+    private GeometryDatabaseService geometryService;
 
-    public InitialPreprocessingDataImpl create(Config config){
+    public InitialPreprocessingDataImpl(Config config, GeometryDatabaseService geometryService){
         this.config = config;
+        this.geometryService = geometryService;
+        this.databaseSRID = geometryService.findSRID();
         this.fire = FireUtils.createFire(this.config);
         this.network = NetworkUtils.createNetwork();
         this.weather = WeatherUtils.createWeather(this.config);
         this.calculator = FireSpreadCalculatorFactory.getCalculator(config.getCalculator(), this.network);
-        this.repository = NetworkUtils.getRepository();
         this.transformation = createTransformation(config.getSrid());
         this.reTransformation = createReTransformation(config.getSrid());
-        return this;
     }
 
     private MathTransform createReTransformation(String sourceSrid) {
-        int srid = repository.getSRID();
         CoordinateReferenceSystem fromSystem;
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
-            fromSystem = CRS.decode("EPSG:" + srid, true);
+            fromSystem = CRS.decode("EPSG:" + databaseSRID, true);
             toSystem = CRS.decode(sourceSrid, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
@@ -57,18 +55,22 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
     }
 
     private MathTransform createTransformation(String sourceSrid) {
-        int srid = repository.getSRID();
         CoordinateReferenceSystem fromSystem;
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
             fromSystem = CRS.decode(sourceSrid, true);
-            toSystem = CRS.decode("EPSG:" + srid, true);
+            toSystem = CRS.decode("EPSG:" + databaseSRID, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
             e.printStackTrace();
         }
         return math;
+    }
+
+    @Override
+    public GeometryDatabaseService getGeometryService() {
+        return geometryService;
     }
 
     @Override
@@ -114,13 +116,14 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         this.transformation = transformation;
     }
 
-    void setRepository(PolygonRepository repository) {
-        this.repository = repository;
-    }
-
     void setReTransformation(MathTransform reTransformation) {
         this.reTransformation = reTransformation;
     }
+
+    @Override
+    public void setSRID(int srid) { this.databaseSRID = srid; }
+    @Override
+    public int getDatabaseSRID() { return databaseSRID; }
 
     @Override
     public String toString() {
