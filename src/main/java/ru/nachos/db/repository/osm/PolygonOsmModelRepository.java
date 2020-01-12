@@ -11,8 +11,8 @@ public interface PolygonOsmModelRepository extends JpaRepository<PolygonOsmModel
 
     List<PolygonOsmModel> findPolygonOsmModelsByNatural(String natural);
 
-    @Query(value = "select p.osm_id, p.natural, p.landuse, p.water, p.waterway, p.way from planet_osm_polygon p where st_contains(?1,p.way)", nativeQuery = true)
-    List<PolygonOsmModel> findPolygonOsmModelsInsideWay(Polygon way);
+    @Query(value = "select p.osm_id, p.natural, p.landuse, p.water, p.waterway, p.way from planet_osm_polygon p where st_contains(?1,p.way) or st_intersects(?1,p.way)", nativeQuery = true)
+    List<PolygonOsmModel> findAllPolygonOsmModelsInsideWay(Polygon way);
 
     @Query(value = "select Find_SRID('public', 'planet_osm_polygon', 'way') as srid", nativeQuery = true)
     int getSRID();

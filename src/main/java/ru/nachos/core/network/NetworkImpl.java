@@ -1,10 +1,12 @@
 package ru.nachos.core.network;
 
 import ru.nachos.core.Id;
+import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.NetworkFactory;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
+import ru.nachos.db.model.fire.ContourLine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +17,8 @@ public class NetworkImpl implements Network {
     private String name;
     private NetworkFactory factory;
     private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
-    private TreeMap<Id<ContourLine>, ContourLine> relief = new TreeMap<>();
-    private ForestFuelTypeImpl fuelType;
+    private TreeMap<Long, ContourLine> relief = new TreeMap<>();
+    private ForestFuelType fuelType;
 
 
     NetworkImpl(NetworkFactory factory){
@@ -36,15 +38,15 @@ public class NetworkImpl implements Network {
         return this.name;
     }
     @Override
-    public ForestFuelTypeImpl getFuelType(){ return this.fuelType; }
+    public ForestFuelType getFuelType(){ return this.fuelType; }
     @Override
-    public void setFuelType(ForestFuelTypeImpl type){ this.fuelType = type; }
+    public void setFuelType(ForestFuelType type){ this.fuelType = type; }
     @Override
-    public TreeMap<Id<ContourLine>, ContourLine> getRelief() {
+    public TreeMap<Long, ContourLine> getRelief() {
         return relief;
     }
     @Override
-    public void addAllReliefLines(TreeMap<Id<ContourLine>, ContourLine> relief) {
+    public void addAllReliefLines(TreeMap<Long, ContourLine> relief) {
         this.relief = relief;
     }
 }

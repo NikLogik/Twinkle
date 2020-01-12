@@ -69,7 +69,6 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
     private void agentBehaviorChange(Agent agent, PolygonType currentPolygonType) {
         switch (currentPolygonType) {
             case WATER:
-            case PORT:
             case BEACH:
             case DEFAULT:
                 PolygonV2 currentPolygon = polygons.get(currentPolygonType).get(agent.getPolygonId());

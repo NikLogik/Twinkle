@@ -5,6 +5,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPoint;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import ru.nachos.core.config.ConfigUtils;
@@ -15,6 +16,7 @@ import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.db.model.fire.FireModel;
+import ru.nachos.db.services.ContourLineService;
 import ru.nachos.db.services.FireDatabaseService;
 import ru.nachos.db.services.GeometryDatabaseService;
 import ru.nachos.web.models.lib.RequestData;
@@ -29,21 +31,28 @@ public class FireModelRunner {
 
     private GeometryDatabaseService geometryService;
     private FireDatabaseService fireService;
+    private ContourLineService lineService;
     private FireModel model;
+    @Value("${app.database.osm.srid}")
+    private int osmDatabaseSrid;
 
     @Autowired
-    public FireModelRunner(GeometryDatabaseService geometryService, FireDatabaseService fireService){
+    public FireModelRunner(GeometryDatabaseService geometryService, FireDatabaseService fireService,
+                           ContourLineService lineService){
         this.geometryService = geometryService;
         this.fireService = fireService;
+        this.lineService = lineService;
     }
 
     public void run(RequestData requestData) {
         Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.getFireCenter()));
+        int perimeter = fireService.firePerimeter(requestData.getFireCenter(), fireCenterCoordinate);
         int startTime = 0;
         int lastIteration = requestData.getLastIterationTime() / requestData.getIterationStepTime();
         Config config = new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
                 .setStartTime(startTime)
                 .setEndTime(requestData.getLastIterationTime())
+                .setSRID(osmDatabaseSrid)
                 .setIterationStepTime(requestData.getIterationStepTime())
                 .setFireAgentDIstance(requestData.getFireAgentDistance())
                 .setFuelType(requestData.getFuelTypeCode())
@@ -52,9 +61,10 @@ public class FireModelRunner {
                 .setWindSpeed(requestData.getWindSpeed())
                 .setFireCenterCoordinate(fireCenterCoordinate)
                 .setLastIteration(lastIteration)
+                .setFirePerimeter(perimeter)
                 .build();
-        InitialPreprocessingData initialData = InitialPreprocessingDataUtils.createInitialData(config, geometryService);
-        InitialPreprocessingDataUtils.loadInitialData(initialData);
+        InitialPreprocessingData initialData = InitialPreprocessingDataUtils.createInitialData(config, osmDatabaseSrid);
+        InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
         Controller controller = ControllerUtils.createController(initialData, fireService);
         controller.run();
         this.model = controller.getModel();

@@ -56,7 +56,7 @@ public class RequestDataImpl implements RequestData, Serializable {
 
     @Override
     public String toString() {
-        return "EstimateDataImpl{" +
+        return "RequestDataImpl{" +
                 "windSpeed=" + windSpeed +
                 ", windDirection=" + windDirection +
                 ", fireClass=" + fireClass +

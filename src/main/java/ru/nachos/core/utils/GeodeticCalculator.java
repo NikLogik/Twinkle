@@ -144,17 +144,25 @@ public class GeodeticCalculator {
         return height;
     }
 
-    public static boolean crossingSegment(Coordinate p1, Coordinate p2, Coordinate p3, Coordinate p4){
-        double v1, v2, v3, v4;
-        v1 = findVector(p4.x - p3.x, p4.y - p3.y, p1.x - p3.x, p1.y - p3.y);
-        v2 = findVector(p4.x - p3.x, p4.y - p3.y, p2.x - p3.x, p2.y - p3.y);
-        v3 = findVector(p2.x - p1.x, p2.y - p1.y, p3.x - p1.x, p3.y - p1.y);
-        v4 = findVector(p2.x - p1.x, p2.y - p1.y, p4.x - p1.x, p4.y - p1.y);
-        if (v1*v2 < 0 && v3*v4 < 0){
-            return true;
-        } else{
-            return false;
+    public static double ortoDirection(Coordinate start, Coordinate end, Coordinate sourcePoint){
+        double A = start.y - end.y;
+        double B = end.x - start.x;
+        double C = ((start.x * end.y) - (end.x * start.y));
+        double nX = 0;
+        double nY = 0;
+        double v = reverseProblem(start, end);
+        if (v < 0){
+            v += 360.0;
         }
+        if (v < 180.0){
+            nX = sourcePoint.x + A;
+            nY = sourcePoint.y + B;
+        } else if (v < 270.0) {
+            nX = sourcePoint.x - A;
+            nY = sourcePoint.y - B;
+        }
+        double v1 = reverseProblem(sourcePoint, new Coordinate(nX, nY));
+        return v1 > 0.0 ? v1 : v1 + 360.0;
     }
 
     private static double findVector(double x1, double y1, double x2, double y2){

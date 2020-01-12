@@ -1,12 +1,9 @@
 package ru.nachos.core.network.lib;
 
-import ru.nachos.core.Id;
-import ru.nachos.core.network.ForestFuelTypeImpl;
-
 public interface ForestFuelType {
     String getName();
 
-    Id<ForestFuelTypeImpl> getId();
+    long getId();
 
     double getMiddleReserve();
 

@@ -18,7 +18,7 @@ public interface Config {
     long getStartTime();
     long getEndTime();
     FireSpreadModels getCalculator();
-    ForestFuelType getFuelType();
+    int getFuelType();
     double getWindSpeed();
     double getWindDirection();
     double getTemperature();
@@ -60,21 +60,6 @@ public interface Config {
     }
 
     enum FireSpreadModels{ Rotermel; }
-
-    enum ForestFuelType {
-        PineThick(802),
-        PineSparse(303),
-        SpruceThick(406),
-        SpruceSparse(507),
-        GreenwoodThick(710);
-
-        private final int value;
-
-        ForestFuelType(int value){ this.value = value; }
-
-        public int getValue(){ return this.value; }
-
-    }
 
     enum FirePowerClassification{
         Ignition(300),

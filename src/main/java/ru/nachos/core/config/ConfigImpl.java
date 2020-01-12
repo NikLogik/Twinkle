@@ -1,7 +1,6 @@
 package ru.nachos.core.config;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import org.springframework.stereotype.Component;
 import ru.nachos.core.config.lib.Config;
 
 import java.util.Map;
@@ -18,7 +17,7 @@ public class ConfigImpl implements Config {
     private long startTime;
     private long endTime;
     private FireSpreadModels calculator;
-    private ForestFuelType fuelType;
+    private int fuelType;
     private double windSpeed;
     private double windDirection;
     private double humidity;
@@ -32,9 +31,11 @@ public class ConfigImpl implements Config {
     ConfigImpl(){
         this.firstIteration = 1;
         this.calculator = FireSpreadModels.Rotermel;
-        this.firePerimeter = 500; //for 20.000 square meters
+        this.firePerimeter = 50; //for radius = 5 m
         this.srid = "EPSG:4326";
     }
+
+    public void setSrid(String srid) { this.srid = srid; }
 
     @Override
     public String getFireName() { return this.fireName; }
@@ -105,9 +106,9 @@ public class ConfigImpl implements Config {
     }
 
     @Override
-    public ForestFuelType getFuelType() { return fuelType; }
+    public int getFuelType() { return fuelType; }
 
-    public void setFuelType(ForestFuelType fuelType) {
+    public void setFuelType(int fuelType) {
         updateParams(FUEL_TYPE_CODE.getParam(), fuelType);
         this.fuelType = fuelType;
     }

@@ -63,7 +63,7 @@ public class FireFrontModelRepositoryTest {
 
     @Test
     public void findFireFrontModelByFireId(){
-        FireFrontModel fireFrontModelByFire_idAndIter_number = fireFrontModelRepository.findFireFrontModelByFire_FireIdAndIterNumber(109L, 5);
+        FireFrontModel fireFrontModelByFire_idAndIter_number = fireFrontModelRepository.findFireFrontModelByFire_FireIdAndIterNumber(14L, 5);
         Assert.assertNotNull(fireFrontModelByFire_idAndIter_number);
     }
 
@@ -71,5 +71,11 @@ public class FireFrontModelRepositoryTest {
     public void deleteFireByFireId(){
         fireFrontModelRepository.deleteAllByFire_FireId(122);
         repository.deleteByFireId(122);
+    }
+
+    @Test
+    public void findFireFrontModelByFire_FireIdAndMinIterationNumber(){
+        FireFrontModel model = fireFrontModelRepository.findFireFrontModelByFire_FireIdWithMinIterNumber(14L);
+        Assert.assertEquals(model.getIterNumber(), 0);
     }
 }

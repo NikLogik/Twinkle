@@ -14,7 +14,6 @@ import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.weather.WeatherUtils;
 import ru.nachos.core.weather.lib.Weather;
-import ru.nachos.db.services.GeometryDatabaseService;
 
 public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
@@ -25,13 +24,11 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
     private FireSpreadCalculator calculator;
     private MathTransform transformation;
     private MathTransform reTransformation;
-    private int databaseSRID;
-    private GeometryDatabaseService geometryService;
+    private int osmDatabaseSRID;
 
-    public InitialPreprocessingDataImpl(Config config, GeometryDatabaseService geometryService){
+    public InitialPreprocessingDataImpl(Config config, int osmDatabaseSRID){
         this.config = config;
-        this.geometryService = geometryService;
-        this.databaseSRID = geometryService.findSRID();
+        this.osmDatabaseSRID = osmDatabaseSRID;
         this.fire = FireUtils.createFire(this.config);
         this.network = NetworkUtils.createNetwork();
         this.weather = WeatherUtils.createWeather(this.config);
@@ -45,7 +42,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
-            fromSystem = CRS.decode("EPSG:" + databaseSRID, true);
+            fromSystem = CRS.decode("EPSG:" + osmDatabaseSRID, true);
             toSystem = CRS.decode(sourceSrid, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
@@ -60,17 +57,12 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         MathTransform math = null;
         try {
             fromSystem = CRS.decode(sourceSrid, true);
-            toSystem = CRS.decode("EPSG:" + databaseSRID, true);
+            toSystem = CRS.decode("EPSG:" + osmDatabaseSRID, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
             e.printStackTrace();
         }
         return math;
-    }
-
-    @Override
-    public GeometryDatabaseService getGeometryService() {
-        return geometryService;
     }
 
     @Override
@@ -87,8 +79,6 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
     public Network getNetwork() { return network; }
     @Override
     public FireSpreadCalculator getCalculator() {return calculator; }
-    @Override
-    public InitialPreprocessingData preprocessing(){ return InitialPreprocessingDataUtils.loadInitialData(this); }
     @Override
     public MathTransform getTransformation() {
         return transformation;
@@ -121,9 +111,9 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
     }
 
     @Override
-    public void setSRID(int srid) { this.databaseSRID = srid; }
+    public void setSRID(int srid) { this.osmDatabaseSRID = srid; }
     @Override
-    public int getDatabaseSRID() { return databaseSRID; }
+    public int getOsmDatabaseSRID() { return osmDatabaseSRID; }
 
     @Override
     public String toString() {

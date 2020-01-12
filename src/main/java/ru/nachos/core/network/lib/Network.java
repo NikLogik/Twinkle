@@ -1,11 +1,9 @@
 package ru.nachos.core.network.lib;
 
 import ru.nachos.core.Id;
-import ru.nachos.core.network.ContourLine;
-import ru.nachos.core.network.ForestFuelTypeImpl;
 import ru.nachos.core.utils.PolygonType;
+import ru.nachos.db.model.fire.ContourLine;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -21,11 +19,11 @@ public interface Network {
 
     String getName();
 
-    ForestFuelTypeImpl getFuelType();
+    ForestFuelType getFuelType();
 
-    void setFuelType(ForestFuelTypeImpl type);
+    void setFuelType(ForestFuelType type);
 
-    TreeMap<Id<ContourLine>, ContourLine> getRelief();
+    TreeMap<Long, ContourLine> getRelief();
 
-    void addAllReliefLines(TreeMap<Id<ContourLine>, ContourLine> relief);
+    void addAllReliefLines(TreeMap<Long, ContourLine> relief);
 }

@@ -9,12 +9,12 @@ import javax.persistence.*;
 @Table(name = "planet_osm_polygon", schema = "public")
 @Data
 public class PolygonOsmModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long osm_id;
     private String natural;
     private String landuse;
     private String water;
     private String waterway;
+    @Id
     private Geometry way;
 }

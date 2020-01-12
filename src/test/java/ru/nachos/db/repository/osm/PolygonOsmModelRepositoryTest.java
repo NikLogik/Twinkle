@@ -36,7 +36,7 @@ public class PolygonOsmModelRepositoryTest {
         GeometryFactory factory = new GeometryFactory();
         Polygon polygon = factory.createPolygon(new Coordinate[]{coordinates[0], coordinates[1], coordinates[2], coordinates[3], coordinates[0]});
         polygon.setSRID(3857);
-        List<PolygonOsmModel> polygonOsmModelsByWayContains = repository.findPolygonOsmModelsInsideWay(polygon);
+        List<PolygonOsmModel> polygonOsmModelsByWayContains = repository.findAllPolygonOsmModelsInsideWay(polygon);
         Assert.assertTrue(!polygonOsmModelsByWayContains.isEmpty());
     }
 

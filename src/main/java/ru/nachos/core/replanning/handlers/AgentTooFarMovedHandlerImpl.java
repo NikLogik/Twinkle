@@ -4,6 +4,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryCollection;
 import com.vividsolutions.jts.geom.Polygon;
+import org.apache.log4j.Logger;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;
@@ -14,6 +15,7 @@ import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.replanning.events.AgentsTooFarMovedEvent;
 import ru.nachos.core.replanning.handlers.lib.AgentTooFarMovedHandler;
+import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.JtsTools;
 import ru.nachos.core.utils.PolygonType;
@@ -22,28 +24,36 @@ import java.util.*;
 
 public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
 
+    Logger logger = Logger.getLogger(AgentTooFarMovedHandlerImpl.class);
+
     private final String POSTFIX = ":twinkle";
     private IterationInfo info;
     private Map<Id<Agent>, Agent> cacheActive = new LinkedHashMap<>();
     private Set<Id<Agent>> cacheStopped = new TreeSet<>();
     private Polygon firePolygon;
+    private double multipliedDistance;
 
     @Override
     public void handleEvent(AgentsTooFarMovedEvent event) {
+        logger.info("Start to find agents with too far distance");
         this.info = event.getInfo();
         this.firePolygon = FireUtils.getPolygonFromAgentMap(info.getAgents(), info.getGeomFactory());
-        double multiDistance = info.getAgentDistance() * 1.5;
-        Iterator<Agent> iterator = info.getAgents().iterator();
-        while (iterator.hasNext()){
-            Agent agent = iterator.next();
-            if (agent.getCoordinate().distance(agent.getRightNeighbour().getCoordinate()) > multiDistance) {
-                setMiddleNeighbour(agent, agent.getRightNeighbour(), event.getCounter() + "-" + event.getIterNum());
+        multipliedDistance = info.getAgentDistance() * 1.5;
+//        while (checkDistance(info.getAgents())) {
+            Iterator<Agent> iterator = info.getAgents().iterator();
+            while (iterator.hasNext()) {
+                Agent agent = iterator.next();
+                if (agent.getCoordinate().distance(agent.getRightNeighbour().getCoordinate()) > multipliedDistance) {
+                    setMiddleNeighbour(agent, agent.getRightNeighbour(), event.getCounter() + "-" + event.getIterNum());
+                }
             }
-        }
-        cacheActive.forEach(info.getAgents()::put);
-        if (!cacheStopped.isEmpty()){
-            cacheStopped.forEach(info.getAgents()::setToStopped);
-        }
+            cacheActive.forEach(info.getAgents()::put);
+            if (!cacheStopped.isEmpty()) {
+                cacheStopped.forEach(info.getAgents()::setToStopped);
+            }
+            cacheActive.clear();
+            cacheStopped.clear();
+//        }
     }
 
     private void setMiddleNeighbour(Agent left, Agent right, String numberId){
@@ -78,6 +88,12 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
             if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.STOPPED)){
                 newAgent.setStatus(AgentStatus.STOPPED);
                 cacheStopped.add(newAgent.getId());
+            } else if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.ACTIVE)
+                        || left.getStatus().equals(AgentStatus.ACTIVE) && right.getStatus().equals(AgentStatus.STOPPED)){
+                double v = GeodeticCalculator.ortoDirection(left.getCoordinate(), right.getCoordinate(), GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate()));
+                newAgent.setDirection(v);
+                info.getCalculator().calculateSpeedOfSpreadWithArbitraryDirection(info.getFireSpeed(), newAgent, info.getHeadDirection());
+                newAgent.setStatus(AgentStatus.ACTIVE);
             } else {
                 newAgent.setStatus(AgentStatus.ACTIVE);
             }
@@ -85,14 +101,22 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
         }
     }
 
-    private boolean isWithin(Coordinate p1){
-        return info.getGeomFactory().createPoint(p1).within(firePolygon);
-    }
-
     @Override
     public void resetHandler() {
         this.info = null;
         cacheActive.clear();
+    }
+
+    private boolean checkDistance(AgentMap map){
+        Iterator<Agent> iterator = map.iterator();
+        while (iterator.hasNext()){
+            Agent next = iterator.next();
+            if (next.getCoordinate().distance(next.getRightNeighbour().getCoordinate()) > multipliedDistance){
+                System.out.println(next.getId());
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

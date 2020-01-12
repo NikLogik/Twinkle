@@ -3,7 +3,9 @@ package ru.nachos.db.services;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
 import ru.nachos.core.network.lib.Network;
@@ -20,17 +22,21 @@ import java.util.stream.Collectors;
 @Service
 public class GeometryDatabaseService {
 
-    private PolygonOsmModelRepository polygonRepository;
+    Logger logger = Logger.getLogger(GeometryDatabaseService.class);
 
+    private PolygonOsmModelRepository polygonRepository;
+    @Value("${app.database.osm.srid}")
+    private int srid;
     @Autowired
     public GeometryDatabaseService(PolygonOsmModelRepository polygonRepository){
         this.polygonRepository = polygonRepository;
     }
 
     public Network createNetworkFromBoundaryBox(Network network, Coordinate[] boundaryBox){
-        Polygon polygon = network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]});
-        polygon.setSRID(3857);
-        List<PolygonOsmModel> polygons = polygonRepository.findPolygonOsmModelsInsideWay(polygon);
+        Polygon polygon = (Polygon)network.getFactory().getGeomFactory().createPolygon(new Coordinate[]{boundaryBox[0], boundaryBox[1], boundaryBox[2], boundaryBox[3], boundaryBox[0]}).getEnvelope();
+        polygon.setSRID(srid);
+        List<PolygonOsmModel> polygons = polygonRepository.findAllPolygonOsmModelsInsideWay(polygon);
+        logger.info("<=========================== Loaded polygons " + polygons.size() + " ===========================>");
         network.getPolygones().putAll(sortPolygonsByType(network.getFactory(), polygons));
         return network;
     }
@@ -59,9 +65,5 @@ public class GeometryDatabaseService {
         }
         return polygonV2s.stream()
                 .collect(Collectors.groupingBy(PolygonV2::getPolygonType, Collectors.toMap(PolygonV2::getId, Function.identity())));
-    }
-
-    public int findSRID(){
-        return polygonRepository.getSRID();
     }
 }

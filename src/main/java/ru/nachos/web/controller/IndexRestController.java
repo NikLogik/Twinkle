@@ -44,7 +44,7 @@ public class IndexRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        ResponseData response = responseService.getResponseDataByFireIdAndIterNumber(fireRunner.getModel().getFireId(), 0);
+        ResponseData response = responseService.getFireModelFirstIteration(fireRunner.getModel().getFireId());
         logger.info("Send response with result of the first iteration");
         return new ResponseEntity<> (response, HttpStatus.OK);
     }
@@ -61,8 +61,8 @@ public class IndexRestController {
     }
 
     @DeleteMapping(value = "/fires/{fireId}")
-    public ResponseEntity<Object> deleteFireModel(@PathVariable(name = "fireId") long fireId){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFireModel(@PathVariable(name = "fireId") long fireId){
         responseService.deleteFireModelByFireId(fireId);
-        return ResponseEntity.noContent().build();
     }
 }

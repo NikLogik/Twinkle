@@ -13,7 +13,6 @@ import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.*;
-import ru.nachos.core.info.IterationInfoPrinter;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
@@ -90,7 +89,6 @@ class ControllerImpl implements Controller {
         logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
-            IterationInfoPrinter.printResultData(currentIteration, iterationMap.get(currentIteration));
         }
     }
 
@@ -121,8 +119,7 @@ class ControllerImpl implements Controller {
                 newCoordinate = GeodeticCalculator.directProblem(lastState.getCoordinate(), incDistance, agent.getDirection());
                 agent.setCoordinate(newCoordinate);
                 agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
-                Id<PolygonV2> polygonId = null;
-                polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+                Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
                 agent.setPolygonId(polygonId);
             }
         }

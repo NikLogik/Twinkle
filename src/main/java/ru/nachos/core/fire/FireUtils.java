@@ -88,14 +88,13 @@ public final class FireUtils {
         Iterator<Agent> iterator = map.iterator();
         LinkedList<Coordinate> coordinates = new LinkedList<>();
         Agent head = iterator.next();
-        coordinates.add(head.getCoordinate());
+        coordinates.add(new Coordinate(head.getCoordinate()));
         while (iterator.hasNext()){
             Agent next = iterator.next();
-            coordinates.add(next.getCoordinate());
+            coordinates.add(new Coordinate(next.getCoordinate()));
         }
-        coordinates.add(head.getCoordinate());
+        coordinates.add(new Coordinate(head.getCoordinate()));
         Polygon polygon = factory.createPolygon(coordinates.toArray(new Coordinate[0]));
-        polygon.setSRID(4326);
         return polygon;
     }
 

@@ -60,6 +60,10 @@ public class AgentMap implements Iterable<Agent>{
         return agentMap.put(key, value);
     }
 
+    public Agent getHead(){
+        return agentMap.get(headAgent);
+    }
+
     public Agent get(Id<Agent> key){ return agentMap.get(key); }
 
     public void putAll(Map<Id<Agent>, Agent> map){

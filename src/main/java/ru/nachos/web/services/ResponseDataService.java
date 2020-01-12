@@ -12,8 +12,8 @@ import ru.nachos.web.models.lib.ResponseData;
 public class ResponseDataService {
 
     Logger logger = Logger.getLogger(ResponseDataService.class);
-
     private final FireDatabaseService fireService;
+
     @Autowired
     public ResponseDataService(FireDatabaseService fireService) {
         this.fireService = fireService;
@@ -25,5 +25,9 @@ public class ResponseDataService {
 
     public void deleteFireModelByFireId(long fireId){
         fireService.deleteFireModelByFireId(fireId);
+    }
+
+    public ResponseData getFireModelFirstIteration(long fireId){
+        return fireService.getResponseDataByFireIdWhereIterNumberIsMin(fireId);
     }
 }

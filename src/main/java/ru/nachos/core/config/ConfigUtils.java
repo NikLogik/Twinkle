@@ -39,12 +39,11 @@ public class ConfigUtils {
             return this;
         }
         public ConfigBuilder setFuelType(int type){
-            for (Config.ForestFuelType type1 : Config.ForestFuelType.values()){
-                if (type1.getValue() == type) {
-                    config.setFuelType(type1);
-                    break;
-                }
-            }
+            config.setFuelType(type);
+            return this;
+        }
+        public ConfigBuilder setSRID(int srid){
+            config.setSrid("EPSG:" + srid);
             return this;
         }
         public ConfigBuilder setFireCenterCoordinate(Coordinate coordinate){
@@ -65,6 +64,10 @@ public class ConfigUtils {
         }
         public ConfigBuilder setWindDirection(double windDirection){
             config.setWindDirection(windDirection);
+            return this;
+        }
+        public ConfigBuilder setFirePerimeter(int perimeter){
+            config.setFirePerimeter(perimeter);
             return this;
         }
         public Config build(){
