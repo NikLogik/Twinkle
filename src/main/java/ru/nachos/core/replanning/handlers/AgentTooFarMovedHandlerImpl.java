@@ -59,6 +59,7 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
     private void setMiddleNeighbour(Agent left, Agent right, String numberId){
         Coordinate position = GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate());
         PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(info.getGeomFactory(), info.getPolygons(), position);
+        Agent newAgent = null;
         if (PolygonType.isFireproof(geometry.getPolygonType())) {
             GeometryCollection geometryCollection = JtsTools.splitPolygon(geometry, left.getCoordinate(), right.getCoordinate());
             for (int i=0; i<geometryCollection.getNumGeometries(); i++){
@@ -66,7 +67,7 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
                     Geometry geometryN = geometryCollection.getGeometryN(i);
                     Agent r = right;
                     for (int j=1; j<geometryN.getCoordinates().length-1; j++) {
-                        Agent newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX + "-" + j));
+                        newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX + "-" + j));
                         TwinkleUtils.setAgentBetween(left, r, newAgent);
                         newAgent.setPolygonId(r.getPolygonId());
                         newAgent.setCoordinate(geometryN.getCoordinates()[j]);
@@ -82,7 +83,7 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
                 }
             }
         } else {
-            Agent newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX));
+            newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX));
             TwinkleUtils.createMiddleAgent(left, right, newAgent);
             newAgent.setPolygonId(geometry.getId());
             if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.STOPPED)){
@@ -98,6 +99,9 @@ public class AgentTooFarMovedHandlerImpl implements AgentTooFarMovedHandler {
                 newAgent.setStatus(AgentStatus.ACTIVE);
             }
             cacheActive.put(newAgent.getId(), newAgent);
+        }
+        if (newAgent != null){
+            NetworkUtils.createTrip(newAgent, info.getNetwork(), info.getSimTime(), info.getCurTime(), info.getCalculator());
         }
     }
 

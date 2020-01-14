@@ -53,9 +53,9 @@ public abstract class Id<T> implements Comparable<Id<T>> {
     public static Id<Agent> createAgentId(long key){return create(key, Agent.class);}
     public static Id<Agent> createAgentId(String key){return create(key, Agent.class);}
     public static Id<Agent> createAgentId(Id<Agent> key){return create(key, Agent.class);}
-    public static Id<Agent> createLinkId(long key){return create(key, Agent.class);}
-    public static Id<Agent> createLinkId(String key){return create(key, Agent.class);}
-    public static Id<Agent> createLinkId(Id<Link> key){return create(key, Agent.class);}
+    public static Id<Link> createLinkId(long key){return create(key, Link.class);}
+    public static Id<Link> createLinkId(String key){return create(key, Link.class);}
+    public static Id<Link> createLinkId(Id<Link> key){return create(key, Link.class);}
     public static Id<Node> createNodeId(long key) {return create(key, Node.class);}
     public static Id<Node> createNodeId(String key) {return create(key, Node.class);}
     public static Id<Node> createNodeId(Id<Node> key) {return create(key, Node.class);}

@@ -2,7 +2,13 @@ package ru.nachos.core.utils;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import org.apache.commons.math.util.FastMath;
+import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.network.lib.Link;
+import ru.nachos.core.network.lib.Node;
 import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.core.network.lib.Trip;
+
+import java.util.LinkedList;
 
 public class GeodeticCalculator {
 
@@ -103,10 +109,18 @@ public class GeodeticCalculator {
         return Math.sqrt(var/4);
     }
 
-    public static double distance(Coordinate first, Coordinate second){
-        double dX = Math.pow(first.x - second.x, 2);
-        double dY = Math.pow(first.y - second.y, 2);
-        return Math.sqrt(dX + dY);
+    public static Coordinate distance(double currentTime, Trip trip, Agent agent){
+        LinkedList<Node> nodes = trip.getNodes();
+        Link current = null;
+        for (Node node : nodes){
+            if (node.getTripTime() > currentTime){
+                current = node.getInLink();
+                break;
+            }
+        }
+        double timeOnLink = (currentTime - current.getFromNode().getTripTime()) / 60;
+        double leftDistance = timeOnLink * current.getLinkSpeed();
+        return directProblem(current.getFromNode().getCoordinate(), leftDistance, agent.getDirection());
     }
 
     /**

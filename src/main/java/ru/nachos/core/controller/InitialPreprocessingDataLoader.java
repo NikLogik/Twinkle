@@ -53,6 +53,7 @@ class InitialPreprocessingDataLoader {
                 boundaryBox[2] + " " + boundaryBox[3] + " " + "=========================>");
         geometryService.createNetworkFromBoundaryBox(preprocessingData.getNetwork(), boundaryBox);
         lineService.getContourLines(preprocessingData.getNetwork(), boundaryBox);
+        NetworkUtils.createTrips(preprocessingData.getNetwork(), preprocessingData.getFire().getTwinkles(), preprocessingData.getConfig().getEndTime(), preprocessingData.getCalculator());
     }
 
     private void loadFire() {
@@ -63,16 +64,13 @@ class InitialPreprocessingDataLoader {
             e.printStackTrace();
         }
         FireFactory factory = fire.getFactory();
-        //Получаем данные по типу сгораемого материала из базы данных
-
-        //считаем общую скорость для пожара, без учета внешних факторов
         FireSpreadCalculator calculator = preprocessingData.getCalculator();
         double headFireDirection = GeodeticCalculator.convertDirection(preprocessingData.getWeather().getWindDirection());
         FireUtils.setHeadDirectionOfSpread(fire, headFireDirection);
         ForestFuelType forestFuelType = fireService.getForestFuelType(preprocessingData.getConfig().getFuelType());
         preprocessingData.getNetwork().setFuelType(forestFuelType);
         double clearSpeed = calculator.calculateSpeedWithoutExternalConstraint(forestFuelType);
-        double speed = calculator.calculateSpeedOfSpreadWithConstraint(clearSpeed, config.getWindSpeed(), false);
+        double speed = calculator.calculateSpeedOfSpreadWithConstraint(clearSpeed, config.getWindSpeed());
         fire.setFireSpeed(speed);
         //генерируем агентов по длине периметра и ставим на стартовые точки
         Map<Id<Agent>, Agent> idAgentMap = factory.generateFireFront(fire.getCenterPoint(), fire.getAgentDistance(),

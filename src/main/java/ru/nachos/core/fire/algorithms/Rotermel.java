@@ -1,12 +1,10 @@
 package ru.nachos.core.fire.algorithms;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import org.apache.commons.math.util.MathUtils;
 import ru.nachos.core.fire.TwinkleUtils;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
+import ru.nachos.core.network.lib.Node;
 
 public class Rotermel implements FireSpreadCalculator {
 
@@ -36,14 +34,10 @@ public class Rotermel implements FireSpreadCalculator {
     }
 
     @Override
-    public double calculateSpeedOfSpreadWithConstraint(double fireSpeed, double windSpeed, boolean reliefData) {
+    public double calculateSpeedOfSpreadWithConstraint(double fireSpeed, double windSpeed) {
         this.windSpeed = windSpeed;
         double windK = windCoefficient();
-        double reliefK = 0.0;
-        if (reliefData) {
-            reliefK = reliefCoefficient(agent.getCoordinate(), agent.getLastState());
-        }
-        return fireSpeed * (1 + windK + reliefK);
+        return fireSpeed * (1 + windK);
     }
 
     @Override
@@ -116,18 +110,15 @@ public class Rotermel implements FireSpreadCalculator {
 
     /**
      * This method calculate relief constraint for the speed of fire spread
-     * @param coord - current coordinates of agent
-     * @param lastState - state of agent on the previous iteration
      * @return value relief coefficient
      */
-    private double reliefCoefficient(Coordinate coord, AgentState lastState){
-        int height1 = 0;
-        int height2 = 0;
-        int deltaHeight = height2 - height1;
+    @Override
+    public double reliefCoefficient(Node from, Node to){
+        double height1 = from.getElevation();
+        double height2 = to.getElevation();
+        double deltaHeight = height2 - height1;
 
-        double[] p1 = new double[]{lastState.getCoordinate().x, lastState.getCoordinate().y};
-        double[] p2 = new double[]{coord.x, coord.y};
-        int distance = (int) MathUtils.distance1(p1, p2);
+        double distance = from.getCoordinate().distance(to.getCoordinate());
 
         double grade = deltaHeight / distance;
 

@@ -1,10 +1,8 @@
 package ru.nachos.core.network;
 
 import ru.nachos.core.Id;
-import ru.nachos.core.network.lib.ForestFuelType;
-import ru.nachos.core.network.lib.Network;
-import ru.nachos.core.network.lib.NetworkFactory;
-import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.network.lib.*;
 import ru.nachos.core.utils.PolygonType;
 import ru.nachos.db.model.fire.ContourLine;
 
@@ -18,13 +16,17 @@ public class NetworkImpl implements Network {
     private NetworkFactory factory;
     private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
     private TreeMap<Long, ContourLine> relief = new TreeMap<>();
+    private HashMap<Id<Agent>, Trip> trips = new HashMap<>();
     private ForestFuelType fuelType;
-
 
     NetworkImpl(NetworkFactory factory){
         this.factory = factory;
     }
 
+    @Override
+    public Trip addTrip(Id<Agent> id, Trip trip){
+        return trips.put(id, trip);
+    }
     @Override
     public NetworkFactory getFactory() { return this.factory;}
     @Override
@@ -48,5 +50,9 @@ public class NetworkImpl implements Network {
     @Override
     public void addAllReliefLines(TreeMap<Long, ContourLine> relief) {
         this.relief = relief;
+    }
+    @Override
+    public Trip getTrip(Id<Agent> agent) {
+        return trips.get(agent);
     }
 }

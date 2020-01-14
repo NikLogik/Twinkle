@@ -76,9 +76,6 @@ public class AgentChangePolygonHandlerImpl implements AgentChangePolygonHandler 
                 Coordinate coordinate = GeodeticCalculator.directProblem(crossingPoint, -0.5, agent.getDirection());
                 logger.warn("Change behavior for agent ID=" + agent.getId() + ". Set to position " + coordinate + " from position " + agent.getCoordinate() + ", crossing point " + crossingPoint);
                 agent.setCoordinate(coordinate);
-                Coordinate[] directionLine = GeodeticCalculator.findNearestLine(crossingPoint, currentPolygon);
-                double leftDistance = agent.getLastState().getCoordinate().distance(agent.getCoordinate());
-                int leftTime = (info.getIterStepTime()/60) - (int)(leftDistance / agent.getSpeed());
                 agent.setPolygonId(agent.getLastState().getPolygonId());
                 stoppedAgents.add(agent.getId());
                 break;

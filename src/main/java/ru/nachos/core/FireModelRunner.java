@@ -16,6 +16,7 @@ import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.db.model.fire.FireModel;
+import ru.nachos.db.repository.fire.ContourLineRepository;
 import ru.nachos.db.services.ContourLineService;
 import ru.nachos.db.services.FireDatabaseService;
 import ru.nachos.db.services.GeometryDatabaseService;
@@ -32,16 +33,18 @@ public class FireModelRunner {
     private GeometryDatabaseService geometryService;
     private FireDatabaseService fireService;
     private ContourLineService lineService;
+    private ContourLineRepository lineRepository;
     private FireModel model;
     @Value("${app.database.osm.srid}")
     private int osmDatabaseSrid;
 
     @Autowired
     public FireModelRunner(GeometryDatabaseService geometryService, FireDatabaseService fireService,
-                           ContourLineService lineService){
+                           ContourLineService lineService, ContourLineRepository lineRepository){
         this.geometryService = geometryService;
         this.fireService = fireService;
         this.lineService = lineService;
+        this.lineRepository = lineRepository;
     }
 
     public void run(RequestData requestData) {

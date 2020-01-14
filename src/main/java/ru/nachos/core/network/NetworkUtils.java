@@ -4,9 +4,13 @@ package ru.nachos.core.network;
 import com.vividsolutions.jts.geom.*;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
-import ru.nachos.core.network.lib.Network;
-import ru.nachos.core.network.lib.PolygonV2;
+import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
+import ru.nachos.core.fire.lib.Agent;
+import ru.nachos.core.network.lib.*;
+import ru.nachos.core.utils.AgentMap;
+import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
+import ru.nachos.db.model.fire.ContourLine;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -108,5 +112,66 @@ public final class NetworkUtils {
         xx = 0.5D * (coord1.x + coord2.x);
         yy = 0.5D * (coord1.y + coord2.y);
         return new Coordinate(xx, yy);
+    }
+
+    public static void createTrips(Network network, AgentMap agents, long simTime, FireSpreadCalculator calculator){
+        Iterator<Agent> iterator = agents.iterator();
+        while (iterator.hasNext()){
+            Agent next = iterator.next();
+            createTrip(next, network, simTime, 0, calculator);
+        }
+    }
+
+    public static void createTrip(Agent agent, Network network, long simTime, double curTime, FireSpreadCalculator calculator){
+        NetworkFactory networkFactory = network.getFactory();
+        Coordinate pS = agent.getCoordinate();
+        double distance = agent.getSpeed() * (simTime / 30);
+        Coordinate pF = GeodeticCalculator.directProblem(pS, distance, agent.getDirection());
+        LineString lineString = networkFactory.getGeomFactory().createLineString(new Coordinate[]{pS, pF});
+        //!!!
+        lineString.setSRID(3857);
+        int counter = 0;
+        LinkedList<Node> intersections = new LinkedList<>();
+        for(ContourLine line : network.getRelief().values()){
+            if (lineString.intersects(line.getHorizontal())){
+                Id<Node> id = Id.createNodeId(agent.getId() + "-" + counter);
+                Geometry intersection = lineString.intersection(line.getHorizontal());
+                Node node = networkFactory.createNode(id, intersection.getCoordinate(), line.getElevation());
+                intersections.add(node);
+                counter++;
+            }
+        }
+        if (intersections.size()==0){
+            intersections.add(networkFactory.createNode(Id.createNodeId(agent.getId() + "-start"), pS, 0));
+            intersections.add(networkFactory.createNode(Id.createNodeId(agent.getId() + "-finish"), pF, 0));
+        } else {
+            Collections.sort(intersections, (a, b) ->
+                    (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate().distance(agent.getCoordinate())));
+            intersections.addFirst(networkFactory.createNode(Id.createNodeId(agent.getId() + "-start"), pS, intersections.getFirst().getElevation()));
+            intersections.addLast(networkFactory.createNode(Id.createNodeId(agent.getId() + "-finish"), pF, intersections.getLast().getElevation()));
+            Collections.sort(intersections, (a, b) ->
+                    (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate().distance(agent.getCoordinate())));
+        }
+        Trip trip = networkFactory.createTrip(agent.getId(), intersections);
+        int tripTime = (int) curTime;
+        for (int i = 1; i < intersections.size(); i++) {
+            Node from = intersections.get(i-1);
+            Node to = intersections.get(i);
+            double kRelief = agent.getSpeed();
+            if (intersections.size()==2){
+                kRelief *= 0.0;
+            } else {
+                kRelief *= calculator.reliefCoefficient(from, to);
+            }
+            from.setTripTime(tripTime);
+            int flowTime = (int)(from.getCoordinate().distance(to.getCoordinate()) / (agent.getSpeed() + kRelief)) * 60;
+            tripTime += flowTime;
+            Link link = networkFactory.createLink(Id.createLinkId(to.getId().toString()), from, to, (kRelief + agent.getSpeed()), flowTime);
+            from.setOutLink(link);
+            to.setInLink(link);
+            to.setTripTime(tripTime);
+            trip.addLink(link);
+        }
+        network.addTrip(agent.getId(), trip);
     }
 }

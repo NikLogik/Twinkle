@@ -11,9 +11,15 @@ public interface Link extends HasID {
 
     Node getFromNode();
 
-    boolean setToNode(Node node);
+    void setToNode(Node node);
 
-    boolean setFromNode(Node node);
+    void setFromNode(Node node);
 
-    double getLength();
+    double getTimeFlow();
+
+    double getLinkSpeed();
+
+    void setLinkSpeed(double kRelief);
+
+    void setTimeFlow(int timeFlow);
 }

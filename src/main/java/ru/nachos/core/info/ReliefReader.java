@@ -17,7 +17,7 @@ public class ReliefReader {
 
     private static Logger logger = Logger.getLogger(ReliefReader.class);
 
-    private static String path = "results/Krym_20-12-2019.csv";
+    private static String path = "results/Krym_10m.csv";
     private static TreeMap<Long, ContourLine> relief = new TreeMap<>();
 
     public static TreeMap<Long, ContourLine> getRelief(){
@@ -30,7 +30,14 @@ public class ReliefReader {
             iterator.next();
             while (iterator.hasNext()){
                 String[] next = iterator.next();
-                line = new ContourLine(Double.parseDouble(next[2]), (LineString) wktReader.read(next[0]));
+                double elev = Double.parseDouble(next[2]);
+                LineString lineString = (LineString) wktReader.read(next[0]);
+//                Coordinate[] coordinates = lineString.getCoordinates();
+//                for (int i=0; i<coordinates.length; i++){
+//                    coordinates[i].setOrdinate(2, elev);
+//                }
+                lineString.setSRID(3857);
+                line = new ContourLine(elev, lineString);
                 relief.put(Long.parseLong(next[1]), line);
             }
         }catch (IOException | ParseException e){

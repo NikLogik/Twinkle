@@ -4,6 +4,7 @@ package ru.nachos.core.fire.algorithms;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.network.lib.ForestFuelType;
 import ru.nachos.core.network.lib.Network;
+import ru.nachos.core.network.lib.Node;
 
 public interface FireSpreadCalculator {
 
@@ -16,7 +17,7 @@ public interface FireSpreadCalculator {
      * @param windSpeed
      * @return speed of fire spread for concrete agent
      */
-    double calculateSpeedOfSpreadWithConstraint(double speed, double windSpeed, boolean reliefData);
+    double calculateSpeedOfSpreadWithConstraint(double speed, double windSpeed);
 
     /**
      * This method calculate speed of fire spread without external constraint, as relief,
@@ -27,4 +28,6 @@ public interface FireSpreadCalculator {
     double calculateSpeedWithoutExternalConstraint(ForestFuelType type);
 
     void setNetwork(Network network);
+
+    double reliefCoefficient(Node from, Node to);
 }

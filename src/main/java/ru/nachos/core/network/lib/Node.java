@@ -4,25 +4,25 @@ import com.vividsolutions.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
 
-import java.util.Map;
-
 public interface Node extends HasID {
     @Override
     Id<Node> getId();
 
-    boolean addInLink(Link link);
+    double getElevation();
 
-    boolean addOutLink(Link link);
+    void setInLink(Link link);
 
-    Link removeInLink(Id<Link> link);
+    void setOutLink(Link link);
 
-    Link removeOutLink(Id<Link> link);
+    Link getInLink();
 
-    Map<Id<Link>, Link> getInLinks();
+    Link getOutLink();
 
-    Map<Id<Link>, Link> getOutLinks();
-
-    void setCoordinate(Coordinate coord);
+    void setCoordinate(Coordinate coordinate);
 
     Coordinate getCoordinate();
+
+    void setTripTime(int time);
+
+    int getTripTime();
 }

@@ -13,6 +13,7 @@ import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.*;
+import ru.nachos.core.info.IterationInfoPrinter;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.PolygonV2;
@@ -89,6 +90,7 @@ class ControllerImpl implements Controller {
         logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++){
             this.iteration(start);
+            IterationInfoPrinter.printResultData(start, iterationMap.get(start));
         }
     }
 
@@ -112,18 +114,22 @@ class ControllerImpl implements Controller {
             Agent agent = iterator.next();
             if (agent.getStatus().equals(AgentStatus.ACTIVE)) {
                 double incDistance;
-                Coordinate newCoordinate;
+                Coordinate newCoordinate = null;
                 AgentState lastState;
                 lastState = agent.getLastState();
-                incDistance = agent.getSpeed() * (stepAmount / 60);
-                newCoordinate = GeodeticCalculator.directProblem(lastState.getCoordinate(), incDistance, agent.getDirection());
+                if (network.getTrip(agent.getId()) != null){
+                    newCoordinate = GeodeticCalculator.distance(currentTime, network.getTrip(agent.getId()), agent);
+                } else {
+                    incDistance = agent.getSpeed() * (stepAmount / 60);
+                    newCoordinate = GeodeticCalculator.directProblem(lastState.getCoordinate(), incDistance, agent.getDirection());
+                }
                 agent.setCoordinate(newCoordinate);
-                agent.setDistanceFromStart(agent.getDistanceFromStart() + incDistance);
                 Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
                 agent.setPolygonId(polygonId);
             }
         }
     }
+
     @Override
     public Fire getFire() { return fire; }
 
@@ -156,6 +162,9 @@ class ControllerImpl implements Controller {
         private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons;
         private double headDirection;
         private Coordinate fireCenter;
+        private long simTime;
+        private double curTime;
+        private Network net;
 
         public IterationInfoImpl(int iterNum){
             this.iterNum = iterNum;
@@ -170,8 +179,16 @@ class ControllerImpl implements Controller {
             this.iterStepTime = config.getStepTimeAmount();
             this.headDirection = fire.getHeadDirection();
             this.fireCenter = fire.getCenterPoint();
+            this.simTime = config.getEndTime();
+            this.curTime = currentTime;
+            this.net = network;
         }
-
+        @Override
+        public double getCurTime() { return curTime; }
+        @Override
+        public long getSimTime() { return simTime; }
+        @Override
+        public Network getNetwork() { return net; }
         @Override
         public AgentMap getAgents() {
             return agents;
