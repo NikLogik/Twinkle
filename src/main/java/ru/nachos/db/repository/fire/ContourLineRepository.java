@@ -8,9 +8,9 @@ import ru.nachos.db.model.fire.ContourLine;
 
 import java.util.List;
 
-public interface ContourLineRepository extends JpaRepository<ContourLine, Long>, IntersectionFilterRepository {
+public interface ContourLineRepository extends JpaRepository<ContourLine, Long>{
     @Query(value = "select lines.id, lines.elevation, lines.horizontal from contour_lines as lines where st_contains(?1,lines.horizontal) or st_intersects(?1,lines.horizontal)", nativeQuery = true)
     List<ContourLine> findAllContourLineIsInsideGeometry(Polygon geometry);
     @Query(value = "select lines.id, lines.elevation, lines.horizontal from contour_lines as lines where st_intersects(?1, lines.horizontal)", nativeQuery = true)
-    List<ContourLine> findContourLineByHorizontal(Geometry geometry);
+    List<ContourLine> findContourLineByLine(Geometry geometry);
 }
