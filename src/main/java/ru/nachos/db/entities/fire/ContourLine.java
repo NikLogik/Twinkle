@@ -1,4 +1,4 @@
-package ru.nachos.db.model.fire;
+package ru.nachos.db.entities.fire;
 
 import com.vividsolutions.jts.geom.LineString;
 import lombok.Data;

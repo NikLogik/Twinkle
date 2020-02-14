@@ -7,7 +7,6 @@ import ru.nachos.core.exceptions.AgentMapOperationExeption;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentStatus;
-
 import java.util.*;
 
 public class AgentMap implements Iterable<Agent>{

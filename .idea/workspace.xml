@@ -2,35 +2,55 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="311c9286-7f87-4de6-869e-3bdbf2a27a3c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/LinkImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NodeImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/TripImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Trip.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/IntersectionFilterRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/IntersectionFilterRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/db/repository/fire/ContourLineRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entities/fire/FireDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entities/fire/FireIterationDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/FireInfoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/FireIterationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/FireRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/twinkle_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/twinkle_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/TwinkleApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/FireModelRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/Id.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/Id.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/ConfigUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/lib/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/config/lib/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/ControllerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/InitialPreprocessingDataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/IterationInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/IterationInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/FireSpreadCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/FireSpreadCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/controller/lib/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/algorithms/Rotermel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/ReliefReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/info/ReliefReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkFactoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkFactoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/NetworkUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Link.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/NetworkFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/NetworkFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/network/lib/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentChangePolygonHandlerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentTooFarMovedHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/replanning/handlers/AgentTooFarMovedHandlerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/GeodeticCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/AgentMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/AgentMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/JtsTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/utils/JtsTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/configuration/FireDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/configuration/FireDatasourceConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/configuration/OsmDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/configuration/OsmDatasourceConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/model/fire/ContourLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entities/fire/ContourLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/model/fire/FireFrontModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/model/fire/FireModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/core/fire/FireModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/model/fire/ForestFuelType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entities/fire/ForestFuelType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/model/osm/PolygonOsmModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/entities/osm/PolygonOsmModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/ContourLineRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/ContourLineRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/FireFrontModelRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/FireModelRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/ForestFuelTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/fire/ForestFuelTypeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/osm/PolygonOsmModelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/repository/osm/PolygonOsmModelRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/ContourLineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/ContourLineService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/FireDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/FireDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/GeometryDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/db/services/GeometryDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/controller/IndexRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResponseDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nachos/web/services/ResponseDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/repository/fire/ContourLineRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/repository/fire/FireFrontModelRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/db/repository/osm/PolygonOsmModelRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nachos/db/repository/osm/PolygonOsmModelRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/nachos/web/services/ResponseDataServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/twinkle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/twinkle.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,41 +118,6 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="osm" type="feb32156:DbDataSourceImpl" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="model: database" type="162271b6:PgImplModel$Database" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="model: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="model: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="osm" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="model: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
     </expand>
     <select />
   </component>
@@ -141,6 +126,7 @@
     <option name="HIDE_WARNINGS" value="true" />
   </component>
   <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="FavoritesManager">
@@ -151,8 +137,8 @@
       <list>
         <option value="Enum" />
         <option value="JUnit4 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -200,7 +186,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../pt2matsim" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jsprit-test/jsprit-test" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -224,6 +210,7 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ru.nachos.core.fire" />
       <recent name="ru.nachos.core.network" />
       <recent name="ru.nachos.core.utils" />
       <recent name="ru.nachos.core.replanning" />
@@ -236,8 +223,8 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/results" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/results" />
       <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/static/pic" />
     </key>
@@ -249,13 +236,13 @@
       <recent name="ru.nachos.core.replanning.handlers.lib" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ContourLineRepositoryTest.testIntersections">
+  <component name="RunManager" selected="Spring Boot.TwinkleApplication">
     <configuration name="ReliefReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.nachos.core.info.ReliefReader" />
       <module name="twinkle" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.nachos.core.info.*" />
+          <option name="PATTERN" value="ru.nachos.core.fire.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -267,6 +254,22 @@
       <module name="twinkle" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContourLineRepositoryTest.findIntersectionsForMultiLines" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="twinkle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.nachos.db.repository.fire.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.nachos.db.repository.fire" />
+      <option name="MAIN_CLASS_NAME" value="ru.nachos.db.repository.fire.ContourLineRepositoryTest" />
+      <option name="METHOD_NAME" value="findIntersectionsForMultiLines" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -303,22 +306,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResponseDataServiceTest.deleteFireById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="twinkle" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.nachos.web.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.nachos.web.services" />
-      <option name="MAIN_CLASS_NAME" value="ru.nachos.web.services.ResponseDataServiceTest" />
-      <option name="METHOD_NAME" value="deleteFireById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TwinkleApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="twinkle" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.nachos.TwinkleApplication" />
@@ -328,19 +315,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.ReliefReader" />
-      <item itemvalue="JUnit.ResponseDataServiceTest.deleteFireById" />
       <item itemvalue="JUnit.FireFrontModelRepositoryTest.findFireFrontModelByFire_FireIdAndMinIterationNumber" />
       <item itemvalue="JUnit.All in twinkle" />
-      <item itemvalue="Spring Boot.TwinkleApplication" />
       <item itemvalue="JUnit.ContourLineRepositoryTest.testIntersections" />
+      <item itemvalue="JUnit.ContourLineRepositoryTest.findIntersectionsForMultiLines" />
+      <item itemvalue="Spring Boot.TwinkleApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ContourLineRepositoryTest.testIntersections" />
         <item itemvalue="Application.ReliefReader" />
+        <item itemvalue="JUnit.ContourLineRepositoryTest.findIntersectionsForMultiLines" />
+        <item itemvalue="JUnit.ContourLineRepositoryTest.testIntersections" />
         <item itemvalue="JUnit.All in twinkle" />
         <item itemvalue="JUnit.FireFrontModelRepositoryTest.findFireFrontModelByFire_FireIdAndMinIterationNumber" />
-        <item itemvalue="JUnit.ResponseDataServiceTest.deleteFireById" />
       </list>
     </recent_temporary>
   </component>
@@ -357,12 +344,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:fires" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@189f70ca" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:fires" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@165ac311" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@5ed04f29" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -439,7 +421,28 @@
       <workItem from="1578753070990" duration="93000" />
       <workItem from="1578826017914" duration="18557000" />
       <workItem from="1578864592701" duration="27822000" />
-      <workItem from="1578987503348" duration="18394000" />
+      <workItem from="1578987503348" duration="26525000" />
+      <workItem from="1579160727978" duration="8093000" />
+      <workItem from="1579255605555" duration="274000" />
+      <workItem from="1579255925388" duration="608000" />
+      <workItem from="1579687613944" duration="16000" />
+      <workItem from="1579809400554" duration="1255000" />
+      <workItem from="1579954236502" duration="4802000" />
+      <workItem from="1579987046095" duration="3061000" />
+      <workItem from="1580111586189" duration="1940000" />
+      <workItem from="1580132919159" duration="7927000" />
+      <workItem from="1580221136921" duration="13782000" />
+      <workItem from="1580486061211" duration="1213000" />
+      <workItem from="1580805399075" duration="13079000" />
+      <workItem from="1580834805333" duration="4959000" />
+      <workItem from="1580904001006" duration="719000" />
+      <workItem from="1581061497780" duration="3000" />
+      <workItem from="1581077030398" duration="643000" />
+      <workItem from="1581321322443" duration="8659000" />
+      <workItem from="1581408817003" duration="97000" />
+      <workItem from="1581408930482" duration="12507000" />
+      <workItem from="1581493589194" duration="1210000" />
+      <workItem from="1581586720624" duration="9495000" />
     </task>
     <task id="LOCAL-00001" summary=" version 0.2">
       <created>1574065636322</created>
@@ -581,7 +584,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578826798771</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary=" version 1.0 25-12-2019&#10;- added into IndexRestController GET method by fire Id and iteration number.&#10;- added database layer with integration Spring JPA and supporting two individual DataSources: geometries(OSM data) and fires.&#10;- deleted redundant files from db and core package.&#10;- change logic for searching intersections agent ways with polygons in NetworkUtils.findIntersectionPoint.&#10;&#10;In the next update will be implemented relief constraint for agents, new datasource for relief data, support external configuration application.properties">
+      <created>1579008133082</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1579008133082</updated>
+    </task>
+    <task id="LOCAL-00022" summary=" version 1.0 25-12-2019&#10;- added into IndexRestController GET method by fire Id and iteration number.&#10;- added database layer with integration Spring JPA and supporting two individual DataSources: geometries(OSM data) and fires.&#10;- deleted redundant files from db and core package.&#10;- change logic for searching intersections agent ways with polygons in NetworkUtils.findIntersectionPoint.&#10;&#10;In the next update will be implemented relief constraint for agents, new datasource for relief data, support external configuration application.properties">
+      <created>1580834982273</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1580834982273</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,126 +640,176 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="585" y="214" width="800" height="677" key="#Assign_Data_Sources/61.27.1859.1053@61.27.1859.1053" timestamp="1577092241705" />
-    <state x="944" y="225" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576931760543">
+    <state x="944" y="225" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581669649034">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
+    <state x="944" y="225" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581669649034" />
     <state x="944" y="225" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576931760543" />
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1579000846640">
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1579013919853">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1579000846640" />
-    <state x="673" y="280" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1578565350909">
+    <state x="798" y="271" width="544" height="562" key="#com.intellij.ide.util.MemberChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1579013919853" />
+    <state x="673" y="280" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581408904200">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="673" y="280" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1578565350909" />
+    <state x="673" y="280" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581408904200" />
+    <state x="673" y="280" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1580807688182" />
     <state x="683" y="294" width="605" height="517" key="#com.intellij.refactoring.memberPullUp.PullUpDialog" timestamp="1576862185001">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="683" y="294" width="605" height="517" key="#com.intellij.refactoring.memberPullUp.PullUpDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1576862185001" />
-    <state x="731" y="413" width="519" height="318" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1577451724290">
+    <state x="731" y="413" width="519" height="318" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1581677074010">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
+    <state x="731" y="413" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677074010" />
     <state x="731" y="413" width="519" height="318" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/61.27.1859.1053@61.27.1859.1053" timestamp="1577451724290" />
     <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1577270261589">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="443" y="27" width="1084" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1577270261589" />
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1578928141254">
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581676991330">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1578928141254" />
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581676991330" />
+    <state x="723" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1579014325893" />
     <state x="522" y="382" width="927" height="341" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1575907574839">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="522" y="382" width="927" height="341" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575907574839" />
-    <state x="623" y="103" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1578826798615">
+    <state x="623" y="103" width="1054" height="912" key="CommitChangelistDialog2" timestamp="1581677340726">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="623" y="103" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1578826798615" />
+    <state x="623" y="103" key="CommitChangelistDialog2/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340726" />
+    <state x="623" y="103" width="1054" height="912" key="CommitChangelistDialog2/61.27.1859.1053@61.27.1859.1053" timestamp="1580834982020" />
     <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog" timestamp="1575553338415">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="523" y="210" width="924" height="684" key="DBNavigator.ProjectSettingsDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1575553338415" />
-    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog" timestamp="1578826787414">
+    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog" timestamp="1580834915863">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1578826787414" />
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1578829515878">
+    <state x="61" y="208" width="1487" height="872" key="DiffContextDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1580834915863" />
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1581589595043">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1578829515878" />
-    <state width="1813" height="317" key="GridCell.Tab.0.bottom" timestamp="1579008057124">
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581589595043" />
+    <state x="773" y="310" width="424" height="484" key="FileChooserDialogImpl/61.27.1859.1053@61.27.1859.1053" timestamp="1581328082499" />
+    <state width="914" height="285" key="GridCell.Tab.-1.bottom" timestamp="1581419475179">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="914" height="285" key="GridCell.Tab.-1.bottom/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419475179" />
+    <state width="914" height="285" key="GridCell.Tab.-1.center" timestamp="1581419475178">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="914" height="285" key="GridCell.Tab.-1.center/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419475178" />
+    <state width="914" height="285" key="GridCell.Tab.-1.left" timestamp="1581419475178">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="914" height="285" key="GridCell.Tab.-1.left/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419475178" />
+    <state width="914" height="285" key="GridCell.Tab.-1.right" timestamp="1581419475179">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="914" height="285" key="GridCell.Tab.-1.right/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419475179" />
+    <state width="1813" height="327" key="GridCell.Tab.0.bottom" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1576108600999">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.bottom.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600999" />
-    <state width="1813" height="317" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579008057124" />
-    <state width="1813" height="317" key="GridCell.Tab.0.center" timestamp="1579008057124">
+    <state width="1813" height="327" key="GridCell.Tab.0.bottom/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.0.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990879" />
+    <state width="1813" height="327" key="GridCell.Tab.0.center" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1576108600997">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.center.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600997" />
-    <state width="1813" height="317" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579008057124" />
-    <state width="1813" height="317" key="GridCell.Tab.0.left" timestamp="1579008057123">
+    <state width="1813" height="327" key="GridCell.Tab.0.center/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.0.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990879" />
+    <state width="1813" height="327" key="GridCell.Tab.0.left" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1576108600996">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.left.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600996" />
-    <state width="1813" height="317" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579008057123" />
-    <state width="1813" height="317" key="GridCell.Tab.0.right" timestamp="1579008057124">
+    <state width="1813" height="327" key="GridCell.Tab.0.left/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.0.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990879" />
+    <state width="1813" height="327" key="GridCell.Tab.0.right" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1576108600998">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="1859" height="270" key="GridCell.Tab.0.right.inPresentationMode/61.27.1859.1053@61.27.1859.1053" timestamp="1576108600998" />
-    <state width="1813" height="317" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579008057124" />
-    <state width="1813" height="398" key="GridCell.Tab.1.bottom" timestamp="1579007108456">
+    <state width="1813" height="327" key="GridCell.Tab.0.right/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.0.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990879" />
+    <state width="1813" height="327" key="GridCell.Tab.1.bottom" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="398" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579007108456" />
-    <state width="1813" height="398" key="GridCell.Tab.1.center" timestamp="1579007108456">
+    <state width="1813" height="327" key="GridCell.Tab.1.bottom/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.1.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990880" />
+    <state width="1813" height="327" key="GridCell.Tab.1.center" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="398" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579007108456" />
-    <state width="1813" height="398" key="GridCell.Tab.1.left" timestamp="1579007108456">
+    <state width="1813" height="327" key="GridCell.Tab.1.center/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.1.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990880" />
+    <state width="1813" height="327" key="GridCell.Tab.1.left" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="398" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579007108456" />
-    <state width="1813" height="398" key="GridCell.Tab.1.right" timestamp="1579007108456">
+    <state width="1813" height="327" key="GridCell.Tab.1.left/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.1.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990880" />
+    <state width="1813" height="327" key="GridCell.Tab.1.right" timestamp="1581677340742">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="398" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579007108456" />
-    <state width="1813" height="399" key="GridCell.Tab.2.bottom" timestamp="1579001359876">
+    <state width="1813" height="327" key="GridCell.Tab.1.right/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581677340742" />
+    <state width="1813" height="398" key="GridCell.Tab.1.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990880" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.bottom" timestamp="1581438941623">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.bottom/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941623" />
+    <state width="1813" height="398" key="GridCell.Tab.2.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990881" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.center" timestamp="1581438941623">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.center/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941623" />
+    <state width="1813" height="398" key="GridCell.Tab.2.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990881" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.left" timestamp="1581438941623">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.left/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941623" />
+    <state width="1813" height="398" key="GridCell.Tab.2.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990880" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.right" timestamp="1581438941623">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.2.right/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941623" />
+    <state width="1813" height="398" key="GridCell.Tab.2.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579169990881" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.bottom" timestamp="1581438941606">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.bottom/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941606" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.center" timestamp="1581438941606">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.center/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941606" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.left" timestamp="1581438941605">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.left/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941605" />
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.right" timestamp="1581438941606">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="351" key="GridCell.Tab.3.right/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581438941606" />
+    <state width="263" height="541" key="HiddenNamespacesPopup" timestamp="1580310134322">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="399" key="GridCell.Tab.2.bottom/61.27.1859.1053@61.27.1859.1053" timestamp="1579001359876" />
-    <state width="1813" height="399" key="GridCell.Tab.2.center" timestamp="1579001359876">
+    <state width="263" height="541" key="HiddenNamespacesPopup/61.27.1859.1053@61.27.1859.1053" timestamp="1580310134322" />
+    <state x="576" y="172" width="866" height="761" key="NewModule_or_Project.wizard" timestamp="1579256510870">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="1813" height="399" key="GridCell.Tab.2.center/61.27.1859.1053@61.27.1859.1053" timestamp="1579001359876" />
-    <state width="1813" height="399" key="GridCell.Tab.2.left" timestamp="1579001359876">
-      <screen x="61" y="27" width="1859" height="1053" />
-    </state>
-    <state width="1813" height="399" key="GridCell.Tab.2.left/61.27.1859.1053@61.27.1859.1053" timestamp="1579001359876" />
-    <state width="1813" height="399" key="GridCell.Tab.2.right" timestamp="1579001359876">
-      <screen x="61" y="27" width="1859" height="1053" />
-    </state>
-    <state width="1813" height="399" key="GridCell.Tab.2.right/61.27.1859.1053@61.27.1859.1053" timestamp="1579001359876" />
-    <state width="263" height="541" key="HiddenNamespacesPopup" timestamp="1576937648326">
-      <screen x="61" y="27" width="1859" height="1053" />
-    </state>
-    <state width="263" height="541" key="HiddenNamespacesPopup/61.27.1859.1053@61.27.1859.1053" timestamp="1576937648326" />
-    <state x="576" y="172" width="819" height="761" key="NewModule_or_Project.wizard" timestamp="1576165475537">
-      <screen x="61" y="27" width="1859" height="1053" />
-    </state>
-    <state x="576" y="172" width="819" height="761" key="NewModule_or_Project.wizard/61.27.1859.1053@61.27.1859.1053" timestamp="1576165475537" />
+    <state x="576" y="172" width="866" height="761" key="NewModule_or_Project.wizard/61.27.1859.1053@61.27.1859.1053" timestamp="1579256510870" />
     <state x="479" y="186" width="1024" height="845" key="SettingsEditor" timestamp="1576936046257">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -751,22 +818,28 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="1218" y="197" width="540" height="540" key="StructurePopup/61.27.1859.1053@61.27.1859.1053" timestamp="1577706826097" />
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1578826807826">
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2" timestamp="1580834993892">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1578826807826" />
+    <state x="585" y="288" width="800" height="790" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1580834993892" />
     <state width="929" height="527" key="XDebugger.FullValuePopup" timestamp="1578830982354">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state width="929" height="527" key="XDebugger.FullValuePopup/61.27.1859.1053@61.27.1859.1053" timestamp="1578830982354" />
-    <state x="893" y="444" width="362" height="258" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1579001126772">
+    <state x="893" y="444" width="362" height="258" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1581410489407">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="893" y="444" width="362" height="258" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/61.27.1859.1053@61.27.1859.1053" timestamp="1579001126772" />
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1578987503254">
+    <state x="893" y="444" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581410489407" />
+    <state x="893" y="444" width="362" height="258" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/61.27.1859.1053@61.27.1859.1053" timestamp="1579169454853" />
+    <state x="853" y="284" width="264" height="509" key="com.intellij.database.view.ui.DbObjectDialog" timestamp="1581419592657">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1578987503254" />
+    <state x="853" y="284" width="264" height="509" key="com.intellij.database.view.ui.DbObjectDialog/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419592657" />
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1581493590063">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581493590063" />
+    <state x="646" y="380" key="com.intellij.ide.util.TipDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1581321544565" />
     <state x="758" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575890309720">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -779,6 +852,26 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="523" y="210" width="925" height="684" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/61.27.1859.1053@61.27.1859.1053" timestamp="1576191148399" />
+    <state x="634" y="523" width="915" height="357" key="dock-window-1" timestamp="1581419472101">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="634" y="523" width="915" height="357" key="dock-window-1/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419472101" />
+    <state x="592" y="569" width="914" height="315" key="dock-window-2" timestamp="1581419593074">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="592" y="569" width="914" height="315" key="dock-window-2/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419593074" />
+    <state x="140" y="588" width="1692" height="381" key="dock-window-3" timestamp="1581419593074">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="140" y="588" width="1692" height="381" key="dock-window-3/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419593074" />
+    <state x="140" y="588" width="1692" height="381" key="dock-window-4" timestamp="1581419688668">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="140" y="588" width="1692" height="381" key="dock-window-4/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419688668" />
+    <state x="2047" y="658" width="1692" height="381" key="dock-window-5" timestamp="1581419738917">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2047" y="658" width="1692" height="381" key="dock-window-5/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581419738917" />
     <state x="723" y="332" width="524" height="440" key="extract.method.dialog" timestamp="1575273549872">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -787,14 +880,15 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="638" y="186" width="888" height="894" key="find.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1576916200106" />
-    <state width="435" height="263" key="javadoc.popup.new" timestamp="1579002742977">
+    <state width="435" height="263" key="javadoc.popup.new" timestamp="1581673869392">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state width="435" height="263" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1579002742977" />
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1577181293596">
+    <state width="435" height="263" key="javadoc.popup.new/1920.0.1920.1080/61.27.1859.1053@61.27.1859.1053" timestamp="1581673869392" />
+    <state width="435" height="263" key="javadoc.popup.new/61.27.1859.1053@61.27.1859.1053" timestamp="1581077064368" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog" timestamp="1579008455732">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1577181293596" />
+    <state x="735" y="181" width="500" height="743" key="refactoring.ChangeSignatureDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1579008455732" />
     <state x="654" y="253" key="run.anything.popup" timestamp="1578848308429">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -842,6 +936,8 @@
         <watch expression="current.getFromNode().getCoordinate().distance(coordinate)" language="JAVA" />
         <watch expression="network.getTrip(agent.getId())" language="JAVA" />
         <watch expression="calculator.reliefCoefficient(from, to)" language="JAVA" />
+        <watch expression="type.getMiddleReserve()" language="JAVA" />
+        <watch expression="type.getDepth()" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="next.getRightNeighbour().getId()" language="JAVA" />

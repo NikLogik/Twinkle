@@ -9,9 +9,6 @@ import java.util.Map;
 public interface Config {
 
     String getFireName();
-    void addParam(String paramName, String value);
-    Object getValue(String paramName);
-    Map<String, Object> getParams();
     int getFirstIteration();
     int getLastIteration();
     int getStepTimeAmount();

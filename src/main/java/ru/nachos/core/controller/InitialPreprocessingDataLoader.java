@@ -14,7 +14,7 @@ import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.fire.lib.FireFactory;
 import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.utils.GeodeticCalculator;
-import ru.nachos.db.model.fire.ForestFuelType;
+import ru.nachos.db.entities.fire.ForestFuelType;
 import ru.nachos.db.services.ContourLineService;
 import ru.nachos.db.services.FireDatabaseService;
 import ru.nachos.db.services.GeometryDatabaseService;

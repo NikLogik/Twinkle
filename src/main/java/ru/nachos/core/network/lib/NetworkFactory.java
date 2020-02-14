@@ -6,7 +6,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
-import ru.nachos.db.model.osm.PolygonOsmModel;
+import ru.nachos.db.entities.osm.PolygonOsmModel;
 
 import java.util.LinkedList;
 

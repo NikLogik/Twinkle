@@ -9,41 +9,42 @@ import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.nachos.core.fire.FireModel;
 import ru.nachos.core.fire.lib.Fire;
-import ru.nachos.db.model.fire.FireFrontModel;
-import ru.nachos.db.model.fire.FireModel;
-import ru.nachos.db.model.fire.ForestFuelType;
-import ru.nachos.db.repository.fire.FireFrontModelRepository;
-import ru.nachos.db.repository.fire.FireModelRepository;
-import ru.nachos.db.repository.fire.ForestFuelTypeRepository;
+import ru.nachos.db.entities.fire.*;
+import ru.nachos.db.repository.fire.*;
 import ru.nachos.web.models.CoordinateJson;
 import ru.nachos.web.models.ResponseDataImpl;
 import ru.nachos.web.models.lib.ResponseData;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FireDatabaseService {
 
-    private FireModelRepository fireModelRepository;
-    private FireFrontModelRepository fireFrontModelRepository;
     private ForestFuelTypeRepository forestRepository;
     private CoordinateTransformationService transformationService;
+    private FireRepository fireRepository;
+    private FireIterationRepository iterationRepository;
 
     @Autowired
-    public FireDatabaseService(FireModelRepository fireModelRepository, FireFrontModelRepository fireFrontModelRepository, CoordinateTransformationService transformationService
-    , ForestFuelTypeRepository forestRepository){
-        this.fireModelRepository = fireModelRepository;
-        this.fireFrontModelRepository = fireFrontModelRepository;
+    public FireDatabaseService(CoordinateTransformationService transformationService, ForestFuelTypeRepository forestRepository,
+                               FireRepository fireRepository, FireIterationRepository iterationRepository){
+
         this.transformationService = transformationService;
         this.forestRepository = forestRepository;
+        this.fireRepository = fireRepository;
+        this.iterationRepository = iterationRepository;
     }
 
-    public FireModel createAndGetFireModel(Fire fire, Point center, int iterAmount){
-        FireModel model = new FireModel(fire.getHeadDirection(), fire.getFireSpeed(),  fire.getFireClass(), iterAmount, center);
-        return fireModelRepository.save(model);
+    public FireModel createAndGetFireModel(Fire fire, Point center, int iterAmount, int forestType){
+        FireInfoDAO fireInfoDAO = new FireInfoDAO(fire.getHeadDirection(), (int)fire.getFireSpeed(), fire.getFireClass(), center);
+        ForestFuelType forestId = forestRepository.getForestFuelTypeByTypeId(forestType);
+        FireDAO fireDAO = fireRepository.save(new FireDAO(fire.getName(), new Date(), forestId, fireInfoDAO));
+        FireModel model = new FireModel(fireDAO, iterAmount);
+        return model;
     }
 
     public boolean saveIterationByFireId(int currentIteration, Polygon front, FireModel model){
@@ -57,33 +58,28 @@ public class FireDatabaseService {
             ex.printStackTrace();
         }
         front.setSRID(transformationService.getFireDatabaseSRID());
-        FireFrontModel frontModel = new FireFrontModel(model.getIterations_num(), currentIteration, front, model);
-        FireFrontModel save = fireFrontModelRepository.save(frontModel);
-        return save != null;
+        FireDAO one = fireRepository.findById(model.getFireId()).get();
+        FireIterationDAO fireIterationDAO = new FireIterationDAO(currentIteration, model.getIterAmount(), front, one);
+        return iterationRepository.save(fireIterationDAO)!= null;
     }
 
     public ResponseData getResponseDataByFireIdAndIterNumber(long fireId, int iterNumber){
-        FireFrontModel fireFrontModel = fireFrontModelRepository.findFireFrontModelByFire_FireIdAndIterNumber(fireId, iterNumber);
+        FireIterationDAO fireFrontModel = iterationRepository.findFireIterationDAOByFireId_IdAndIterNumber(fireId, iterNumber);
         Geometry polygon = fireFrontModel.getPolygon();
         CoordinateJson[] collect = Arrays.stream(((Polygon) polygon).getExteriorRing().getCoordinates()).map(coordinate -> new CoordinateJson(coordinate.x, coordinate.y)).toArray(CoordinateJson[]::new);
         return new ResponseDataImpl(fireId, fireFrontModel.getIterAmount(), fireFrontModel.getIterNumber(), collect);
     }
 
     public ResponseData getResponseDataByFireIdWhereIterNumberIsMin(long fireId){
-        FireFrontModel model = fireFrontModelRepository.findFireFrontModelByFire_FireIdWithMinIterNumber(fireId);
-        Geometry polygon = model.getPolygon();
+        FireIterationDAO firstIter = iterationRepository.findFirstIterByFireId(fireId);
+        Geometry polygon = firstIter.getPolygon();
         CoordinateJson[] collect = Arrays.stream(((Polygon) polygon).getExteriorRing().getCoordinates()).map(coordinate -> new CoordinateJson(coordinate.x, coordinate.y)).toArray(CoordinateJson[]::new);
-        return new ResponseDataImpl(fireId, model.getIterAmount(), model.getIterNumber(), collect);
+        return new ResponseDataImpl(fireId, firstIter.getIterAmount(), firstIter.getIterNumber(), collect);
     }
 
-    public void deleteFireModelByFireId(long fireId){
-        fireFrontModelRepository.deleteAllByFire_FireId(fireId);
-        fireModelRepository.deleteByFireId(fireId);
-    }
-
-    public FireModel findFireByFireId(long fireId){
-        Optional<FireModel> byId = fireModelRepository.findById(fireId);
-        return byId.orElseGet(FireModel::new);
+    public void deleteFireById(long fireId){
+        iterationRepository.deleteAllByFireId_Id(fireId);
+        fireRepository.deleteById(fireId);
     }
 
     public int firePerimeter(List<Coordinate> coordinates, Coordinate fireCenter){

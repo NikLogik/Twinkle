@@ -78,7 +78,6 @@ public class Rotermel implements FireSpreadCalculator {
 
     /**
      * Thia method calculate coefficient of wind effect by the speed of fire spread
-     *
      * @return
      */
     private double windCoefficient() {
@@ -107,7 +106,6 @@ public class Rotermel implements FireSpreadCalculator {
                                     * Math.log((20 + 1.18 * type.getTreeHeight()) / (0.43 * type.getTreeHeight())));
         return albiniSpeed;
     }
-
     /**
      * This method calculate relief constraint for the speed of fire spread
      * @return value relief coefficient

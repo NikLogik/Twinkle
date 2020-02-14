@@ -15,8 +15,7 @@ import ru.nachos.core.controller.InitialPreprocessingDataUtils;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.network.NetworkUtils;
-import ru.nachos.db.model.fire.FireModel;
-import ru.nachos.db.repository.fire.ContourLineRepository;
+import ru.nachos.core.fire.FireModel;
 import ru.nachos.db.services.ContourLineService;
 import ru.nachos.db.services.FireDatabaseService;
 import ru.nachos.db.services.GeometryDatabaseService;
@@ -33,27 +32,24 @@ public class FireModelRunner {
     private GeometryDatabaseService geometryService;
     private FireDatabaseService fireService;
     private ContourLineService lineService;
-    private ContourLineRepository lineRepository;
     private FireModel model;
     @Value("${app.database.osm.srid}")
     private int osmDatabaseSrid;
 
     @Autowired
     public FireModelRunner(GeometryDatabaseService geometryService, FireDatabaseService fireService,
-                           ContourLineService lineService, ContourLineRepository lineRepository){
+                           ContourLineService lineService){
         this.geometryService = geometryService;
         this.fireService = fireService;
         this.lineService = lineService;
-        this.lineRepository = lineRepository;
     }
 
     public void run(RequestData requestData) {
         Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.getFireCenter()));
         int perimeter = fireService.firePerimeter(requestData.getFireCenter(), fireCenterCoordinate);
-        int startTime = 0;
         int lastIteration = requestData.getLastIterationTime() / requestData.getIterationStepTime();
         Config config = new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
-                .setStartTime(startTime)
+                .setStartTime(0)
                 .setEndTime(requestData.getLastIterationTime())
                 .setSRID(osmDatabaseSrid)
                 .setIterationStepTime(requestData.getIterationStepTime())
@@ -85,7 +81,7 @@ public class FireModelRunner {
         }
     }
 
-    public FireModel getModel() {
-        return model;
+    public long getModelId() {
+        return model.getFireId();
     }
 }

@@ -1,13 +1,14 @@
-package ru.nachos.db.model.fire;
+package ru.nachos.db.entities.fire;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "forest_type", schema = "public")
 @Data
-public class ForestFuelType implements ru.nachos.core.network.lib.ForestFuelType {
+public class ForestFuelType implements ru.nachos.core.network.lib.ForestFuelType, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

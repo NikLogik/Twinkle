@@ -3,7 +3,7 @@ package ru.nachos.db.repository.osm;
 import com.vividsolutions.jts.geom.Polygon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.nachos.db.model.osm.PolygonOsmModel;
+import ru.nachos.db.entities.osm.PolygonOsmModel;
 
 import java.util.List;
 

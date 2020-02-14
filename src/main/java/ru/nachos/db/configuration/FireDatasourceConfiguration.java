@@ -36,7 +36,7 @@ public class FireDatasourceConfiguration {
     @Bean(name = "firesEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean firesEntityManagerFactory(EntityManagerFactoryBuilder builder){
         return builder.dataSource(firesDataSource())
-                    .packages("ru.nachos.db.model.fire")
+                    .packages("ru.nachos.db.entities.fire")
                     .build();
     }
 

@@ -12,7 +12,7 @@ import ru.nachos.core.network.lib.Network;
 import ru.nachos.core.network.lib.NetworkFactory;
 import ru.nachos.core.network.lib.PolygonV2;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.model.osm.PolygonOsmModel;
+import ru.nachos.db.entities.osm.PolygonOsmModel;
 import ru.nachos.db.repository.osm.PolygonOsmModelRepository;
 
 import java.util.*;

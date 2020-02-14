@@ -1,4 +1,4 @@
-package ru.nachos.db.model.osm;
+package ru.nachos.db.entities.osm;
 
 import com.vividsolutions.jts.geom.Geometry;
 import lombok.Data;

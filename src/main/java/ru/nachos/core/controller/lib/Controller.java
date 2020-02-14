@@ -4,7 +4,7 @@ import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.fire.lib.AgentState;
 import ru.nachos.core.fire.lib.Fire;
 import ru.nachos.core.network.lib.Network;
-import ru.nachos.db.model.fire.FireModel;
+import ru.nachos.core.fire.FireModel;
 
 import java.util.LinkedList;
 import java.util.Map;

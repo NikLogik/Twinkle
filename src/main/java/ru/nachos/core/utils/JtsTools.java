@@ -39,5 +39,4 @@ public class JtsTools {
         }
         return poly.getFactory().createGeometryCollection(GeometryFactory.toGeometryArray(output));
     }
-
 }

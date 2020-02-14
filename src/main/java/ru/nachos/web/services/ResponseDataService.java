@@ -24,7 +24,7 @@ public class ResponseDataService {
     }
 
     public void deleteFireModelByFireId(long fireId){
-        fireService.deleteFireModelByFireId(fireId);
+        fireService.deleteFireById(fireId);
     }
 
     public ResponseData getFireModelFirstIteration(long fireId){

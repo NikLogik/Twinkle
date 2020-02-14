@@ -1,12 +1,8 @@
 package ru.nachos.core.config;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import org.springframework.beans.factory.annotation.Value;
 import ru.nachos.core.config.lib.Config;
-
-import java.util.Map;
-import java.util.TreeMap;
-
-import static ru.nachos.core.config.lib.Config.Definitions.*;
 
 public class ConfigImpl implements Config {
 
@@ -22,54 +18,29 @@ public class ConfigImpl implements Config {
     private double windDirection;
     private double humidity;
     private double temperature;
-    private String srid;
+    @Value("app.database.fires.srid")
+    private int srid;
     private FirePowerClassification fireClass;
     private Coordinate fireCenterCoordinate;
     private int firePerimeter;
     private int fireAgentsDistance;
-    private TreeMap<String, Object> params = new TreeMap<>();
+
     ConfigImpl(){
         this.firstIteration = 1;
         this.calculator = FireSpreadModels.Rotermel;
         this.firePerimeter = 50; //for radius = 5 m
-        this.srid = "EPSG:4326";
     }
-
-    public void setSrid(String srid) { this.srid = srid; }
 
     @Override
     public String getFireName() { return this.fireName; }
 
     @Override
-    public void addParam(String paramName, String value) { this.params.put(paramName, value); }
-
-    @Override
-    public Object getValue(String paramName) {
-        return params.get(paramName);
-    }
-
-    @Override
-    public Map<String, Object> getParams() {
-        return this.params;
-    }
-
-    private void updateParams(String paramName, Object newParam){
-        this.params.put(paramName, newParam);
-    }
-
-    @Override
     public int getFirstIteration() { return firstIteration; }
-
-    void setFirstIteration(int firstIteration) {
-        updateParams(FIRST_ITERATION.getParam(), firstIteration);
-        this.firstIteration = firstIteration;
-    }
 
     @Override
     public int getLastIteration() { return lastIteration; }
 
     public void setLastIteration(int lastIteration) {
-        updateParams(LAST_ITERATION.getParam(), lastIteration);
         this.lastIteration = lastIteration;
     }
 
@@ -77,7 +48,6 @@ public class ConfigImpl implements Config {
     public int getStepTimeAmount() { return stepTimeAmount; }
 
     public void setStepTimeAmount(int stepTimeAmount) {
-        updateParams(STEP_TIME_AMOUNT.getParam(), stepTimeAmount);
         this.stepTimeAmount = stepTimeAmount;
     }
 
@@ -85,7 +55,6 @@ public class ConfigImpl implements Config {
     public long getStartTime() { return startTime; }
 
     public void setStartTime(long startTime) {
-        updateParams(START_TIME.getParam(), startTime);
         this.startTime = startTime;
     }
 
@@ -93,7 +62,6 @@ public class ConfigImpl implements Config {
     public long getEndTime() { return endTime; }
 
     public void setEndTime(long endTime) {
-        updateParams(END_TIME.getParam(), endTime);
         this.endTime = endTime;
     }
 
@@ -101,7 +69,6 @@ public class ConfigImpl implements Config {
     public FireSpreadModels getCalculator() { return calculator; }
 
     public void setCalculator(FireSpreadModels calculator) {
-        updateParams(ALGORITHM_TYPE.getParam(), calculator);
         this.calculator = calculator;
     }
 
@@ -109,7 +76,6 @@ public class ConfigImpl implements Config {
     public int getFuelType() { return fuelType; }
 
     public void setFuelType(int fuelType) {
-        updateParams(FUEL_TYPE_CODE.getParam(), fuelType);
         this.fuelType = fuelType;
     }
 
@@ -117,7 +83,6 @@ public class ConfigImpl implements Config {
     public double getWindSpeed() { return windSpeed; }
 
     public void setWindSpeed(double windSpeed) {
-        updateParams(WIND_SPEED.getParam(), windSpeed);
         this.windSpeed = windSpeed;
     }
 
@@ -125,7 +90,6 @@ public class ConfigImpl implements Config {
     public double getWindDirection() { return windDirection; }
 
     public void setWindDirection(double windDirection) {
-        updateParams(WIND_DIRECTION.getParam(), windDirection);
         this.windDirection = windDirection;
     }
 
@@ -133,7 +97,6 @@ public class ConfigImpl implements Config {
     public double getTemperature() { return temperature; }
 
     public void setTemperature(double temperature) {
-        updateParams(TEMPERATURE.getParam(), temperature);
         this.temperature = temperature;
     }
 
@@ -141,7 +104,6 @@ public class ConfigImpl implements Config {
     public double getHumidity() { return humidity; }
 
     public void setHumidity(double humidity) {
-        updateParams(HUMIDITY.getParam(), humidity);
         this.humidity = humidity;
     }
 
@@ -149,7 +111,6 @@ public class ConfigImpl implements Config {
     public FirePowerClassification getFireClass() { return fireClass; }
 
     public void setFireClass(FirePowerClassification fireClass) {
-        updateParams(FIRE_CLASS.getParam(), fireClass);
         this.fireClass = fireClass;
     }
 
@@ -157,7 +118,6 @@ public class ConfigImpl implements Config {
     public Coordinate getFireCenterCoordinate() { return fireCenterCoordinate; }
 
     public void setFireCenterCoordinate(Coordinate fireCenterCoordinate) {
-        updateParams(FIRE_CENTER_COORDS.getParam(), fireCenterCoordinate);
         this.fireCenterCoordinate = fireCenterCoordinate;
     }
 
@@ -165,20 +125,18 @@ public class ConfigImpl implements Config {
     public int getFirePerimeter() { return firePerimeter; }
 
     public void setFirePerimeter(int firePerimeter) {
-        updateParams(FIRE_PERIMETER.getParam(), firePerimeter);
         this.firePerimeter = firePerimeter;
     }
 
     @Override
     public int getFireAgentsDistance() { return fireAgentsDistance; }
 
+    public void setSrid(int srid) { this.srid = srid; }
+
     @Override
-    public String getSrid() {
-        return this.srid;
-    }
+    public String getSrid() { return "EPSG:" + this.srid; }
 
     public void setFireAgentsDistance(int fireAgentsDistance) {
-        updateParams(FIRE_AGENTS_DISTANCE.getParam(), fireAgentsDistance);
         this.fireAgentsDistance = fireAgentsDistance;
     }
 

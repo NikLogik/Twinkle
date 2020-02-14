@@ -4,7 +4,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.nachos.db.model.fire.ContourLine;
+import ru.nachos.db.entities.fire.ContourLine;
 
 import java.util.List;
 

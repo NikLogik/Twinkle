@@ -4,7 +4,7 @@ import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.network.lib.*;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.model.fire.ContourLine;
+import ru.nachos.db.entities.fire.ContourLine;
 
 import java.util.HashMap;
 import java.util.Map;

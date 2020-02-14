@@ -10,7 +10,7 @@ import ru.nachos.core.network.lib.*;
 import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.model.fire.ContourLine;
+import ru.nachos.db.entities.fire.ContourLine;
 
 import java.util.*;
 import java.util.stream.Collectors;

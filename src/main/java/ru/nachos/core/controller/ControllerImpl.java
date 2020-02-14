@@ -23,7 +23,7 @@ import ru.nachos.core.replanning.events.AfterIterationEvent;
 import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.model.fire.FireModel;
+import ru.nachos.core.fire.FireModel;
 import ru.nachos.db.services.FireDatabaseService;
 
 import java.util.Iterator;
@@ -63,7 +63,7 @@ class ControllerImpl implements Controller {
     public void run(){
         Point point = network.getFactory().getGeomFactory().createPoint(config.getFireCenterCoordinate());
         point.setSRID(4326);
-        this.model = fireService.createAndGetFireModel(fire, point, config.getLastIteration());
+        this.model = fireService.createAndGetFireModel(fire, point, config.getLastIteration(), config.getFuelType());
         if (fireService == null){
             throw new NullPointerException("Fire Service is null");
         }

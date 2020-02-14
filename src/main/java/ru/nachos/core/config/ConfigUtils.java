@@ -43,7 +43,7 @@ public class ConfigUtils {
             return this;
         }
         public ConfigBuilder setSRID(int srid){
-            config.setSrid("EPSG:" + srid);
+            config.setSrid(srid);
             return this;
         }
         public ConfigBuilder setFireCenterCoordinate(Coordinate coordinate){

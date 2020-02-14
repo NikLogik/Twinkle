@@ -44,7 +44,7 @@ public class IndexRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        ResponseData response = responseService.getFireModelFirstIteration(fireRunner.getModel().getFireId());
+        ResponseData response = responseService.getFireModelFirstIteration(fireRunner.getModelId());
         logger.info("Send response with result of the first iteration");
         return new ResponseEntity<> (response, HttpStatus.OK);
     }

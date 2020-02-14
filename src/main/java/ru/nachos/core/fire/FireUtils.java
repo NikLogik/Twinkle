@@ -3,6 +3,7 @@ package ru.nachos.core.fire;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Polygon;
+import org.apache.log4j.Logger;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.exceptions.FireLeaderException;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 public final class FireUtils {
 
-//    private static Logger logger = Logger.getLogger(FireUtils.class);
+    private static Logger logger = Logger.getLogger(FireUtils.class);
 
     private FireUtils(){}
 
@@ -64,7 +65,7 @@ public final class FireUtils {
                 throw new FireLeaderException(FireLeaderException.Code.TOO_MANY);
             }
         } catch (IllegalArgumentException ex){
-//            logger.warn("Agent map have " + agentList.size() + " agents. It will be forcibly fixed.");
+            logger.warn("Agent map have " + agentList.size() + " agents. It will be forcibly fixed.");
         } finally {
             if (agentList.size() > 1){
                 for (int i=0; i < agentList.size(); i++){

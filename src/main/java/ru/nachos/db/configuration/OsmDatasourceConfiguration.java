@@ -13,7 +13,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ru.nachos.db.model.osm.PolygonOsmModel;
+import ru.nachos.db.entities.osm.PolygonOsmModel;
 
 import javax.sql.DataSource;
 

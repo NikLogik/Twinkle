@@ -1,13 +1,15 @@
 package ru.nachos.db.services;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.network.lib.Network;
-import ru.nachos.db.model.fire.ContourLine;
+import ru.nachos.db.entities.fire.ContourLine;
 import ru.nachos.db.repository.fire.ContourLineRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -35,6 +37,18 @@ public class ContourLineService {
         return network;
     }
 
-
+    public List<Coordinate> getIntersectionPoints(Geometry geom1){
+        List<ContourLine> candidates = lineRepository.findContourLineByLine(geom1);
+        List<Coordinate> intersections = new ArrayList<>();
+        for (ContourLine line : candidates){
+            Geometry intersection = geom1.intersection(line.getHorizontal());
+            for (int j = 0; j < intersection.getCoordinates().length; j++) {
+                Coordinate coordinate = intersection.getCoordinates()[j];
+                coordinate.setOrdinate(2, line.getElevation());
+                intersections.add(coordinate);
+            }
+        }
+        return intersections;
+    }
 
 }

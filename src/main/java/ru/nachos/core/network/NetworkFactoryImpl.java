@@ -8,7 +8,7 @@ import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.network.lib.*;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.db.model.osm.PolygonOsmModel;
+import ru.nachos.db.entities.osm.PolygonOsmModel;
 
 import java.util.LinkedList;
 
