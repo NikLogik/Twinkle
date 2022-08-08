@@ -1,12 +1,10 @@
 package ru.nachos.db.entities.fire;
 
-import com.vividsolutions.jts.geom.Geometry;
-import lombok.Data;
+import org.locationtech.jts.geom.Geometry;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "fire_info")
 public class FireInfoDAO {
 
@@ -30,5 +28,29 @@ public class FireInfoDAO {
         this.fireSpeed = fireSpeed;
         this.fireClass = fireClass;
         this.center = center;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public double getDirection() {
+        return direction;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public int getFireSpeed() {
+        return fireSpeed;
+    }
+
+    public int getFireClass() {
+        return fireClass;
+    }
+
+    public Geometry getCenter() {
+        return center;
     }
 }

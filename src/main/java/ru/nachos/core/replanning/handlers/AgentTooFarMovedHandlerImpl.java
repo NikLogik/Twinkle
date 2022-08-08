@@ -1,10 +1,10 @@
 package ru.nachos.core.replanning.handlers;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryCollection;
-import com.vividsolutions.jts.geom.Polygon;
 import org.apache.log4j.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.IterationInfo;
 import ru.nachos.core.fire.FireUtils;

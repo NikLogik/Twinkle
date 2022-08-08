@@ -1,10 +1,8 @@
 package ru.nachos.core.fire;
 
-import com.vividsolutions.jts.geom.Geometry;
-import lombok.Data;
+import org.locationtech.jts.geom.Geometry;
 import ru.nachos.db.entities.fire.FireDAO;
 
-@Data
 public class FireModel {
 
     private Long fireId;
@@ -30,5 +28,29 @@ public class FireModel {
         this.fireClass = fireClass;
         this.iterAmount = iterations_num;
         this.center = center;
+    }
+
+    public Long getFireId() {
+        return fireId;
+    }
+
+    public double getDirection() {
+        return direction;
+    }
+
+    public double getFireSpeed() {
+        return fireSpeed;
+    }
+
+    public int getFireClass() {
+        return fireClass;
+    }
+
+    public int getIterAmount() {
+        return iterAmount;
+    }
+
+    public Geometry getCenter() {
+        return center;
     }
 }

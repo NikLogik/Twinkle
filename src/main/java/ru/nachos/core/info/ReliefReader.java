@@ -1,13 +1,12 @@
 package ru.nachos.core.info;
 
 import com.opencsv.CSVReader;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
 import org.apache.log4j.Logger;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import ru.nachos.db.entities.fire.ContourLine;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,7 +22,7 @@ public class ReliefReader {
     public static TreeMap<Long, ContourLine> getRelief(){
         logger.warn("Start loading contour lines from " + path);
         try{
-            CSVReader reader = new CSVReader(new FileReader(new File(path)), ',');
+            CSVReader reader = new CSVReader(new FileReader(path), ',');
             Iterator<String[]> iterator = reader.iterator();
             ContourLine line;
             WKTReader wktReader = new WKTReader();

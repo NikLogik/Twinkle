@@ -1,6 +1,6 @@
 package ru.nachos.core.fire;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.lib.Agent;
 import ru.nachos.core.fire.lib.AgentState;

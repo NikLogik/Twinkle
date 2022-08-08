@@ -1,6 +1,6 @@
 package ru.nachos.core.config;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 import org.springframework.beans.factory.annotation.Value;
 import ru.nachos.core.config.lib.Config;
 

@@ -2,7 +2,7 @@ package ru.nachos.web.models.lib;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 import ru.nachos.web.models.RequestDataImpl;
 
 import java.util.List;

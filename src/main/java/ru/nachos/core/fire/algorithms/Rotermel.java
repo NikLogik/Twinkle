@@ -95,7 +95,6 @@ public class Rotermel implements FireSpreadCalculator {
     /**
      * This method calculate wind speed according to the Albini`s formula for the half of fire`s height
      * @param windSpeed6meters
-
      * @return value wind coefficient
      */
     private double albiniFormulaForWindSpeed(double windSpeed6meters){

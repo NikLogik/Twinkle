@@ -1,8 +1,8 @@
 package ru.nachos.core.network.lib;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LinearRing;
-import com.vividsolutions.jts.geom.Polygon;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.controller.lib.HasID;
 import ru.nachos.core.utils.PolygonType;

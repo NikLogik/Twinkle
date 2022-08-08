@@ -1,9 +1,9 @@
 package ru.nachos.core.utils;
 
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.geom.util.LineStringExtracter;
-import com.vividsolutions.jts.operation.polygonize.Polygonizer;
 import org.apache.log4j.Logger;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.util.LineStringExtracter;
+import org.locationtech.jts.operation.polygonize.Polygonizer;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package ru.nachos.core.config;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 import ru.nachos.core.config.lib.Config;
 
 public class ConfigUtils {
@@ -13,7 +13,6 @@ public class ConfigUtils {
         ConfigImpl configImpl = (ConfigImpl) config;
         configImpl.setFireCenterCoordinate(newCenter);
     }
-
     public static class ConfigBuilder{
 
         private ConfigImpl config;

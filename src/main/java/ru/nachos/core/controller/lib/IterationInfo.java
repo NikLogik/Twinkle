@@ -1,7 +1,7 @@
 package ru.nachos.core.controller.lib;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.FireFactory;

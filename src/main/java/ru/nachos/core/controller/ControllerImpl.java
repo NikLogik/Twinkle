@@ -1,15 +1,16 @@
 package ru.nachos.core.controller;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
 import org.apache.log4j.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
 import ru.nachos.core.controller.lib.IterationInfo;
+import ru.nachos.core.fire.FireModel;
 import ru.nachos.core.fire.FireUtils;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;
 import ru.nachos.core.fire.lib.*;
@@ -23,7 +24,6 @@ import ru.nachos.core.replanning.events.AfterIterationEvent;
 import ru.nachos.core.utils.AgentMap;
 import ru.nachos.core.utils.GeodeticCalculator;
 import ru.nachos.core.utils.PolygonType;
-import ru.nachos.core.fire.FireModel;
 import ru.nachos.db.services.FireDatabaseService;
 
 import java.util.Iterator;

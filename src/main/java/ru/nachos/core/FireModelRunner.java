@@ -1,9 +1,9 @@
 package ru.nachos.core;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.MultiPoint;
 import org.apache.log4j.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.MultiPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ import ru.nachos.core.controller.ControllerUtils;
 import ru.nachos.core.controller.InitialPreprocessingDataUtils;
 import ru.nachos.core.controller.lib.Controller;
 import ru.nachos.core.controller.lib.InitialPreprocessingData;
-import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.core.fire.FireModel;
+import ru.nachos.core.network.NetworkUtils;
 import ru.nachos.db.services.ContourLineService;
 import ru.nachos.db.services.FireDatabaseService;
 import ru.nachos.db.services.GeometryDatabaseService;

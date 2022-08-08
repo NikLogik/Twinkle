@@ -1,7 +1,7 @@
 package ru.nachos.core.network;
 
 
-import com.vividsolutions.jts.geom.*;
+import org.locationtech.jts.geom.*;
 import org.springframework.stereotype.Service;
 import ru.nachos.core.Id;
 import ru.nachos.core.fire.algorithms.FireSpreadCalculator;

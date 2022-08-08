@@ -1,8 +1,8 @@
 package ru.nachos.core.controller;
 
-import com.vividsolutions.jts.geom.Coordinate;
 import org.apache.log4j.Logger;
 import org.geotools.geometry.jts.JTS;
+import org.locationtech.jts.geom.Coordinate;
 import org.opengis.referencing.operation.TransformException;
 import ru.nachos.core.Id;
 import ru.nachos.core.config.lib.Config;

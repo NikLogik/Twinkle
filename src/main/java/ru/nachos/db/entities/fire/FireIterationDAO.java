@@ -1,12 +1,10 @@
 package ru.nachos.db.entities.fire;
 
-import com.vividsolutions.jts.geom.Geometry;
-import lombok.Data;
+import org.locationtech.jts.geom.Geometry;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "fire_iterations")
 public class FireIterationDAO {
 
@@ -30,5 +28,25 @@ public class FireIterationDAO {
         this.iterAmount = iterAmount;
         this.polygon = polygon;
         this.fireId = fireId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getIterNumber() {
+        return iterNumber;
+    }
+
+    public int getIterAmount() {
+        return iterAmount;
+    }
+
+    public Geometry getPolygon() {
+        return polygon;
+    }
+
+    public FireDAO getFireId() {
+        return fireId;
     }
 }

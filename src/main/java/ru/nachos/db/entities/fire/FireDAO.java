@@ -1,14 +1,11 @@
 package ru.nachos.db.entities.fire;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name = "fires")
 public class FireDAO {
 
@@ -39,5 +36,29 @@ public class FireDAO {
         this.date = date;
         this.forestFuelType = forestFuelType;
         this.fireInfo = fireInfo;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Set<FireIterationDAO> getIterations() {
+        return iterations;
+    }
+
+    public FireInfoDAO getFireInfo() {
+        return fireInfo;
+    }
+
+    public ForestFuelType getForestFuelType() {
+        return forestFuelType;
     }
 }

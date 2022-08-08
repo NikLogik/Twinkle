@@ -1,9 +1,7 @@
 package ru.nachos.core.config.lib;
 
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public interface Config {

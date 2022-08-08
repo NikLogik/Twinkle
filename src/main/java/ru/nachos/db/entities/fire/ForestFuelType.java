@@ -1,13 +1,10 @@
 package ru.nachos.db.entities.fire;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "forest_type", schema = "public")
-@Data
 public class ForestFuelType implements ru.nachos.core.network.lib.ForestFuelType, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,4 +37,78 @@ public class ForestFuelType implements ru.nachos.core.network.lib.ForestFuelType
     private double  canopyOfWood;       //  высота полога древостоя
     @Column(name = "capacity_density")
     private double capacityDensityWood;
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public double getMiddleReserve() {
+        return middleReserve;
+    }
+
+    @Override
+    public int getSpecificArea() {
+        return specificArea;
+    }
+
+    @Override
+    public int getHeat() {
+        return heat;
+    }
+
+    @Override
+    public int getDensityForestFuel() {
+        return densityForestFuel;
+    }
+
+    @Override
+    public double getDepth() {
+        return depth;
+    }
+
+    @Override
+    public double getMoisture() {
+        return moisture;
+    }
+
+    @Override
+    public double getMaxMoisture() {
+        return maxMoisture;
+    }
+
+    @Override
+    public double getMineralMatter() {
+        return mineralMatter;
+    }
+
+    @Override
+    public double getMineralConsistency() {
+        return mineralConsistency;
+    }
+
+    @Override
+    public int getTreeHeight() {
+        return treeHeight;
+    }
+
+    @Override
+    public double getCanopyOfWood() {
+        return canopyOfWood;
+    }
+
+    @Override
+    public double getCapacityDensityWood() {
+        return capacityDensityWood;
+    }
 }
