@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="twinkle">
-    <output-path>$PROJECT_DIR$/classes/artifacts/twinkle</output-path>
-    <root id="archive" name="twinkle.war" />
-  </artifact>
-</component>
