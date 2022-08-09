@@ -1,5 +1,6 @@
 package git.niklogik.calculation;
 
+import git.niklogik.geo.Point3D;
 import ru.nachos.core.network.lib.ForestFuelType;
 
 public class ReliefSpeedRatio {

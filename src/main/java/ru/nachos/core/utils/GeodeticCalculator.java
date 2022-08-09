@@ -55,26 +55,6 @@ public class GeodeticCalculator {
         return result;
     }
 
-    public static Coordinate[] findNearestLine(Coordinate coordinate, PolygonV2 polygonV2){
-        Coordinate c1 = null;
-        Coordinate c2 = null;
-        Coordinate[] exteriorRing = polygonV2.getExteriorRing().getCoordinates();
-        double tempHeight = Double.MAX_VALUE;
-        for (int i=0; i < exteriorRing.length-1; i++){
-            double s1 = exteriorRing[i].distance(coordinate);
-            double s2 = exteriorRing[i+1].distance(coordinate);
-            double s3 = exteriorRing[i].distance(exteriorRing[i+1]);
-            double hP = (s1 + s2 + s3) / 2;
-            double height = (2 / s3) * Math.sqrt(hP * (hP-s1) * (hP-s2) * (hP-s3));
-            if (height < tempHeight){
-                c1 = exteriorRing[i];
-                c2 = exteriorRing[i+1];
-                tempHeight = height;
-            }
-        }
-        return new Coordinate[]{c1, c2};
-    }
-
     public static double convertDirection(double direction){
         double var = direction;
         if (var < 180.000){
@@ -158,17 +138,17 @@ public class GeodeticCalculator {
         return height;
     }
 
-    public static double ortoDirection(Coordinate start, Coordinate end, Coordinate sourcePoint){
+    public static double ortoDirection(Coordinate start, Coordinate end, Coordinate sourcePoint) {
         double A = start.y - end.y;
         double B = end.x - start.x;
         double C = ((start.x * end.y) - (end.x * start.y));
         double nX = 0;
         double nY = 0;
         double v = reverseProblem(start, end);
-        if (v < 0){
+        if (v < 0) {
             v += 360.0;
         }
-        if (v < 180.0){
+        if (v < 180.0) {
             nX = sourcePoint.x + A;
             nY = sourcePoint.y + B;
         } else if (v < 270.0) {
@@ -177,10 +157,5 @@ public class GeodeticCalculator {
         }
         double v1 = reverseProblem(sourcePoint, new Coordinate(nX, nY));
         return v1 > 0.0 ? v1 : v1 + 360.0;
-    }
-
-    private static double findVector(double x1, double y1, double x2, double y2){
-        double vector = (x1 * y2) - (x2 * y1);
-        return vector;
     }
 }

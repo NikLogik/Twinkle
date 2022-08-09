@@ -4,8 +4,8 @@ public class DirectionDiff {
     private final Double fireDirection;
     private final Double windDirection;
 
-    public DirectionDiff(Double fireDirection, Double windDirection) {
-        this.fireDirection = fireDirection;
+    public DirectionDiff(Double windDirection, Double targetDirection) {
+        this.fireDirection = targetDirection;
         this.windDirection = windDirection;
     }
 
