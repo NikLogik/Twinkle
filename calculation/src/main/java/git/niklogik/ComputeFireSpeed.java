@@ -23,8 +23,9 @@ public class ComputeFireSpeed {
     }
 
     public Double computeDirectedSpeed(Point3D start, Point3D end, double direction){
-        //TODO Завершить реализацию метода по расчету скорости с учетом направления
         Double diffDirection = new DirectionDiff(windForecast.direction, direction).difference();
-        throw new UnsupportedOperationException();
+        return computeFireSpread(start, end) *
+                new DirectionSpeedRatio(new AlbineWindSpeed(fuelType), windForecast.speed)
+                        .directionRatio(diffDirection);
     }
 }
