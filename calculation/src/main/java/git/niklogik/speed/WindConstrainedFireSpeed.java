@@ -1,10 +1,10 @@
-package git.niklogik.calculation;
+package git.niklogik.speed;
 
-public class WindConstrainedFireSpeed implements FireSpeed {
-    private final FireSpeed fireSpeed;
+public class WindConstrainedFireSpeed implements ComputeFireSpeed {
+    private final ComputeFireSpeed fireSpeed;
     private final WindSpeedRatio windSpeedRatio;
 
-    public WindConstrainedFireSpeed(WindSpeedRatio windSpeedRatio, FireSpeed fireSpeed) {
+    public WindConstrainedFireSpeed(WindSpeedRatio windSpeedRatio, ComputeFireSpeed fireSpeed) {
         this.fireSpeed = fireSpeed;
         this.windSpeedRatio = windSpeedRatio;
     }

@@ -1,4 +1,4 @@
-package git.niklogik.calculation;
+package git.niklogik.speed;
 
 public class DirectionDiff {
     private final Double fireDirection;

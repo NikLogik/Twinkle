@@ -1,4 +1,4 @@
-package git.niklogik.calculation;
+package git.niklogik.speed;
 
 import git.niklogik.geo.Point3D;
 import ru.nachos.core.network.lib.ForestFuelType;

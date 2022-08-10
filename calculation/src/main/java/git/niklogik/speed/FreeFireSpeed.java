@@ -1,8 +1,8 @@
-package git.niklogik.calculation;
+package git.niklogik.speed;
 
 import ru.nachos.core.network.lib.ForestFuelType;
 
-public class FreeFireSpeed implements FireSpeed {
+public class FreeFireSpeed implements ComputeFireSpeed {
     private final ForestFuelType fuelType;
     private final Gamma gamma;
     private final FireSpreadCharacteristics spreadCharacteristics;
