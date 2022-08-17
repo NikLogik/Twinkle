@@ -1,6 +1,9 @@
 package git.niklogik.geo;
 
 public class GeodesicLineSegment extends LineSegment3D {
+
+    public GeodesicLineSegment(LineSegment3D lineSegment){ super(lineSegment.start, lineSegment.end); }
+
     public GeodesicLineSegment(Point3D start, Point3D end) {
         super(start, end);
     }

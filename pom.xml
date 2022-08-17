@@ -7,10 +7,16 @@
     <groupId>git.niklogik</groupId>
     <artifactId>twinkle</artifactId>
     <packaging>pom</packaging>
-    <version>0.6.0</version>
+    <version>${releaseVersion}</version>
+
+    <properties>
+        <releaseVersion>0.1.0</releaseVersion>
+        <geotools.version>20.2</geotools.version>
+    </properties>
 
     <modules>
-        <module>calculation</module>
+        <module>calc</module>
+        <module>sim</module>
     </modules>
 
     <parent>
@@ -39,6 +45,11 @@
                 <version>1.17.3</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.badlogicgames.ashley</groupId>
+                <artifactId>ashley</artifactId>
+                <version>1.7.4</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>
@@ -48,13 +59,15 @@
             <id>matsim</id>
             <url>https://repo.matsim.org/repository/matsim</url>
         </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>Sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
     </repositories>
 
-    <properties>
-        <geotools.version>20.2</geotools.version>
-    </properties>
-
     <dependencies>
+
         <dependency>
             <groupId>org.matsim</groupId>
             <artifactId>matsim</artifactId>

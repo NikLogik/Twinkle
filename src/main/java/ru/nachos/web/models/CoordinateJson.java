@@ -2,7 +2,7 @@ package ru.nachos.web.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 
 @JsonDeserialize
 public class CoordinateJson extends Coordinate {

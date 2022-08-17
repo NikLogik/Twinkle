@@ -5,6 +5,11 @@ import org.apache.commons.math3.util.FastMath;
 import org.locationtech.jts.geom.Coordinate;
 
 public class GeodesicPoint extends Point3D {
+
+    public GeodesicPoint(Point3D point){
+        super(point.elevation, point.coordinate);
+    }
+
     public GeodesicPoint(Double elevation, Coordinate coordinate) {
         super(elevation, coordinate);
     }

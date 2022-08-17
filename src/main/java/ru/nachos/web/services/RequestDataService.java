@@ -1,7 +1,7 @@
 package ru.nachos.web.services;
 
-import com.vividsolutions.jts.geom.Coordinate;
 import org.geotools.geometry.jts.JTS;
+import org.locationtech.jts.geom.Coordinate;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 import org.springframework.beans.factory.annotation.Autowired;
