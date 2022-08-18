@@ -1,5 +1,6 @@
 package git.niklogik.sim;
 
 public interface System {
-    void update(Component component);
+    void update(long deltaTime);
+    System applyEngine(Engine engine);
 }

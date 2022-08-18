@@ -50,18 +50,6 @@ class BaseObjectTest {
         assertThat(component.someValue).isNotBlank().isEqualTo(last.someValue);
     }
 
-    @Test
-    @DisplayName("Replace parent component by its child")
-    void replaceParentComponentTest(){
-
-        Integer value = 10;
-
-        BaseObject baseObject = new BaseObject().addComponent(new OtherTestComponent(value)).addComponent(new ChildOtherComponent(value));
-
-        assertThat(baseObject.getComponents()).hasSize(1);
-
-    }
-
     private static class TestComponent implements Component {
         public final String someValue;
 
@@ -70,20 +58,11 @@ class BaseObjectTest {
         }
     }
 
-    private static class OtherTestComponent implements Component {
+    private static class OtherTestComponent implements Component, com.badlogic.ashley.core.Component {
         public final Integer otherValue;
 
         public OtherTestComponent(Integer otherValue) {
             this.otherValue = otherValue;
-        }
-    }
-
-    private static class ChildOtherComponent extends OtherTestComponent {
-
-        public final String childValue = "Child component value";
-
-        public ChildOtherComponent(Integer otherValue) {
-            super(otherValue);
         }
     }
 }

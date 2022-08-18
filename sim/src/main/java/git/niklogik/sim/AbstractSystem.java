@@ -1,11 +1,26 @@
 package git.niklogik.sim;
 
-public abstract class AbstractSystem implements System {
-    public void update(Component component) {
-        if (isSupported(component)) process(component);
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractSystem<T extends Node> implements System {
+
+    protected final List<T> nodes;
+
+    public AbstractSystem() {
+        this(new ArrayList<>(16));
     }
 
-    protected abstract boolean isSupported(Component component);
+    public AbstractSystem(List<T> nodes) {
+        this.nodes = nodes;
+    }
 
-    protected abstract void process(Component component);
+    @Override
+    public void update(long deltaTime) {
+        for (T node : nodes){
+            processNode(node, deltaTime);
+        }
+    }
+
+    protected abstract void processNode(T node, long deltaTime);
 }

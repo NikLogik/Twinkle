@@ -7,10 +7,9 @@
     <groupId>git.niklogik</groupId>
     <artifactId>twinkle</artifactId>
     <packaging>pom</packaging>
-    <version>${releaseVersion}</version>
+    <version>0.1.0</version>
 
     <properties>
-        <releaseVersion>0.1.0</releaseVersion>
         <geotools.version>20.2</geotools.version>
     </properties>
 

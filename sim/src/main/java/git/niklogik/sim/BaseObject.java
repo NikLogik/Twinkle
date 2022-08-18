@@ -12,6 +12,11 @@ public class BaseObject implements SimObject {
     public final EntityID unitId;
     private final Map<Class<? extends Component>, Component> components;
 
+    public BaseObject() {
+        unitId = new EntityID();
+        components = new HashMap<>(6);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -36,13 +41,6 @@ public class BaseObject implements SimObject {
 
     boolean addNewComponent(Component component){
         return components.putIfAbsent(component.getClass(), component) == null;
-    }
-
-
-
-    public BaseObject() {
-        unitId = new EntityID();
-        components = new HashMap<>(6);
     }
 
     public static class EntityID {
