@@ -1,6 +1,7 @@
-package git.niklogik.sim;
+package git.niklogik.sim.entities;
 
 import git.niklogik.Position;
+import git.niklogik.sim.Entity;
 import git.niklogik.sim.components.*;
 import git.niklogik.sim.components.ActivityStateComponent.ActivityState;
 import git.niklogik.sim.entities.BaseEntity;
