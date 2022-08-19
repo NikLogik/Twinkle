@@ -7,13 +7,13 @@ import java.util.Set;
 
 public class ComponentsGroup {
 
-    private final ImmutableSet<Class<? extends Component>> componentTypes;
+    public final ImmutableSet<Class<? extends Component>> componentTypes;
 
     public ComponentsGroup(ImmutableSet<Class<? extends Component>> componentTypes) {
         this.componentTypes = componentTypes;
     }
 
-    public boolean match(SimObject object){
+    public boolean match(Entity object){
         Set<Class<? extends Component>> set = new HashSet<>();
         for (Component c : object.getComponents()) {
             if (c.getClass().isAssignableFrom(Component.class)) {

@@ -1,20 +1,25 @@
-package git.niklogik.sim;
+package git.niklogik.sim.entities;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import git.niklogik.sim.Component;
+import git.niklogik.sim.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class BaseObject implements SimObject {
+public class BaseEntity implements Entity {
 
-    public final EntityID unitId;
+    public final EntityID id;
     private final Map<Class<? extends Component>, Component> components;
 
-    public BaseObject() {
-        unitId = new EntityID();
+    public BaseEntity() {
+        id = new EntityID();
         components = new HashMap<>(6);
+    }
+
+    @Override
+    public EntityID getId() {
+        return this.id;
     }
 
     @Override
@@ -24,7 +29,7 @@ public class BaseObject implements SimObject {
     }
 
     @Override
-    public BaseObject addComponent(final Component component) {
+    public BaseEntity addComponent(final Component component) {
         if (addNewComponent(component)) return this;
         Component oldComponent = components.get(component.getClass());
 
@@ -43,25 +48,4 @@ public class BaseObject implements SimObject {
         return components.putIfAbsent(component.getClass(), component) == null;
     }
 
-    public static class EntityID {
-        public final UUID uuid;
-
-        public EntityID() {
-            this.uuid = UUID.randomUUID();
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (!(obj instanceof EntityID)) return false;
-
-            EntityID other = (EntityID) obj;
-            return this.uuid.equals(other.uuid);
-        }
-    }
 }

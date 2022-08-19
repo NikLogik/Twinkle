@@ -10,6 +10,7 @@
     <version>0.1.0</version>
 
     <properties>
+        <releaseVersion>0.1.0</releaseVersion>
         <geotools.version>20.2</geotools.version>
     </properties>
 
@@ -48,6 +49,12 @@
                 <groupId>com.badlogicgames.ashley</groupId>
                 <artifactId>ashley</artifactId>
                 <version>1.7.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>23.0.0</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
