@@ -13,7 +13,7 @@ public class EntityID {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this);
+        return Objects.hashCode(uuid);
     }
 
     @Override

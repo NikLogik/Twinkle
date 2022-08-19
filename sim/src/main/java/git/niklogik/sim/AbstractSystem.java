@@ -1,4 +1,4 @@
-package git.niklogik.sim.systems;
+package git.niklogik.sim;
 
 import git.niklogik.sim.Node;
 import git.niklogik.sim.System;

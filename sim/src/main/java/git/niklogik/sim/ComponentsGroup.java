@@ -16,10 +16,7 @@ public class ComponentsGroup {
     public boolean match(Entity object){
         Set<Class<? extends Component>> set = new HashSet<>();
         for (Component c : object.getComponents()) {
-            if (c.getClass().isAssignableFrom(Component.class)) {
-                Class<? extends Component> aClass = c.getClass();
-                set.add(aClass);
-            }
+            set.add(c.getClass());
         }
         return set.containsAll(componentTypes);
     }

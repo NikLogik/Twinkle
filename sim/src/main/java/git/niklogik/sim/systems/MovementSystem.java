@@ -8,7 +8,6 @@ import git.niklogik.sim.NodeMapper;
 import git.niklogik.sim.NodeMappingException;
 import git.niklogik.sim.nodes.MovementNode;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class MovementSystem extends AbstractSystem<MovementNode> {
