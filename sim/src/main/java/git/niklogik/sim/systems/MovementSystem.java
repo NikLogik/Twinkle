@@ -35,6 +35,7 @@ public class MovementSystem extends AbstractSystem<MovementNode> {
         @Override
         public MovementNode toNode(Entity entity) throws NodeMappingException {
             return new MovementNode(
+                    entity.getId(),
                     entity.getComponentNN(TransferComponent.class),
                     entity.getComponentNN(PositionComponent.class)
             );

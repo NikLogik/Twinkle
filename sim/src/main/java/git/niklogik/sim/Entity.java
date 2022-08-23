@@ -7,8 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public interface Entity {
-    EntityID getId();
+public interface Entity extends Identifiable {
     @Nullable
     <T extends Component> T getComponent(Class<T> componentClass);
 

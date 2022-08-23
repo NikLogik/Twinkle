@@ -47,5 +47,4 @@ public class BaseEntity implements Entity {
     boolean addNewComponent(Component component){
         return components.putIfAbsent(component.getClass(), component) == null;
     }
-
 }
