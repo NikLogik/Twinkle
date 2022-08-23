@@ -27,7 +27,7 @@ public class FireSpeed {
     }
 
     private Double reliefRatio(Point3D start, Point3D end){
-        return new ReliefSpeedRatio(fuelType, start, end).reliefRatio();
+        return new ReliefSpeedRatio(fuelType, new AngleTangent(start, end)).reliefRatio();
     }
 
     private Double windRatio(){

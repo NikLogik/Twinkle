@@ -1,8 +1,5 @@
 package git.niklogik.sim;
 
-import git.niklogik.sim.Node;
-import git.niklogik.sim.System;
-
 import java.util.ArrayList;
 import java.util.List;
 
