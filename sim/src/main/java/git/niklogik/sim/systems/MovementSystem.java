@@ -20,6 +20,7 @@ public class MovementSystem extends AbstractSystem<MovementNode> {
 
     @Override
     protected void processNode(MovementNode node, long deltaTime) {
+
         throw new UnsupportedOperationException("Not implemented operation");
     }
 

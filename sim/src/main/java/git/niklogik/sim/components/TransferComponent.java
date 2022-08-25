@@ -2,6 +2,11 @@ package git.niklogik.sim.components;
 
 import git.niklogik.sim.Component;
 
+/**
+ * Component contains transfer properties:
+ * {@link TransferComponent#direction},
+ * {@link TransferComponent#speed}
+ */
 public class TransferComponent implements Component {
     public final Double speed;
     public final Double direction;
