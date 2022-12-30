@@ -4,8 +4,6 @@ import git.niklogik.Position;
 import git.niklogik.sim.Entity;
 import git.niklogik.sim.components.*;
 import git.niklogik.sim.components.ActivityStateComponent.ActivityState;
-import git.niklogik.sim.entities.BaseEntity;
-import git.niklogik.sim.entities.EntityID;
 
 public class EntitiesFactory {
     public Entity createFireUnit(Position start, double speed, double direction, EntityID left, EntityID right){

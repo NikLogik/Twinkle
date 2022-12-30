@@ -1,7 +1,6 @@
 package git.niklogik.sim;
 
 import com.google.common.collect.ImmutableList;
-import git.niklogik.sim.entities.EntityID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

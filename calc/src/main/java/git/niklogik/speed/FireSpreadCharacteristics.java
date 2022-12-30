@@ -1,6 +1,6 @@
 package git.niklogik.speed;
 
-import ru.nachos.core.network.lib.ForestFuelType;
+import git.niklogik.core.network.lib.ForestFuelType;
 
 public class FireSpreadCharacteristics {
     private final ForestFuelType fuelType;

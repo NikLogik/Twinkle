@@ -1,0 +1,10 @@
+package git.niklogik.web;
+
+/**
+ * @author niklogik
+ */
+public class NotFoundException extends RuntimeException {
+    public NotFoundException(String message) {
+        super(message);
+    }
+}
