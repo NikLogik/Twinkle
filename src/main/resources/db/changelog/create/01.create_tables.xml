@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="2022_03_11" author="A.Nikita">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="planet_osm_polygon"/>
+            </not>
+        </preConditions>
+        <comment>Create table: roles</comment>
+        <createTable tableName="fire_info">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pkey_fire_info"/>
+            </column>
+            <column name="direction" type="double"/>
+            <column name="area" type="double"/>
+            <column name="center_ignition" type="binary"/>
+            <column name="fire_class" type="int"/>
+            <column name="fire_speed" type="int"/>
+        </createTable>
+        <addAutoIncrement tableName="fire_info" columnName="id"/>
+        <rollback>
+            <delete tableName="fire_info"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

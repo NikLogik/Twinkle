@@ -40,7 +40,7 @@ public class FireModelRunner {
     public FireModelRunner(GeometryDatabaseService geometryService,
                            FireDatabaseService fireService,
                            ContourLineService lineService,
-                           @Value("${app.database.osm.srid}")
+                           @Value("${app.database.osm.srid:3857}")
                            Integer osmDatabaseSrid) {
         this.geometryService = geometryService;
         this.fireService = fireService;

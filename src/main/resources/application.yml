@@ -3,23 +3,15 @@ app:
   client:
     geography:
       srid: 4326
-  datasource:
-    osm:
-      url: jdbc:postgresql://185.124.188.247:5432/model
-      username: model
-      password: Bc9Q_13k$h![lJx7oW1vc
-      srid: 3857
-    fires:
-      url: jdbc:postgresql://localhost:5432/fires
-      username: nikitorches
-      password: admin
-      srid: 4326
-
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/twinkle_db
+    username: twinkle_user
+    password: twinkle_password
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG9Dialect
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG95Dialect
         jdbc:
           lob:
             non_contextual_creation: true
@@ -27,8 +19,11 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
-#Resources
+  #Resources
   main:
     banner-mode: off
   resources:
     add-mappings: true
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true

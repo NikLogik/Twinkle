@@ -31,7 +31,7 @@ public class GeometryDatabaseService {
     Logger logger = LoggerFactory.getLogger(GeometryDatabaseService.class);
 
     private PolygonOsmModelRepository polygonRepository;
-    @Value("${app.database.osm.srid}")
+    @Value("${app.database.osm.srid:3857}")
     private int srid;
 
     @Autowired
