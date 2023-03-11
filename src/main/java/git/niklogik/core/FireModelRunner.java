@@ -3,6 +3,7 @@ package git.niklogik.core;
 import git.niklogik.core.config.ConfigUtils;
 import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.ControllerUtils;
+import git.niklogik.core.controller.InitialPreprocessingDataImpl;
 import git.niklogik.core.controller.lib.Controller;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.fire.FireModel;
@@ -49,7 +50,7 @@ public class FireModelRunner {
 
     public void run(RequestData requestData) {
         Config config = createConfig(requestData);
-        InitialPreprocessingData initialData = InitialPreprocessingDataUtils.createInitialData(config, osmDatabaseSrid);
+        InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, osmDatabaseSrid);
         InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
         Controller controller = ControllerUtils.createController(initialData, fireService);
         controller.run();

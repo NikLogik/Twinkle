@@ -3,13 +3,15 @@ package git.niklogik.core.fire.algorithms;
 import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.network.lib.ForestFuelType;
 import git.niklogik.core.network.lib.Node;
+import git.niklogik.db.entities.fire.ForestFuelTypeDao;
 
 public class Rotermel implements FireSpreadCalculator {
 
     private double gamma;
-    private ForestFuelType type;
-    private double windSpeed;
 
+    private ForestFuelType type;
+
+    private double windSpeed;
     @Override
     public void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent, double windDirection) {
         double direction = windDirection - agent.getDirection();
@@ -20,13 +22,13 @@ public class Rotermel implements FireSpreadCalculator {
     }
 
     @Override
-    public double calculateSpeedOfSpreadWithConstraint(double fireSpeed, double windSpeed) {
+    public double calculateSpeedOfSpreadWithConstraint(ForestFuelTypeDao forestFuelTypeDao, double windSpeed) {
+        double speed = calculateSpeedWithoutExternalConstraint(forestFuelTypeDao);
         this.windSpeed = windSpeed;
         double windK = windCoefficient();
-        return fireSpeed * (1 + windK);
+        return speed * (1 + windK);
     }
 
-    @Override
     public double calculateSpeedWithoutExternalConstraint(ForestFuelType type) {
         this.type = type;
         this.gamma = (3.767 * (Math.pow(10, -4)) * type.getMiddleReserve())
@@ -55,18 +57,17 @@ public class Rotermel implements FireSpreadCalculator {
         double heatBurning = 250 + 1116 * type.getMoisture();
 
         //скорость распространения фронта пожара
-        double speedOfFireSpread = 0.048 * type.getHeat() * type.getMineralConsistency() * type.getMiddleReserve()
+        return 0.048 * type.getHeat() * type.getMineralConsistency() * type.getMiddleReserve()
                 * coefficientSlowdownOfBurning * potentialSpeedOfBurning * heatSpread
                 / ((type.getDensityForestFuel() + type.getDensityForestFuel() * type.getMineralMatter()) * heatBurning * gamma
                 * effectiveFuelDensity * Math.pow(type.getSpecificArea(), -0.8189));
-        return speedOfFireSpread;
     }
 
     /**
      * Thia method calculate coefficient of wind effect by the speed of fire spread
      * @return
      */
-    private double windCoefficient() {
+    public double windCoefficient() {
         double k1 = Math.pow(gamma, -0.715 * Math.exp(-1.094 * Math.pow(10, -4) * type.getSpecificArea()));
         double speed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
         double k2 = 7.47 * Math.exp((-0.06919 * Math.pow(type.getSpecificArea(), 0.55))
@@ -74,7 +75,7 @@ public class Rotermel implements FireSpreadCalculator {
         return k1 * k2;
     }
 
-    private double windSpeedOn6Meters(){
+    public double windSpeedOn6Meters(){
         return windSpeed * Math.pow(((type.getTreeHeight() + 6)/10.0), 0.28);
     }
 
@@ -105,5 +106,9 @@ public class Rotermel implements FireSpreadCalculator {
         double betta = 8.858 * gamma * Math.pow(type.getSpecificArea(), -0.8189);
 
         return 5.275 * Math.pow(betta, -0.3) * Math.pow(grade, 2);
+    }
+
+    public void setType(ForestFuelType type) {
+        this.type = type;
     }
 }

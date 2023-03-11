@@ -32,15 +32,15 @@ public class FireDAO {
 
     @OneToOne
     @JoinColumn(name = "forest_type_id", referencedColumnName = "type_id")
-    private ForestFuelType forestFuelType;
+    private ForestFuelTypeDao forestFuelTypeDao;
 
     public FireDAO() {
     }
 
-    public FireDAO(String name, Date date, ForestFuelType forestFuelType, FireInfoDAO fireInfo) {
+    public FireDAO(String name, Date date, ForestFuelTypeDao forestFuelTypeDao, FireInfoDAO fireInfo) {
         this.name = name;
         this.date = date;
-        this.forestFuelType = forestFuelType;
+        this.forestFuelTypeDao = forestFuelTypeDao;
         this.fireInfo = fireInfo;
     }
 
@@ -64,7 +64,7 @@ public class FireDAO {
         return fireInfo;
     }
 
-    public ForestFuelType getForestFuelType() {
-        return forestFuelType;
+    public ForestFuelTypeDao getForestFuelType() {
+        return forestFuelTypeDao;
     }
 }

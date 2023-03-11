@@ -13,7 +13,7 @@ public class NodeImpl implements Node {
     private Coordinate coordinate;
     private int tripTime;
 
-    NodeImpl(Id<Node> id, double elevation, Coordinate coordinate){
+    public NodeImpl(Id<Node> id, double elevation, Coordinate coordinate){
         this.id = id;
         this.elevation = elevation;
         this.coordinate = coordinate;

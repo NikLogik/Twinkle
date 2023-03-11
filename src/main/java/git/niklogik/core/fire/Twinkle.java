@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 class Twinkle implements Agent {
 
-    private Id<Agent> id;
+    private final Id<Agent> id;
     private Coordinate coord;
     private double speed;
     private double direction;
@@ -32,13 +32,10 @@ class Twinkle implements Agent {
 
     @Override
     public Id<Agent> getId() { return this.id; }
-    void setId(Id<Agent> id){
-        this.id = id;
-    }
 
     @Override
     public AgentState saveState(int iterNum){
-        return planList.put(iterNum, new TwinkleStateV2(this, iterNum));
+        return planList.put(iterNum, new TwinkleState(this, iterNum));
     }
 
     @Override
@@ -121,21 +118,21 @@ class Twinkle implements Agent {
         this.status = status;
     }
 
-    public class TwinkleStateV2 implements AgentState {
+    public static class TwinkleState implements AgentState {
 
-        private Id<Agent> agent;
-        private double distanceFromStart;
-        private Coordinate coord;
-        private double speed;
-        private Agent leftNeighbour;
-        private Agent rightNeighbour;
-        private boolean head;
-        private int iterNum;
-        private AgentStatus status;
+        private final Id<Agent> agent;
+        private final double distanceFromStart;
+        private final Coordinate coord;
+        private final double speed;
+        private final Agent leftNeighbour;
+        private final Agent rightNeighbour;
+        private final boolean head;
+        private final int iterNum;
+        private final AgentStatus status;
 
-        private Id<PolygonV2> polygonId;
+        private final Id<PolygonV2> polygonId;
 
-        TwinkleStateV2(Agent agent, int iterNum){
+        TwinkleState(Agent agent, int iterNum){
             this.iterNum = iterNum;
             this.agent = agent.getId();
             this.distanceFromStart = agent.getDistanceFromStart();

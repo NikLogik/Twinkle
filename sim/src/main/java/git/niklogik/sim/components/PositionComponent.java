@@ -1,6 +1,6 @@
 package git.niklogik.sim.components;
 
-import git.niklogik.Position;
+import git.niklogik.calc.Position;
 import git.niklogik.sim.Component;
 
 public class PositionComponent implements Component {

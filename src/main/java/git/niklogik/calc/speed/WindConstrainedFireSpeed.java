@@ -1,4 +1,4 @@
-package git.niklogik.speed;
+package git.niklogik.calc.speed;
 
 public class WindConstrainedFireSpeed implements ComputeFireSpeed {
     private final ComputeFireSpeed fireSpeed;

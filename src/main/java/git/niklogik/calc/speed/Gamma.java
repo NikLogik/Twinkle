@@ -1,4 +1,4 @@
-package git.niklogik.speed;
+package git.niklogik.calc.speed;
 
 import git.niklogik.core.network.lib.ForestFuelType;
 

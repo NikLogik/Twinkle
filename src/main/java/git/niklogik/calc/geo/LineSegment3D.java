@@ -1,4 +1,4 @@
-package git.niklogik.geo;
+package git.niklogik.calc.geo;
 
 import org.locationtech.jts.geom.Coordinate;
 

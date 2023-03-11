@@ -1,7 +1,14 @@
-package git.niklogik;
+package git.niklogik.calc;
 
-import git.niklogik.geo.Point3D;
-import git.niklogik.speed.*;
+import git.niklogik.calc.geo.Point3D;
+import git.niklogik.calc.speed.AlbineWindSpeed;
+import git.niklogik.calc.speed.AngleTangent;
+import git.niklogik.calc.speed.DirectionDiff;
+import git.niklogik.calc.speed.DirectionSpeedRatio;
+import git.niklogik.calc.speed.FreeFireSpeed;
+import git.niklogik.calc.speed.ReliefSpeedRatio;
+import git.niklogik.calc.speed.WindForecast;
+import git.niklogik.calc.speed.WindSpeedRatio;
 import git.niklogik.core.network.lib.ForestFuelType;
 
 public class FireSpeed {
@@ -15,7 +22,7 @@ public class FireSpeed {
     public FireSpeed(ForestFuelType fuelType, WindForecast windForecast) {
         this.windForecast = windForecast;
         this.reliefSpeedRatio = new ReliefSpeedRatio(fuelType);
-        AlbineWindSpeed albineWindSpeed = new AlbineWindSpeed(fuelType, windForecast.speed);
+        AlbineWindSpeed albineWindSpeed = new AlbineWindSpeed(fuelType, windForecast.speed());
         this.directionSpeedRatio = new DirectionSpeedRatio(albineWindSpeed);
         this.windSpeedRatio = new WindSpeedRatio(fuelType, albineWindSpeed);
         this.freeFireSpeed = new FreeFireSpeed(fuelType);
@@ -42,6 +49,6 @@ public class FireSpeed {
     }
 
     private Double directionRatio(Double direction) {
-        return directionSpeedRatio.directionRatio(new DirectionDiff(windForecast.direction, direction));
+        return directionSpeedRatio.directionRatio(new DirectionDiff(windForecast.direction(), direction));
     }
 }

@@ -1,4 +1,4 @@
-package git.niklogik;
+package git.niklogik.calc;
 
 public interface Position {
     double getX();

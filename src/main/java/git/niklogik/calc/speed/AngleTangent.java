@@ -1,6 +1,6 @@
-package git.niklogik.speed;
+package git.niklogik.calc.speed;
 
-import git.niklogik.geo.Point3D;
+import git.niklogik.calc.geo.Point3D;
 
 public class AngleTangent {
   private final Point3D start;

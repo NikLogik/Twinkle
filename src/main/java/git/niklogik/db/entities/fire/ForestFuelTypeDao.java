@@ -1,5 +1,7 @@
 package git.niklogik.db.entities.fire;
 
+import git.niklogik.core.network.lib.ForestFuelType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "forest_type", schema = "public")
-public class ForestFuelType implements git.niklogik.core.network.lib.ForestFuelType, Serializable {
+public class ForestFuelTypeDao implements ForestFuelType, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -115,5 +117,21 @@ public class ForestFuelType implements git.niklogik.core.network.lib.ForestFuelT
     @Override
     public double getCapacityDensityWood() {
         return capacityDensityWood;
+    }
+
+    public void setSpecificArea(int specificArea) {
+        this.specificArea = specificArea;
+    }
+
+    public void setMiddleReserve(double middleReserve) {
+        this.middleReserve = middleReserve;
+    }
+
+    public void setDepth(double depth) {
+        this.depth = depth;
+    }
+
+    public void setTreeHeight(int treeHeight) {
+        this.treeHeight = treeHeight;
     }
 }

@@ -1,4 +1,4 @@
-package git.niklogik.speed;
+package git.niklogik.calc.speed;
 
 public interface ComputeFireSpeed {
     Double computeSpeed();

@@ -1,6 +1,5 @@
-package git.niklogik.geo;
+package git.niklogik.calc.geo;
 
-import git.niklogik.geo.Point3D;
 import org.apache.commons.math3.util.FastMath;
 import org.locationtech.jts.geom.Coordinate;
 

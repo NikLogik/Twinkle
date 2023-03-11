@@ -1,4 +1,4 @@
-package git.niklogik.geo;
+package git.niklogik.calc.geo;
 
 public class GeodesicLineSegment extends LineSegment3D {
 

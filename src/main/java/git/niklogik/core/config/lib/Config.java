@@ -1,5 +1,6 @@
 package git.niklogik.core.config.lib;
 
+import git.niklogik.calc.speed.WindForecast;
 import org.locationtech.jts.geom.Coordinate;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,9 @@ public interface Config {
     int getFuelType();
     double getWindSpeed();
     double getWindDirection();
+
+    WindForecast getForecast();
+
     double getTemperature();
     double getHumidity();
     FirePowerClassification getFireClass();

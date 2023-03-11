@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import git.niklogik.db.entities.fire.FireDAO;
 import git.niklogik.db.entities.fire.FireInfoDAO;
 import git.niklogik.db.entities.fire.FireIterationDAO;
-import git.niklogik.db.entities.fire.ForestFuelType;
+import git.niklogik.db.entities.fire.ForestFuelTypeDao;
 import git.niklogik.db.repository.fire.FireIterationRepository;
 import git.niklogik.db.repository.fire.FireRepository;
 import git.niklogik.db.repository.fire.ForestFuelTypeRepository;
@@ -47,7 +47,7 @@ public class FireDatabaseService {
 
     public FireModel createAndGetModel(Fire fire, Point center, int iterAmount, int forestType) {
         FireInfoDAO fireInfoDAO = new FireInfoDAO(fire.getHeadDirection(), (int) fire.getFireSpeed(), fire.getFireClass(), center);
-        ForestFuelType forestId = forestRepository.findByTypeId(forestType).orElseThrow(() -> new NotFoundException("Fuel type not found"));
+        ForestFuelTypeDao forestId = forestRepository.findByTypeId(forestType).orElseThrow(() -> new NotFoundException("Fuel type not found"));
         FireDAO fireDAO = fireRepository.save(new FireDAO(fire.getName(), new Date(), forestId, fireInfoDAO));
         return new FireModel(fireDAO, iterAmount);
     }
@@ -97,7 +97,7 @@ public class FireDatabaseService {
         return (int) (2 * Math.PI * distance);
     }
 
-    public ForestFuelType getForestFuelType(Integer typeId) {
+    public ForestFuelTypeDao getForestFuelType(Integer typeId) {
         return forestRepository.findByTypeId(typeId).orElseThrow(() -> new NotFoundException("Fuel type not found"));
     }
 }

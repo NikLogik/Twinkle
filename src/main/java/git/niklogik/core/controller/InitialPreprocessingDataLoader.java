@@ -1,5 +1,6 @@
 package git.niklogik.core.controller;
 
+import git.niklogik.calc.FireSpeed;
 import git.niklogik.core.Id;
 import git.niklogik.core.fire.FireUtils;
 import git.niklogik.core.fire.lib.Agent;
@@ -17,7 +18,7 @@ import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
 import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.core.utils.GeodeticCalculator;
-import git.niklogik.db.entities.fire.ForestFuelType;
+import git.niklogik.db.entities.fire.ForestFuelTypeDao;
 import git.niklogik.db.services.FireDatabaseService;
 
 import java.util.Map;
@@ -68,10 +69,9 @@ class InitialPreprocessingDataLoader {
         FireSpreadCalculator calculator = preprocessingData.getCalculator();
         double headFireDirection = GeodeticCalculator.convertDirection(preprocessingData.getWeather().getWindDirection());
         FireUtils.setHeadDirectionOfSpread(fire, headFireDirection);
-        ForestFuelType forestFuelType = fireService.getForestFuelType(preprocessingData.getConfig().getFuelType());
-        preprocessingData.getNetwork().setFuelType(forestFuelType);
-        double clearSpeed = calculator.calculateSpeedWithoutExternalConstraint(forestFuelType);
-        double speed = calculator.calculateSpeedOfSpreadWithConstraint(clearSpeed, config.getWindSpeed());
+        ForestFuelTypeDao forestFuelTypeDao = fireService.getForestFuelType(preprocessingData.getConfig().getFuelType());
+        preprocessingData.getNetwork().setFuelType(forestFuelTypeDao);
+        double speed = calculator.calculateSpeedOfSpreadWithConstraint(forestFuelTypeDao, config.getWindSpeed());
         fire.setFireSpeed(speed);
         //генерируем агентов по длине периметра и ставим на стартовые точки
         Map<Id<Agent>, Agent> idAgentMap = factory.generateFireFront(fire.getCenterPoint(), fire.getAgentDistance(),

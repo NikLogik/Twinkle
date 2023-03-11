@@ -39,19 +39,19 @@ import java.util.TreeMap;
 class ControllerImpl implements Controller {
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerImpl.class);
-    private FireDatabaseService fireService;
-    private Network network;
-    private Config config;
-    private InitialPreprocessingData preprocessingData;
-    private Fire fire;
+    private final FireDatabaseService fireService;
+    private final Network network;
+    private final Config config;
+    private final InitialPreprocessingData preprocessingData;
+    private final Fire fire;
     private FireModel model;
-    private EventsHandling eventsHandler;
-    private Map<Integer, LinkedList<AgentState>> iterationMap = new TreeMap<>();
+    private final EventsHandling eventsHandler;
+    private final Map<Integer, LinkedList<AgentState>> iterationMap = new TreeMap<>();
     public static final String DIVIDER = "###################################################";
     final String MARKER = "#####";
     private int currentIteration;
     private double currentTime;
-    private double stepAmount;
+    private final double stepAmount;
 
     ControllerImpl(InitialPreprocessingData preprocessing, FireDatabaseService fireService) {
         this.fireService = fireService;
@@ -69,9 +69,6 @@ class ControllerImpl implements Controller {
         Point point = new GeometryFactory().createPoint(config.getFireCenterCoordinate());
         point.setSRID(4326);
         this.model = fireService.createAndGetModel(fire, point, config.getLastIteration(), config.getFuelType());
-        if (fireService == null) {
-            throw new NullPointerException("Fire Service is null");
-        }
         prepareAgentsToStart();
         doIteration();
     }
