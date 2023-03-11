@@ -2,7 +2,7 @@ package git.niklogik.db.entities.fire;
 
 import org.locationtech.jts.geom.Geometry;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "fire_iterations")

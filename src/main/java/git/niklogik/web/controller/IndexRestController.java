@@ -5,6 +5,7 @@ import git.niklogik.web.NotFoundException;
 import git.niklogik.web.models.lib.RequestData;
 import git.niklogik.web.services.RequestDataService;
 import git.niklogik.web.services.ResponseDataService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import git.niklogik.web.models.lib.ResponseData;
-
-import javax.validation.Valid;
 
 @RestController
 public class IndexRestController {

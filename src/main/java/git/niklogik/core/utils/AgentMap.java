@@ -8,7 +8,7 @@ import git.niklogik.core.fire.lib.AgentStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.*;
 
 public class AgentMap implements Iterable<Agent>{
