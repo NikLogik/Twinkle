@@ -1,5 +1,6 @@
 package git.niklogik.web.services;
 
+import git.niklogik.web.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,11 @@ import org.springframework.web.context.annotation.SessionScope;
 import git.niklogik.db.services.FireDatabaseService;
 import git.niklogik.web.models.lib.ResponseData;
 
-@SessionScope
+import java.util.Optional;
+
 @Service
 public class ResponseDataService {
 
-    Logger logger = LoggerFactory.getLogger(ResponseDataService.class);
     private final FireDatabaseService fireService;
 
     @Autowired
@@ -20,15 +21,16 @@ public class ResponseDataService {
         this.fireService = fireService;
     }
 
-    public ResponseData findByFireIdAndIteration(long fireId, int iterNumber){
-        return fireService.findIterationData(fireId, iterNumber);
+    public ResponseData findByFireIdAndIteration(long fireId, int iterNumber) {
+        return Optional.ofNullable(fireService.findIterationData(fireId, iterNumber))
+                .orElseThrow(() -> new NotFoundException("Fire entity not found. Id - " + fireId));
     }
 
-    public void deleteByFireId(long fireId){
+    public void deleteByFireId(long fireId) {
         fireService.deleteById(fireId);
     }
 
-    public ResponseData getFireModelFirstIteration(long fireId){
+    public ResponseData getFireModelFirstIteration(long fireId) {
         return fireService.findFirstIterationData(fireId);
     }
 }

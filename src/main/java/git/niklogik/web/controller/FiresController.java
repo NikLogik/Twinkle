@@ -1,7 +1,6 @@
 package git.niklogik.web.controller;
 
 import git.niklogik.core.FireModelRunner;
-import git.niklogik.web.NotFoundException;
 import git.niklogik.web.models.lib.RequestData;
 import git.niklogik.web.services.RequestDataService;
 import git.niklogik.web.services.ResponseDataService;
@@ -21,40 +20,34 @@ import org.springframework.web.bind.annotation.RestController;
 import git.niklogik.web.models.lib.ResponseData;
 
 @RestController
-public class IndexRestController {
+public class FiresController {
 
-    Logger logger = LoggerFactory.getLogger(IndexRestController.class);
+    Logger logger = LoggerFactory.getLogger(FiresController.class);
 
     private final ResponseDataService responseService;
     private final RequestDataService requestService;
     private final FireModelRunner fireRunner;
 
     @Autowired
-    public IndexRestController(ResponseDataService responseService, RequestDataService requestService, FireModelRunner runner) {
+    public FiresController(ResponseDataService responseService, RequestDataService requestService, FireModelRunner runner) {
         this.responseService = responseService;
         this.requestService = requestService;
         this.fireRunner = runner;
     }
 
     @PostMapping(value = "/fires")
-    public ResponseData createNewFire(@Valid @RequestBody RequestData requestData) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void createNewFire(@Valid @RequestBody RequestData requestData) {
         requestService.transformCoordinates(requestData.getFireCenter());
-        logger.info("Get estimate data :" + requestData);
+        logger.info("Get estimated data :" + requestData);
         fireRunner.run(requestData);
-        ResponseData response = responseService.getFireModelFirstIteration(fireRunner.getModelId());
         logger.info("Send response with result of the first iteration");
-        return response;
     }
 
     @GetMapping(value = "/fires/{fireId}")
     public ResponseData getIterationData(@PathVariable(name = "fireId") Long fireId,
                                          @RequestParam(name = "iterNum", defaultValue = "0") Integer iterNum) {
-        ResponseData response = responseService.findByFireIdAndIteration(fireId, iterNum);
-        if (response != null) {
-            return response;
-        } else {
-            throw new NotFoundException("Not found");
-        }
+        return responseService.findByFireIdAndIteration(fireId, iterNum);
     }
 
     @DeleteMapping(value = "/fires/{fireId}")

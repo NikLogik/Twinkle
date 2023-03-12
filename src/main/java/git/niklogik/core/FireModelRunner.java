@@ -33,7 +33,6 @@ public class FireModelRunner {
     private final GeometryDatabaseService geometryService;
     private final FireDatabaseService fireService;
     private final ContourLineService lineService;
-    private FireModel model;
     private final int osmDatabaseSrid;
 
     @Autowired
@@ -52,9 +51,7 @@ public class FireModelRunner {
         Config config = createConfig(requestData);
         InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, osmDatabaseSrid);
         InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
-        Controller controller = ControllerUtils.createController(initialData, fireService);
-        controller.run();
-        this.model = controller.getModel();
+        ControllerUtils.createController(initialData, fireService).run();
     }
 
     private Config createConfig(RequestData requestData) {
@@ -87,9 +84,5 @@ public class FireModelRunner {
                     .createMultiPointFromCoords(coordinateList.toArray(Coordinate[]::new))
                     .getCentroid().getCoordinate();
         }
-    }
-
-    public long getModelId() {
-        return model.getFireId();
     }
 }

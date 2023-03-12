@@ -9,7 +9,7 @@ import git.niklogik.core.network.lib.Network;
 import java.util.LinkedList;
 import java.util.Map;
 
-public interface Controller extends Runnable{
+public interface Controller extends Runnable {
 
     InitialPreprocessingData getPreprocessingData();
 
