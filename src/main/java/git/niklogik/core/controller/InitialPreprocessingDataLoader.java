@@ -1,37 +1,36 @@
 package git.niklogik.core.controller;
 
-import git.niklogik.calc.FireSpeed;
 import git.niklogik.core.Id;
+import git.niklogik.core.config.lib.Config;
+import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.fire.FireUtils;
+import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
 import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.fire.lib.Fire;
 import git.niklogik.core.fire.lib.FireFactory;
+import git.niklogik.core.network.NetworkUtils;
+import git.niklogik.core.utils.GeodeticCalculator;
+import git.niklogik.db.entities.fire.ForestFuelTypeDao;
 import git.niklogik.db.services.ContourLineService;
+import git.niklogik.db.services.FireDatabaseService;
 import git.niklogik.db.services.GeometryDatabaseService;
 import org.geotools.geometry.jts.JTS;
 import org.locationtech.jts.geom.Coordinate;
 import org.opengis.referencing.operation.TransformException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import git.niklogik.core.config.lib.Config;
-import git.niklogik.core.controller.lib.InitialPreprocessingData;
-import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
-import git.niklogik.core.network.NetworkUtils;
-import git.niklogik.core.utils.GeodeticCalculator;
-import git.niklogik.db.entities.fire.ForestFuelTypeDao;
-import git.niklogik.db.services.FireDatabaseService;
 
 import java.util.Map;
 
 class InitialPreprocessingDataLoader {
 
-    private Logger logger = LoggerFactory.getLogger(InitialPreprocessingDataLoader.class);
+    private final Logger logger = LoggerFactory.getLogger(InitialPreprocessingDataLoader.class);
 
-    private Config config;
-    private InitialPreprocessingData preprocessingData;
-    private GeometryDatabaseService geometryService;
-    private FireDatabaseService fireService;
-    private ContourLineService lineService;
+    private final Config config;
+    private final InitialPreprocessingData preprocessingData;
+    private final GeometryDatabaseService geometryService;
+    private final FireDatabaseService fireService;
+    private final ContourLineService lineService;
 
     InitialPreprocessingDataLoader(InitialPreprocessingData preprocessingData, GeometryDatabaseService geometryService,
                                    FireDatabaseService fireService, ContourLineService lineService) {

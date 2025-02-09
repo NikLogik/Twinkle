@@ -28,36 +28,6 @@ public interface Config {
     int getFireAgentsDistance();
     String getSrid();
 
-    enum Definitions{
-        FIRE_NAME("fireName"),
-        FIRST_ITERATION("startIteration"),
-        LAST_ITERATION("lastIteration"),
-        STEP_TIME_AMOUNT("stepTimeAmount"),
-        START_TIME("startTime"),
-        END_TIME("endTime"),
-        ALGORITHM_TYPE("algorithm_type"),
-        FUEL_TYPE_CODE("fuelTypeCode"),
-        WIND_SPEED("windSpeed"),
-        WIND_DIRECTION("windDirection"),
-        TEMPERATURE("temperature"),
-        HUMIDITY("humidity"),
-        FIRE_CLASS("fireClass"),
-        FIRE_CENTER_COORDS("fireCenterCoords"),
-        FIRE_PERIMETER("firePerimeter"),
-        FIRE_AGENTS_DISTANCE("fireAgentsDistance"),
-        SRID("srid");
-
-        private final String param;
-
-        Definitions(String param){
-            this.param = param;
-        }
-
-        public String getParam() {
-            return param;
-        }
-    }
-
     enum FireSpreadModels{ Rotermel; }
 
     enum FirePowerClassification{
