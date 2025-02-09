@@ -1,7 +1,8 @@
 package git.niklogik.web.controller;
 
 import git.niklogik.core.FireModelRunner;
-import git.niklogik.web.models.lib.RequestData;
+import git.niklogik.web.models.CreateFireRequest;
+import git.niklogik.web.models.FireDataResponse;
 import git.niklogik.web.services.RequestDataService;
 import git.niklogik.web.services.ResponseDataService;
 import jakarta.validation.Valid;
@@ -17,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import git.niklogik.web.models.lib.ResponseData;
 
 @RestController
 public class FiresController {
 
-    Logger logger = LoggerFactory.getLogger(FiresController.class);
+    private final Logger logger = LoggerFactory.getLogger(FiresController.class);
 
     private final ResponseDataService responseService;
     private final RequestDataService requestService;
@@ -37,16 +37,16 @@ public class FiresController {
 
     @PostMapping(value = "/fires")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void createNewFire(@Valid @RequestBody RequestData requestData) {
-        requestService.transformCoordinates(requestData.getFireCenter());
-        logger.info("Get estimated data :" + requestData);
+    public void createNewFire(@Valid @RequestBody CreateFireRequest requestData) {
+        requestService.transformCoordinates(requestData.fireCenter());
+        logger.info("Get estimated data :{}", requestData);
         fireRunner.run(requestData);
         logger.info("Send response with result of the first iteration");
     }
 
     @GetMapping(value = "/fires/{fireId}")
-    public ResponseData getIterationData(@PathVariable(name = "fireId") Long fireId,
-                                         @RequestParam(name = "iterNum", defaultValue = "0") Integer iterNum) {
+    public FireDataResponse getIterationData(@PathVariable(name = "fireId") Long fireId,
+                                             @RequestParam(name = "iterNum", defaultValue = "0") Integer iterNum) {
         return responseService.findByFireIdAndIteration(fireId, iterNum);
     }
 

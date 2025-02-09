@@ -4,13 +4,14 @@ import git.niklogik.core.config.ConfigUtils;
 import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.ControllerUtils;
 import git.niklogik.core.controller.InitialPreprocessingDataImpl;
-import git.niklogik.core.controller.lib.Controller;
+import git.niklogik.core.controller.InitialPreprocessingDataUtils;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
-import git.niklogik.core.fire.FireModel;
+import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.db.services.ContourLineService;
 import git.niklogik.db.services.FireDatabaseService;
 import git.niklogik.db.services.GeometryDatabaseService;
-import git.niklogik.web.models.lib.RequestData;
+import git.niklogik.web.models.CoordinateJson;
+import git.niklogik.web.models.CreateFireRequest;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.slf4j.Logger;
@@ -19,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
-import git.niklogik.core.controller.InitialPreprocessingDataUtils;
-import git.niklogik.core.network.NetworkUtils;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ import java.util.List;
 @Service
 public class FireModelRunner {
 
-    Logger logger = LoggerFactory.getLogger(FireModelRunner.class);
+    private final Logger logger = LoggerFactory.getLogger(FireModelRunner.class);
 
     private final GeometryDatabaseService geometryService;
     private final FireDatabaseService fireService;
@@ -47,34 +46,34 @@ public class FireModelRunner {
         this.osmDatabaseSrid = osmDatabaseSrid;
     }
 
-    public void run(RequestData requestData) {
+    public void run(CreateFireRequest requestData) {
         Config config = createConfig(requestData);
         InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, osmDatabaseSrid);
         InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
         ControllerUtils.createController(initialData, fireService).run();
     }
 
-    private Config createConfig(RequestData requestData) {
-        Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.getFireCenter()));
-        int perimeter = fireService.firePerimeter(requestData.getFireCenter(), fireCenterCoordinate);
-        int lastIteration = requestData.getLastIterationTime() / requestData.getIterationStepTime();
+    private Config createConfig(CreateFireRequest requestData) {
+        Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.fireCenter()));
+        int perimeter = fireService.firePerimeter(requestData.fireCenter(), fireCenterCoordinate);
+        int lastIteration = requestData.lastIterationTime() / requestData.iterationStepTime();
         return new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
                 .setStartTime(0)
-                .setEndTime(requestData.getLastIterationTime())
+                .setEndTime(requestData.lastIterationTime())
                 .setSRID(osmDatabaseSrid)
-                .setIterationStepTime(requestData.getIterationStepTime())
-                .setFireAgentDIstance(requestData.getFireAgentDistance())
-                .setFuelType(requestData.getFuelTypeCode())
-                .setFireClass(requestData.getFireClass())
-                .setWindDirection(requestData.getWindDirection())
-                .setWindSpeed(requestData.getWindSpeed())
+                .setIterationStepTime(requestData.iterationStepTime())
+                .setFireAgentDIstance(requestData.fireAgentDistance())
+                .setFuelType(requestData.fuelTypeCode())
+                .setFireClass(requestData.fireClass())
+                .setWindDirection(requestData.windDirection())
+                .setWindSpeed(requestData.windSpeed())
                 .setFireCenterCoordinate(fireCenterCoordinate)
                 .setLastIteration(lastIteration)
                 .setFirePerimeter(perimeter)
                 .build();
     }
 
-    private Coordinate calculateFireCenter(List<Coordinate> coordinateList) {
+    private Coordinate calculateFireCenter(List<CoordinateJson> coordinateList) {
         if (coordinateList.size() == 1) {
             return coordinateList.get(0);
         } else if (coordinateList.size() == 2) {

@@ -7,10 +7,10 @@ import org.locationtech.jts.geom.Coordinate;
 @JsonDeserialize
 public class CoordinateJson extends Coordinate {
 
-    private double x;
-    private double y;
+    private Double x;
+    private Double y;
     @JsonIgnore
-    private double z;
+    private Double z;
 
     public CoordinateJson(double x, double y) {
         super(x, y);

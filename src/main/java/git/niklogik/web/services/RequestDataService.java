@@ -1,31 +1,41 @@
 package git.niklogik.web.services;
 
+import git.niklogik.db.services.CoordinateTransformationService;
+import git.niklogik.web.models.CoordinateJson;
 import org.geotools.geometry.jts.JTS;
-import org.locationtech.jts.geom.Coordinate;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-import git.niklogik.db.services.CoordinateTransformationService;
 
 import java.util.List;
 
-@SessionScope
+import static git.niklogik.db.services.CoordinateTransformationService.TransformDirection.client_to_osmDB;
+
 @Service
 public class RequestDataService {
 
-    @Autowired
-    CoordinateTransformationService transformationService;
+    private final Logger logger = LoggerFactory.getLogger(RequestDataService.class);
 
-    public void transformCoordinates(List<Coordinate> coordinateList) {
-        MathTransform mathTransformation = transformationService.getMathTransformation(CoordinateTransformationService.TransformDirection.client_to_osmDB);
+    private final CoordinateTransformationService transformationService;
+
+    public RequestDataService(CoordinateTransformationService transformationService) {
+        this.transformationService = transformationService;
+    }
+
+    public void transformCoordinates(List<CoordinateJson> coordinateList) {
+        MathTransform mathTransformation = getTransformation();
         coordinateList.forEach(coordinate -> {
             try {
                 coordinate.setCoordinate(JTS.transform(coordinate, null, mathTransformation));
             } catch (TransformException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         });
+    }
+
+    private MathTransform getTransformation() {
+        return transformationService.getMathTransformation(client_to_osmDB);
     }
 }
