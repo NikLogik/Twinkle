@@ -1,12 +1,21 @@
 package git.niklogik.core.weather;
 
+import git.niklogik.core.Id;
 import git.niklogik.core.config.lib.Config;
+
+import static java.lang.String.format;
 
 public class WeatherUtils {
 
-    private WeatherUtils(){}
+    private WeatherUtils() {}
 
-    public static Weather createWeather(Config config){
-        return new Weather(config);
+    public static Weather createWeather(Config config) {
+        return new Weather(
+            Id.create(format("%s:weather", config.getFireName()), Weather.class),
+            config.getWindDirection(),
+            config.getWindSpeed(),
+            config.getTemperature(),
+            config.getHumidity()
+        );
     }
 }
