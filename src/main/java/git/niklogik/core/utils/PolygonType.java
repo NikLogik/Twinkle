@@ -3,7 +3,7 @@ package git.niklogik.core.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum  PolygonType {
+public enum PolygonType {
     //Key:natural
     VOLCANO("volcano"),
     STRAIT("strait"),
@@ -77,12 +77,12 @@ public enum  PolygonType {
     private static final Map<String, PolygonType> BY_LABEL = new HashMap<>();
 
     static {
-        for (PolygonType type: values()) {
+        for (PolygonType type : values()) {
             BY_LABEL.put(type.param, type);
         }
     }
 
-    PolygonType(String param){
+    PolygonType(String param) {
         this.param = param;
     }
 
@@ -91,15 +91,15 @@ public enum  PolygonType {
     }
 
     public static PolygonType valueOfType(String label) {
-        if (label == null){
+        if (label == null) {
             return DEFAULT;
         } else {
             return BY_LABEL.get(label);
         }
     }
 
-    public static boolean isFireproof(PolygonType type){
-        switch (type){
+    public static boolean isFireproof(PolygonType type) {
+        switch (type) {
             case WATER:
             case BEACH:
                 return true;
@@ -108,12 +108,12 @@ public enum  PolygonType {
         }
     }
 
-    public static PolygonType valueOfLanduse(String label){
+    public static PolygonType valueOfLanduse(String label) {
         PolygonType type = BY_LABEL.get(label);
-        if (type==null){
+        if (type == null) {
             return DEFAULT;
         }
-        switch (type){
+        switch (type) {
             case MEADOW:
             case ORCHARD:
             case VINEYARD:

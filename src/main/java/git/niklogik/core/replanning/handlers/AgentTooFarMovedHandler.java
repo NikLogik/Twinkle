@@ -1,10 +1,11 @@
 package git.niklogik.core.replanning.handlers;
 
-import git.niklogik.core.Id;
+import git.niklogik.core.controller.lib.IterationInfo;
 import git.niklogik.core.fire.FireUtils;
 import git.niklogik.core.fire.TwinkleUtils;
 import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.fire.lib.AgentStatus;
+import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.core.network.lib.PolygonV2;
 import git.niklogik.core.replanning.events.AgentsTooFarMovedEvent;
 import git.niklogik.core.replanning.lib.Event;
@@ -13,26 +14,27 @@ import git.niklogik.core.utils.AgentMap;
 import git.niklogik.core.utils.GeodeticCalculator;
 import git.niklogik.core.utils.JtsTools;
 import git.niklogik.core.utils.PolygonType;
+import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import git.niklogik.core.controller.lib.IterationInfo;
-import git.niklogik.core.network.NetworkUtils;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
 
+@Slf4j
 public class AgentTooFarMovedHandler implements EventHandler {
-
-    Logger logger = LoggerFactory.getLogger(AgentTooFarMovedHandler.class);
 
     private final String POSTFIX = ":twinkle";
     private IterationInfo info;
-    private final Map<Id<Agent>, Agent> cacheActive = new LinkedHashMap<>();
-    private final Set<Id<Agent>> cacheStopped = new TreeSet<>();
+    private final Map<UUID, Agent> cacheActive = new LinkedHashMap<>();
+    private final Set<UUID> cacheStopped = new TreeSet<>();
     private Polygon firePolygon;
     private double multipliedDistance;
 
@@ -44,7 +46,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
     }
 
     public void handleEvent(AgentsTooFarMovedEvent event) {
-        logger.info("Start to find agents with too far distance");
+        log.info("Start to find agents with too far distance");
         this.info = event.getInfo();
         this.firePolygon = FireUtils.getPolygonFromAgentMap(info.getAgents(), new GeometryFactory());
         multipliedDistance = info.getAgentDistance() * 1.5;
@@ -53,19 +55,19 @@ public class AgentTooFarMovedHandler implements EventHandler {
             while (iterator.hasNext()) {
                 Agent agent = iterator.next();
                 if (agent.getCoordinate().distance(agent.getRightNeighbour().getCoordinate()) > multipliedDistance) {
-                    setMiddleNeighbour(agent, agent.getRightNeighbour(), event.getCounter() + "-" + event.getIterNum());
+                    setMiddleNeighbour(agent, agent.getRightNeighbour());
                 }
             }
             cacheActive.forEach(info.getAgents()::put);
             if (!cacheStopped.isEmpty()) {
-                cacheStopped.forEach(info.getAgents()::setToStopped);
+                cacheStopped.forEach(info.getAgents()::stopAgent);
             }
             cacheActive.clear();
             cacheStopped.clear();
 //        }
     }
 
-    private void setMiddleNeighbour(Agent left, Agent right, String numberId){
+    private void setMiddleNeighbour(Agent left, Agent right){
         Coordinate position = GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate());
         PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(new GeometryFactory(), info.getPolygons(), position);
         Agent newAgent = null;
@@ -76,11 +78,11 @@ public class AgentTooFarMovedHandler implements EventHandler {
                     Geometry geometryN = geometryCollection.getGeometryN(i);
                     Agent r = right;
                     for (int j=1; j<geometryN.getCoordinates().length-1; j++) {
-                        newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX + "-" + j));
+                        newAgent = info.getFireFactory().createTwinkle(POSTFIX + "-" + j);
                         TwinkleUtils.setAgentBetween(left, r, newAgent);
                         newAgent.setPolygonId(r.getPolygonId());
                         newAgent.setCoordinate(geometryN.getCoordinates()[j]);
-                        double direction = GeodeticCalculator.reverseProblem(newAgent.getCoordinate(), info.getFireCenter());
+                        var direction = GeodeticCalculator.reverseProblem(newAgent.getCoordinate(), info.getFireCenter());
                         newAgent.setDirection(direction);
                         info.getCalculator().calculateSpeedOfSpreadWithArbitraryDirection(info.getFireSpeed(), newAgent, info.getHeadDirection());
                         newAgent.setStatus(AgentStatus.STOPPED);
@@ -92,7 +94,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
                 }
             }
         } else {
-            newAgent = info.getFireFactory().createTwinkle(Id.createAgentId(numberId + POSTFIX));
+            newAgent = info.getFireFactory().createTwinkle(POSTFIX);
             TwinkleUtils.createMiddleAgent(left, right, newAgent);
             newAgent.setPolygonId(geometry.getId());
             if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.STOPPED)){
@@ -100,7 +102,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
                 cacheStopped.add(newAgent.getId());
             } else if (left.getStatus().equals(AgentStatus.STOPPED) && right.getStatus().equals(AgentStatus.ACTIVE)
                         || left.getStatus().equals(AgentStatus.ACTIVE) && right.getStatus().equals(AgentStatus.STOPPED)){
-                double v = GeodeticCalculator.ortoDirection(left.getCoordinate(), right.getCoordinate(), GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate()));
+                var v = GeodeticCalculator.ortoDirection(left.getCoordinate(), right.getCoordinate(), GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate()));
                 newAgent.setDirection(v);
                 info.getCalculator().calculateSpeedOfSpreadWithArbitraryDirection(info.getFireSpeed(), newAgent, info.getHeadDirection());
                 newAgent.setStatus(AgentStatus.ACTIVE);

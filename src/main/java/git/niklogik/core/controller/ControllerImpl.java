@@ -22,7 +22,6 @@ import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.controller.lib.IterationInfo;
 import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
-import git.niklogik.core.info.IterationInfoPrinter;
 import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.core.network.lib.Network;
 import git.niklogik.core.network.lib.PolygonV2;
@@ -31,10 +30,16 @@ import git.niklogik.core.utils.GeodeticCalculator;
 import git.niklogik.core.utils.PolygonType;
 import git.niklogik.db.services.FireDatabaseService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
+import static git.niklogik.core.utils.GeodeticCalculator.directProblem;
+import static java.math.RoundingMode.HALF_UP;
 
 class ControllerImpl implements Controller {
 
@@ -51,7 +56,7 @@ class ControllerImpl implements Controller {
     final String MARKER = "#####";
     private int currentIteration;
     private double currentTime;
-    private final double stepAmount;
+    private final BigDecimal stepTimeAmount;
 
     ControllerImpl(InitialPreprocessingData preprocessing, FireDatabaseService fireService) {
         this.fireService = fireService;
@@ -59,7 +64,7 @@ class ControllerImpl implements Controller {
         this.preprocessingData = preprocessing;
         this.network = preprocessing.getNetwork();
         this.currentTime = config.getStartTime();
-        this.stepAmount = config.getStepTimeAmount();
+        this.stepTimeAmount = toBigDecimal(config.getStepTimeAmount());
         this.fire = preprocessing.getFire();
         this.eventsHandler = new EventsHandling(new EventManagerImpl());
     }
@@ -92,14 +97,13 @@ class ControllerImpl implements Controller {
         logger.info(MARKER + "Start iterate");
         for (int start = config.getFirstIteration(); start < config.getLastIteration(); start++) {
             this.iteration(start);
-            IterationInfoPrinter.printResultData(start, iterationMap.get(start));
         }
     }
 
     private void iteration(int iteration) {
         this.currentIteration = iteration;
         logger.info(DIVIDER + "Iteration #" + currentIteration + " begin");
-        this.currentTime += stepAmount;
+        this.currentTime += stepTimeAmount.intValue();
         iterationStep();
         IterationInfo info = new IterationInfoImpl(currentIteration);
         eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(currentIteration, info));
@@ -115,15 +119,14 @@ class ControllerImpl implements Controller {
         while (iterator.hasNext()) {
             Agent agent = iterator.next();
             if (agent.getStatus().equals(AgentStatus.ACTIVE)) {
-                double incDistance;
                 Coordinate newCoordinate;
                 AgentState lastState;
                 lastState = agent.getLastState();
                 if (network.getTrip(agent.getId()) != null) {
                     newCoordinate = GeodeticCalculator.distance(currentTime, network.getTrip(agent.getId()), agent);
                 } else {
-                    incDistance = agent.getSpeed() * (stepAmount / 60);
-                    newCoordinate = GeodeticCalculator.directProblem(lastState.getCoordinate(), incDistance, agent.getDirection());
+                    var distance = agent.getSpeed().multiply(stepTimeAmount.divide(toBigDecimal(60.0), HALF_UP));
+                    newCoordinate = directProblem(lastState.getCoordinate(), distance, agent.getDirection());
                 }
                 agent.setCoordinate(newCoordinate);
                 Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();

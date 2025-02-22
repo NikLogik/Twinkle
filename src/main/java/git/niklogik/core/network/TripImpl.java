@@ -1,29 +1,26 @@
 package git.niklogik.core.network;
 
-import git.niklogik.core.Id;
-import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.network.lib.Link;
 import git.niklogik.core.network.lib.Node;
 import git.niklogik.core.network.lib.Trip;
+import lombok.RequiredArgsConstructor;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
+@RequiredArgsConstructor
 public class TripImpl implements Trip {
-    private Id<Agent> agent;
-    private LinkedList<Link> links = new LinkedList<>();
-    private LinkedList<Node> nodes = new LinkedList<>();
+    private final UUID agent;
+    private final LinkedList<Link> links = new LinkedList<>();
+    private final LinkedList<Node> nodes = new LinkedList<>();
 
-    TripImpl(Id<Agent> id){
-        this.agent = id;
-    }
-
-    TripImpl(Id<Agent> id, LinkedList<Node> nodes){
-        this.agent = id;
-        this.nodes = new LinkedList<>(nodes);
+    TripImpl(UUID agent, LinkedList<Node> links) {
+        this(agent);
+        this.nodes.addAll(links);
     }
 
     @Override
-    public Id<Agent> getAgentId() {
+    public UUID getAgentId() {
         return this.agent;
     }
 

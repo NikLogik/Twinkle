@@ -1,14 +1,14 @@
 package git.niklogik.core.network.lib;
 
 
-import git.niklogik.core.Id;
-import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.db.entities.osm.PolygonOsmModel;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public interface NetworkFactory {
 
@@ -18,13 +18,11 @@ public interface NetworkFactory {
 
     PolygonV2 createPolygon(String id, Polygon polygon, PolygonOsmModel model);
 
-    PolygonV2 createPolygon(long id, PolygonOsmModel model);
+    PolygonV2 createPolygon(Long id, PolygonOsmModel model);
 
-    Node createNode(Id<Node> id, Coordinate coordinate, double elevation);
+    Node createNode(Coordinate coordinate, Double elevation);
 
-    Trip createTrip(Id<Agent> id, LinkedList<Node> nodes);
+    Trip createTrip(UUID id, LinkedList<Node> nodes);
 
-    Trip createTrip(Id<Agent> id);
-
-    Link createLink(Id<Link> id, Node fromNode, Node toNode, double kRelief, int flowTime);
+    Link createLink(Node fromNode, Node toNode, BigDecimal kRelief, Integer flowTime);
 }

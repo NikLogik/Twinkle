@@ -13,6 +13,7 @@ import git.niklogik.db.entities.fire.ContourLine;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 public class NetworkImpl implements Network {
 
@@ -20,7 +21,7 @@ public class NetworkImpl implements Network {
     private NetworkFactory factory;
     private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
     private TreeMap<Long, ContourLine> relief = new TreeMap<>();
-    private HashMap<Id<Agent>, Trip> trips = new HashMap<>();
+    private HashMap<UUID, Trip> trips = new HashMap<>();
     private ForestFuelType fuelType;
 
     NetworkImpl(NetworkFactory factory){
@@ -28,7 +29,7 @@ public class NetworkImpl implements Network {
     }
 
     @Override
-    public Trip addTrip(Id<Agent> id, Trip trip){
+    public Trip addTrip(UUID id, Trip trip){
         return trips.put(id, trip);
     }
     @Override
@@ -56,7 +57,7 @@ public class NetworkImpl implements Network {
         this.relief = relief;
     }
     @Override
-    public Trip getTrip(Id<Agent> agent) {
-        return trips.get(agent);
+    public Trip getTrip(UUID agentId) {
+        return trips.get(agentId);
     }
 }

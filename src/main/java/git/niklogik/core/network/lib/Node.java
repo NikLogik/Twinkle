@@ -1,14 +1,15 @@
 package git.niklogik.core.network.lib;
 
-import git.niklogik.core.Id;
 import git.niklogik.core.controller.lib.HasID;
 import org.locationtech.jts.geom.Coordinate;
 
-public interface Node extends HasID {
-    @Override
-    Id<Node> getId();
+import java.util.UUID;
 
-    double getElevation();
+public interface Node extends HasID<UUID> {
+    @Override
+    UUID getId();
+
+    Double getElevation();
 
     void setInLink(Link link);
 
@@ -17,8 +18,6 @@ public interface Node extends HasID {
     Link getInLink();
 
     Link getOutLink();
-
-    void setCoordinate(Coordinate coordinate);
 
     Coordinate getCoordinate();
 

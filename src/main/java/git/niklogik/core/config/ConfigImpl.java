@@ -19,7 +19,6 @@ public class ConfigImpl implements Config {
     private double windDirection;
     private double humidity;
     private double temperature;
-    @Value("app.database.fires.srid:4326")
     private int srid;
     private FirePowerClassification fireClass;
     private Coordinate fireCenterCoordinate;

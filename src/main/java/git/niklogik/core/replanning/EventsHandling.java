@@ -48,7 +48,7 @@ public final class EventsHandling {
         eventManager.computeEvent(new SelfCrossingFireFrontEvent(iterNum, info));
         eventManager.computeEvent(new AgentsTooCloseMovedEvent(iterNum, info));
         info.getAgents().forEach(agent -> agent.saveState(iterNum));
-        logger.info("Finished manage events with " + event.getInfo().getAgents().size() + " agents.");
+        logger.info("Finished manage events with {} agents.", event.getInfo().getAgents().size());
     }
 
     public void persistAndReset(Map<Integer, LinkedList<AgentState>> twinkles){

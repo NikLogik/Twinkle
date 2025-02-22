@@ -4,10 +4,11 @@ import git.niklogik.core.Id;
 import org.locationtech.jts.geom.Coordinate;
 
 import java.util.Map;
+import java.util.UUID;
 
 public interface FireFactory {
 
-    Agent createTwinkle(Id<Agent> id);
+    Agent createTwinkle(String agentPrefixId);
 
-    Map<Id<Agent>, Agent> generateFireFront(Coordinate center, int distance, int perimeter, double startDirection);
+    Map<UUID, Agent> generateFireFront(Coordinate center, int distance, int perimeter, double startDirection);
 }

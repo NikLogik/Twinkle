@@ -1,8 +1,9 @@
 #Global
 app:
-  client:
-    geography:
-      srid: 4326
+  epsg:
+    web-mercator: 3857
+    wgs-84: 4326
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/twinkle_db

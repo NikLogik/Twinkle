@@ -1,30 +1,26 @@
 package git.niklogik.db.services;
 
+import git.niklogik.core.network.lib.Network;
+import git.niklogik.db.entities.fire.ContourLine;
+import git.niklogik.db.repository.fire.ContourLineRepository;
+import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import git.niklogik.core.network.lib.Network;
-import git.niklogik.db.entities.fire.ContourLine;
-import git.niklogik.db.repository.fire.ContourLineRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ContourLineService {
 
-    private CoordinateTransformationService transformationService;
-    private ContourLineRepository lineRepository;
-
-    @Autowired
-    public ContourLineService(ContourLineRepository lineRepository, CoordinateTransformationService transformationService){
-        this.lineRepository = lineRepository;
-        this.transformationService = transformationService;
-    }
+    private final CoordinateTransformationService transformationService;
+    private final ContourLineRepository lineRepository;
 
     public void getContourLines(Network network, Coordinate[] boundaryBox){
         TreeMap<Long, ContourLine> relief = new TreeMap<>();

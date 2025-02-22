@@ -7,10 +7,11 @@ import git.niklogik.core.utils.PolygonType;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 public interface Network {
 
-    Trip addTrip(Id<Agent> id, Trip trip);
+    Trip addTrip(UUID id, Trip trip);
 
     NetworkFactory getFactory();
 
@@ -30,5 +31,5 @@ public interface Network {
 
     void addAllReliefLines(TreeMap<Long, ContourLine> relief);
 
-    Trip getTrip(Id<Agent> agent);
+    Trip getTrip(UUID agentId);
 }

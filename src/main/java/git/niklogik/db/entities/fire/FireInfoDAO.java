@@ -1,56 +1,39 @@
 package git.niklogik.db.entities.fire;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
 import org.locationtech.jts.geom.Geometry;
 
-import jakarta.persistence.*;
-
+@Getter
 @Entity(name = "FireInfo")
 @Table(name = "fire_info")
 public class FireInfoDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @Column(name = "direction")
-    private double direction;
+    private Double direction;
     @Column(name = "area")
-    private double area;
+    private Double area;
     @Column(name = "fire_speed")
-    private int fireSpeed;
+    private Double fireSpeed;
     @Column(name = "fire_class")
-    private int fireClass;
+    private Integer fireClass;
     @Column(name = "center_ignition")
     private Geometry center;
 
     public FireInfoDAO() {}
-    public FireInfoDAO(double direction, int fireSpeed, int fireClass, Geometry center){
+
+    public FireInfoDAO(Double direction, Double fireSpeed, Integer fireClass, Geometry center){
         this.direction = direction;
         this.fireSpeed = fireSpeed;
         this.fireClass = fireClass;
         this.center = center;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public double getDirection() {
-        return direction;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public int getFireSpeed() {
-        return fireSpeed;
-    }
-
-    public int getFireClass() {
-        return fireClass;
-    }
-
-    public Geometry getCenter() {
-        return center;
     }
 }

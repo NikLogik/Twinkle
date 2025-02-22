@@ -2,9 +2,10 @@ package git.niklogik.core.fire.algorithms;
 
 
 import git.niklogik.core.fire.lib.Agent;
-import git.niklogik.core.network.lib.ForestFuelType;
 import git.niklogik.core.network.lib.Node;
 import git.niklogik.db.entities.fire.ForestFuelTypeDao;
+
+import java.math.BigDecimal;
 
 public interface FireSpreadCalculator {
 
@@ -16,5 +17,5 @@ public interface FireSpreadCalculator {
      * This method calculate relief constraint for the speed of fire spread
      * @return value relief coefficient
      */
-    double reliefCoefficient(Node from, Node to);
+    BigDecimal reliefCoefficient(Node from, Node to);
 }

@@ -14,18 +14,27 @@ import git.niklogik.core.utils.AgentMap;
 import git.niklogik.core.utils.GeodeticCalculator;
 import git.niklogik.core.utils.PolygonType;
 import git.niklogik.db.entities.fire.ContourLine;
-import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static git.niklogik.core.utils.BigDecimalUtils.divide;
+import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
 
 @Service
 public final class NetworkUtils {
 
-//    private static Logger logger = LoggerFactory.getLogger(Network.class);
-
-    public static TreeMap<Id<PolygonV2>, Long> networkCashe = new TreeMap<>();
+    public static TreeMap<Id<PolygonV2>, Long> networkCache = new TreeMap<>();
 
     private NetworkUtils() {}
 
@@ -67,7 +76,7 @@ public final class NetworkUtils {
 
     public static PolygonV2 findPolygonByAgentCoords(GeometryFactory geoFactory,
                                                      Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons, Coordinate coordinate) {
-        List<Collection<PolygonV2>> list = polygons.values().stream().map(Map::values).collect(Collectors.toList());
+        List<Collection<PolygonV2>> list = polygons.values().stream().map(Map::values).toList();
         PolygonV2 polygon = null;
         for (Collection<PolygonV2> var : list) {
             for (PolygonV2 polygonV2 : var) {
@@ -119,9 +128,7 @@ public final class NetworkUtils {
     }
 
     public static void createTrips(Network network, AgentMap agents, long simTime, FireSpreadCalculator calculator) {
-        Iterator<Agent> iterator = agents.iterator();
-        while (iterator.hasNext()) {
-            Agent next = iterator.next();
+        for (Agent next : agents) {
             createTrip(next, network, simTime, 0, calculator);
         }
     }
@@ -129,7 +136,7 @@ public final class NetworkUtils {
     public static void createTrip(Agent agent, Network network, long simTime, double curTime, FireSpreadCalculator calculator) {
         NetworkFactory networkFactory = network.getFactory();
         Coordinate pS = agent.getCoordinate();
-        double distance = agent.getSpeed() * (simTime / 30);
+        var distance = agent.getSpeed().multiply(toBigDecimal(simTime / 30.0));
         Coordinate pF = GeodeticCalculator.directProblem(pS, distance, agent.getDirection());
         LineString lineString = new GeometryFactory().createLineString(new Coordinate[]{pS, pF});
         //!!!
@@ -138,45 +145,51 @@ public final class NetworkUtils {
         LinkedList<Node> intersections = new LinkedList<>();
         for (ContourLine line : network.getRelief().values()) {
             if (lineString.intersects(line.getHorizontal())) {
-                Id<Node> id = Id.createNodeId(agent.getId() + "-" + counter);
                 Geometry intersection = lineString.intersection(line.getHorizontal());
-                Node node = networkFactory.createNode(id, intersection.getCoordinate(), line.getElevation());
+                Node node = networkFactory.createNode(intersection.getCoordinate(), line.getElevation());
                 intersections.add(node);
                 counter++;
             }
         }
-        if (intersections.size() == 0) {
-            intersections.add(networkFactory.createNode(Id.createNodeId(agent.getId() + "-start"), pS, 0));
-            intersections.add(networkFactory.createNode(Id.createNodeId(agent.getId() + "-finish"), pF, 0));
+        if (intersections.isEmpty()) {
+            intersections.add(networkFactory.createNode(pS, 0.0));
+            intersections.add(networkFactory.createNode(pF, 0.0));
         } else {
-            Collections.sort(intersections, (a, b) ->
-                (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
-                                                                            .distance(agent.getCoordinate())));
-            intersections.addFirst(networkFactory.createNode(Id.createNodeId(agent.getId() + "-start"), pS,
+            intersections.sort((a, b) ->
+                                   (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
+                                                                                               .distance(
+                                                                                                   agent.getCoordinate())));
+            intersections.addFirst(networkFactory.createNode(pS,
                                                              intersections.getFirst().getElevation()));
-            intersections.addLast(networkFactory.createNode(Id.createNodeId(agent.getId() + "-finish"), pF,
+            intersections.addLast(networkFactory.createNode(pF,
                                                             intersections.getLast().getElevation()));
-            Collections.sort(intersections, (a, b) ->
-                (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
-                                                                            .distance(agent.getCoordinate())));
+            intersections.sort((a, b) ->
+                                   (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
+                                                                                               .distance(
+                                                                                                   agent.getCoordinate())));
         }
         Trip trip = networkFactory.createTrip(agent.getId(), intersections);
         int tripTime = (int) curTime;
         for (int i = 1; i < intersections.size(); i++) {
             Node from = intersections.get(i - 1);
             Node to = intersections.get(i);
-            double kRelief = agent.getSpeed();
+            var kRelief = agent.getSpeed();
             if (intersections.size() == 2) {
-                kRelief *= 0.0;
+                kRelief = kRelief.multiply(BigDecimal.ZERO);
             } else {
-                kRelief *= calculator.reliefCoefficient(from, to);
+                kRelief = kRelief.multiply(calculator.reliefCoefficient(from, to));
             }
             from.setTripTime(tripTime);
-            int flowTime = (int) (from.getCoordinate()
-                                      .distance(to.getCoordinate()) / (agent.getSpeed() + kRelief)) * 60;
+
+            var distanceBetween = from.getCoordinate().distance(to.getCoordinate());
+            int flowTime = divide(
+                toBigDecimal(distanceBetween),
+                agent.getSpeed().add(kRelief))
+                .multiply(toBigDecimal(60))
+                .intValue();
             tripTime += flowTime;
-            Link link = networkFactory.createLink(Id.createLinkId(to.getId().toString()), from, to,
-                                                  (kRelief + agent.getSpeed()), flowTime);
+            Link link = networkFactory.createLink(from, to,
+                                                  kRelief.add(agent.getSpeed()), flowTime);
             from.setOutLink(link);
             to.setInLink(link);
             to.setTripTime(tripTime);

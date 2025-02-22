@@ -18,18 +18,18 @@ public class ReliefReader {
 
     private static final Logger logger = LoggerFactory.getLogger(ReliefReader.class);
 
-    private static String path = "results/Krym_25m.csv";
-    private static TreeMap<Long, ContourLine> relief = new TreeMap<>();
+    private static final TreeMap<Long, ContourLine> relief = new TreeMap<>();
 
-    public static TreeMap<Long, ContourLine> getRelief(){
-        logger.warn("Start loading contour lines from " + path);
-        try{
+    public static TreeMap<Long, ContourLine> getRelief() {
+        String path = "results/Krym_25m.csv";
+        logger.warn("Start loading contour lines from {}", path);
+        try {
             CSVReader reader = new CSVReader(new FileReader(path));
             Iterator<String[]> iterator = reader.iterator();
             ContourLine line;
             WKTReader wktReader = new WKTReader();
             iterator.next();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String[] next = iterator.next();
                 double elev = Double.parseDouble(next[2]);
                 LineString lineString = (LineString) wktReader.read(next[0]);
@@ -37,10 +37,10 @@ public class ReliefReader {
                 line = new ContourLine(elev, lineString);
                 relief.put(Long.parseLong(next[1]), line);
             }
-        }catch (IOException | ParseException e){
-            e.printStackTrace();
+        } catch (IOException | ParseException e) {
+            logger.error(e.getMessage(), e);
         }
-        logger.warn("Loaded contour lines: " + relief.size());
+        logger.warn("Loaded contour lines: {}", relief.size());
         return relief;
     }
 }
