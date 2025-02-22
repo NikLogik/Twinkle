@@ -2,18 +2,20 @@ package git.niklogik.core.fire.lib;
 
 import git.niklogik.core.Id;
 import git.niklogik.core.controller.lib.HasID;
-import org.locationtech.jts.geom.Coordinate;
 import git.niklogik.core.network.lib.PolygonV2;
+import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
 import java.util.Map;
+import java.util.UUID;
 
-public interface Agent extends HasID {
+public interface Agent extends HasID<UUID> {
 
     AgentState saveState(int iterNum);
 
     boolean removeState(AgentState state);
 
-    void setDirection(double direction);
+    void setDirection(BigDecimal direction);
 
     AgentState getStateByIter(int iterNum);
 
@@ -22,7 +24,9 @@ public interface Agent extends HasID {
     void setLeftNeighbour(Agent twinkle);
 
     @Override
-    Id<Agent> getId();
+    UUID getId();
+
+    Map<Integer, AgentState> getPlanList();
 
     Agent getLeftNeighbour();
 
@@ -30,15 +34,13 @@ public interface Agent extends HasID {
 
     Coordinate getCoordinate();
 
-    double getSpeed();
+    BigDecimal getSpeed();
 
     Id<PolygonV2> getPolygonId();
 
     void setPolygonId(Id<PolygonV2> polygonId);
 
-    double getDirection();
-
-    Map<Integer, AgentState> getStates();
+    BigDecimal getDirection();
 
     AgentState getLastState();
 
@@ -48,11 +50,11 @@ public interface Agent extends HasID {
 
     void setHead(boolean head);
 
-    void setSpeed(double speed);
+    void setSpeed(BigDecimal speed);
 
     void setDistanceFromStart(double distanceFromStart);
 
-    double getDistanceFromStart();
+    BigDecimal getDistanceFromStart();
 
     boolean isStopped();
 

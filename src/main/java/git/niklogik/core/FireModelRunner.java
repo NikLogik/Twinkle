@@ -1,5 +1,6 @@
 package git.niklogik.core;
 
+import git.niklogik.config.ApplicationConfig.EPSGProperties;
 import git.niklogik.core.config.ConfigUtils;
 import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.ControllerUtils;
@@ -10,14 +11,10 @@ import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.db.services.ContourLineService;
 import git.niklogik.db.services.FireDatabaseService;
 import git.niklogik.db.services.GeometryDatabaseService;
-import git.niklogik.web.models.CoordinateJson;
 import git.niklogik.web.models.CreateFireRequest;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -27,28 +24,25 @@ import java.util.List;
 @Service
 public class FireModelRunner {
 
-    private final Logger logger = LoggerFactory.getLogger(FireModelRunner.class);
-
     private final GeometryDatabaseService geometryService;
     private final FireDatabaseService fireService;
     private final ContourLineService lineService;
-    private final int osmDatabaseSrid;
+    private final int osmDatabaseSRID;
 
     @Autowired
     public FireModelRunner(GeometryDatabaseService geometryService,
                            FireDatabaseService fireService,
                            ContourLineService lineService,
-                           @Value("${app.database.osm.srid:3857}")
-                           Integer osmDatabaseSrid) {
+                           EPSGProperties properties) {
         this.geometryService = geometryService;
         this.fireService = fireService;
         this.lineService = lineService;
-        this.osmDatabaseSrid = osmDatabaseSrid;
+        this.osmDatabaseSRID = properties.getWebMercator();
     }
 
     public void run(CreateFireRequest requestData) {
         Config config = createConfig(requestData);
-        InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, osmDatabaseSrid);
+        InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, osmDatabaseSRID);
         InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
         ControllerUtils.createController(initialData, fireService).run();
     }
@@ -60,7 +54,7 @@ public class FireModelRunner {
         return new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
                 .setStartTime(0)
                 .setEndTime(requestData.lastIterationTime())
-                .setSRID(osmDatabaseSrid)
+                .setSRID(osmDatabaseSRID)
                 .setIterationStepTime(requestData.iterationStepTime())
                 .setFireAgentDIstance(requestData.fireAgentDistance())
                 .setFuelType(requestData.fuelTypeCode())
@@ -73,7 +67,7 @@ public class FireModelRunner {
                 .build();
     }
 
-    private Coordinate calculateFireCenter(List<CoordinateJson> coordinateList) {
+    private Coordinate calculateFireCenter(List<Coordinate> coordinateList) {
         if (coordinateList.size() == 1) {
             return coordinateList.get(0);
         } else if (coordinateList.size() == 2) {

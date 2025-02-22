@@ -1,6 +1,11 @@
 package git.niklogik.web.models;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+import org.locationtech.jts.geom.Coordinate;
 
 import java.util.List;
 
@@ -13,7 +18,7 @@ public record CreateFireRequest(
         Integer fireClass,
         @NotNull
         @Size(min = 1)
-        List<CoordinateJson> fireCenter,
+        List<Coordinate> fireCenter,
         @NotNull
         Integer fuelTypeCode,
         @Positive

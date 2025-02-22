@@ -1,8 +1,9 @@
 package git.niklogik.core.fire.lib;
 
-import git.niklogik.core.Id;
-import org.locationtech.jts.geom.Coordinate;
 import git.niklogik.core.utils.AgentMap;
+import org.locationtech.jts.geom.Coordinate;
+
+import java.util.UUID;
 
 public interface Fire {
 
@@ -28,7 +29,7 @@ public interface Fire {
 
     Agent removeAgent(Agent agent);
 
-    Agent removeAgent(Id<Agent> id);
+    Agent removeAgent(UUID id);
 
     void setCenterPoint(Coordinate center);
 

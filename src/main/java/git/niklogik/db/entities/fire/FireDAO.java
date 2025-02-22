@@ -1,18 +1,34 @@
 package git.niklogik.db.entities.fire;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity(name = "Fire")
+@Getter
+
+@Entity
 @Table(name = "fires")
 public class FireDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -42,26 +58,6 @@ public class FireDAO {
         this.date = date;
         this.forestFuelTypeDao = forestFuelTypeDao;
         this.fireInfo = fireInfo;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public Set<FireIterationDAO> getIterations() {
-        return iterations;
-    }
-
-    public FireInfoDAO getFireInfo() {
-        return fireInfo;
     }
 
     public ForestFuelTypeDao getForestFuelType() {

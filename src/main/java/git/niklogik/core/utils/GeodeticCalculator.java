@@ -7,7 +7,11 @@ import git.niklogik.core.network.lib.Trip;
 import org.apache.commons.math3.util.FastMath;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
+
+import static git.niklogik.core.utils.BigDecimalUtils.lessThan;
+import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
 
 public class GeodeticCalculator {
 
@@ -19,13 +23,13 @@ public class GeodeticCalculator {
      * @param direction - дирекционный угол от оси X до трезка между исходной и искомой точками (по часовой стрелке)
      * @return рассчитанная точка
      */
-    public static Coordinate directProblem(Coordinate startPoint, double length, double direction){
+    public static Coordinate directProblem(Coordinate startPoint, BigDecimal length, BigDecimal direction){
         //определяем приращение координат
-        double angleRadians = Math.toRadians(direction);
-        double dX = length * Math.sin(angleRadians);
-        double x2 = startPoint.x + dX;
-        double dY = length * Math.cos(angleRadians);
-        double y2 = startPoint.y + dY;
+        double angleRadians = Math.toRadians(direction.doubleValue());
+        var dX = length.multiply(toBigDecimal(Math.sin(angleRadians)));
+        double x2 = startPoint.x + dX.doubleValue();
+        var dY = length.multiply(toBigDecimal(angleRadians));
+        double y2 = startPoint.y + dY.doubleValue();
         return new Coordinate(x2, y2);
     }
 
@@ -35,7 +39,7 @@ public class GeodeticCalculator {
      * @param end - координата конца отрезка
      * @return прямой дирекционный угол отрезка
      */
-    public static double reverseProblem(Coordinate start, Coordinate end){
+    public static BigDecimal reverseProblem(Coordinate start, Coordinate end){
         double dX = end.x - start.x;
         double dY = end.y - start.y;
         double atan = FastMath.atan(dX / dY);
@@ -51,7 +55,7 @@ public class GeodeticCalculator {
         } else if (dX >= 0.000 && dY < 0.000){
             result = 360.00 - rumb;
         }
-        return result;
+        return toBigDecimal(result);
     }
 
     public static double convertDirection(double direction){
@@ -83,8 +87,8 @@ public class GeodeticCalculator {
      * @param c - length side c
      * @return length median from vertex of triangle to side 'c'
      */
-    public static double median(double a, double b, double c){
-        double var = (2 * Math.pow(a, 2)) + (2 * Math.pow(b, 2)) - Math.pow(c, 2);
+    public static double median(BigDecimal a, BigDecimal b, double c){
+        double var = (2 * Math.pow(a.doubleValue(), 2)) + (2 * Math.pow(b.doubleValue(), 2)) - Math.pow(c, 2);
         return Math.sqrt(var/4);
     }
 
@@ -97,9 +101,9 @@ public class GeodeticCalculator {
                 break;
             }
         }
-        double timeOnLink = (currentTime - current.getFromNode().getTripTime()) / 60;
-        double leftDistance = timeOnLink * current.getLinkSpeed();
-        return directProblem(current.getFromNode().getCoordinate(), leftDistance, agent.getDirection());
+        double timeOnLink = (currentTime - current.fromNode().getTripTime()) / 60;
+        var leftDistance = toBigDecimal(timeOnLink).multiply(current.linkSpeed());
+        return directProblem(current.fromNode().getCoordinate(), leftDistance, agent.getDirection());
     }
 
     /**
@@ -111,14 +115,13 @@ public class GeodeticCalculator {
      * @return {@link Coordinate} - closest point on line segment for vertex
      */
     public static Coordinate closestPoint(Coordinate start, Coordinate end, Coordinate vertex, double direction){
-        //находим оринетацию линии в координатной системе (дирекционный угол к линии)
+        //находим ориентацию линии в координатной системе (дирекционный угол к линии)
         double side = height(start, end, vertex);
         double hypotenuse = start.distance(vertex);
         double var = Math.pow(hypotenuse, 2) - Math.pow(side, 2);
         //длина стороны внутреннего треугольника, состоящего из точек: start, vertex и точки пересечения высоты большего треугольника с его основанием (start, end)
         double side2 = Math.sqrt(var);
-        Coordinate coordinate = directProblem(start, side2, direction);
-        return coordinate;
+        return directProblem(start, toBigDecimal(side2), toBigDecimal(direction));
     }
 
     /**
@@ -137,24 +140,24 @@ public class GeodeticCalculator {
         return height;
     }
 
-    public static double ortoDirection(Coordinate start, Coordinate end, Coordinate sourcePoint) {
+    public static BigDecimal ortoDirection(Coordinate start, Coordinate end, Coordinate sourcePoint) {
         double A = start.y - end.y;
         double B = end.x - start.x;
         double C = ((start.x * end.y) - (end.x * start.y));
         double nX = 0;
         double nY = 0;
-        double v = reverseProblem(start, end);
-        if (v < 0) {
-            v += 360.0;
+        var v = reverseProblem(start, end);
+        if (lessThan(v, BigDecimal.ZERO)) {
+            v = v.add(toBigDecimal(360.0));
         }
-        if (v < 180.0) {
+        if (lessThan(v,toBigDecimal(180.0))) {
             nX = sourcePoint.x + A;
             nY = sourcePoint.y + B;
-        } else if (v < 270.0) {
+        } else if (lessThan(v, toBigDecimal(270.0))) {
             nX = sourcePoint.x - A;
             nY = sourcePoint.y - B;
         }
-        double v1 = reverseProblem(sourcePoint, new Coordinate(nX, nY));
-        return v1 > 0.0 ? v1 : v1 + 360.0;
+        var v1 = reverseProblem(sourcePoint, new Coordinate(nX, nY));
+        return BigDecimalUtils.greaterThan(v1, BigDecimal.ZERO) ? v1 : v1.add(toBigDecimal(360.0));
     }
 }

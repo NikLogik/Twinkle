@@ -1,9 +1,11 @@
 package git.niklogik.db.entities.fire;
 
+import lombok.Getter;
 import org.locationtech.jts.geom.Geometry;
 
 import jakarta.persistence.*;
 
+@Getter
 @Entity
 @Table(name = "fire_iterations")
 public class FireIterationDAO {
@@ -29,25 +31,5 @@ public class FireIterationDAO {
         this.iterAmount = iterAmount;
         this.polygon = polygon;
         this.fireId = fireId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public int getIterNumber() {
-        return iterNumber;
-    }
-
-    public int getIterAmount() {
-        return iterAmount;
-    }
-
-    public Geometry getPolygon() {
-        return polygon;
-    }
-
-    public FireDAO getFireId() {
-        return fireId;
     }
 }

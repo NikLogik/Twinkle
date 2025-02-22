@@ -1,25 +1,16 @@
 package git.niklogik.core.network.lib;
 
-import git.niklogik.core.Id;
-import git.niklogik.core.controller.lib.HasID;
+import java.math.BigDecimal;
+import java.util.UUID;
 
-public interface Link extends HasID {
-    @Override
-    Id<Link> getId();
+public interface Link {
+    UUID id();
 
-    Node getToNode();
+    Node toNode();
 
-    Node getFromNode();
+    Node fromNode();
 
-    void setToNode(Node node);
+    Integer timeFlow();
 
-    void setFromNode(Node node);
-
-    double getTimeFlow();
-
-    double getLinkSpeed();
-
-    void setLinkSpeed(double kRelief);
-
-    void setTimeFlow(int timeFlow);
+    BigDecimal linkSpeed();
 }

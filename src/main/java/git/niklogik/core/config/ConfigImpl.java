@@ -3,7 +3,6 @@ package git.niklogik.core.config;
 import git.niklogik.calc.speed.WindForecast;
 import git.niklogik.core.config.lib.Config;
 import org.locationtech.jts.geom.Coordinate;
-import org.springframework.beans.factory.annotation.Value;
 
 public class ConfigImpl implements Config {
 
@@ -19,7 +18,6 @@ public class ConfigImpl implements Config {
     private double windDirection;
     private double humidity;
     private double temperature;
-    @Value("app.database.fires.srid:4326")
     private int srid;
     private FirePowerClassification fireClass;
     private Coordinate fireCenterCoordinate;

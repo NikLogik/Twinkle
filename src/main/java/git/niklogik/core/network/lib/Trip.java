@@ -1,12 +1,10 @@
 package git.niklogik.core.network.lib;
 
-import git.niklogik.core.Id;
-import git.niklogik.core.fire.lib.Agent;
-
 import java.util.LinkedList;
+import java.util.UUID;
 
 public interface Trip {
-    Id<Agent> getAgentId();
+    UUID getAgentId();
     LinkedList<Link> getLinks();
     LinkedList<Node> getNodes();
     boolean addNode(Node node);

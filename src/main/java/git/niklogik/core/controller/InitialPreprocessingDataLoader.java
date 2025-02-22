@@ -1,6 +1,5 @@
 package git.niklogik.core.controller;
 
-import git.niklogik.core.Id;
 import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.fire.FireUtils;
@@ -21,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.UUID;
 
 class InitialPreprocessingDataLoader {
 
@@ -66,15 +66,15 @@ class InitialPreprocessingDataLoader {
         }
         FireFactory factory = fire.getFactory();
         FireSpreadCalculator calculator = preprocessingData.getCalculator();
-        double headFireDirection = GeodeticCalculator.convertDirection(preprocessingData.getWeather().getWindDirection());
+        double headFireDirection = GeodeticCalculator.convertDirection(preprocessingData.getWeather().windDirection());
         FireUtils.setHeadDirectionOfSpread(fire, headFireDirection);
         ForestFuelTypeDao forestFuelTypeDao = fireService.getForestFuelType(preprocessingData.getConfig().getFuelType());
         preprocessingData.getNetwork().setFuelType(forestFuelTypeDao);
         double speed = calculator.calculateSpeedOfSpreadWithConstraint(forestFuelTypeDao, config.getWindSpeed());
         fire.setFireSpeed(speed);
         //генерируем агентов по длине периметра и ставим на стартовые точки
-        Map<Id<Agent>, Agent> idAgentMap = factory.generateFireFront(fire.getCenterPoint(), fire.getAgentDistance(),
-                                            fire.getPerimeter(), headFireDirection);
+        Map<UUID, Agent> idAgentMap = factory.generateFireFront(fire.getCenterPoint(), fire.getAgentDistance(),
+                                                                fire.getPerimeter(), headFireDirection);
         fire.getTwinkles().putAll(idAgentMap);
         //Считаем скорость агентов относительно направления ветра
         for (Agent agent : fire.getTwinkles().values()){

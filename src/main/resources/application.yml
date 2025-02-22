@@ -1,8 +1,9 @@
 #Global
 app:
-  client:
-    geography:
-      srid: 4326
+  epsg:
+    web-mercator: 3857
+    wgs-84: 4326
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/twinkle_db
@@ -22,8 +23,9 @@ spring:
   #Resources
   main:
     banner-mode: off
-  resources:
-    add-mappings: true
+  web:
+    resources:
+      add-mappings: true
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     enabled: true

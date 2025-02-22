@@ -1,41 +1,32 @@
 package git.niklogik.web.services;
 
 import git.niklogik.db.services.CoordinateTransformationService;
-import git.niklogik.web.models.CoordinateJson;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.geotools.geometry.jts.JTS;
-import org.opengis.referencing.operation.MathTransform;
+import org.locationtech.jts.geom.Coordinate;
 import org.opengis.referencing.operation.TransformException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static git.niklogik.db.services.CoordinateTransformationService.TransformDirection.client_to_osmDB;
+import static git.niklogik.db.services.CoordinateTransformationService.TransformDirection.CLIENT_TO_OSM_DB;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class RequestDataService {
-
-    private final Logger logger = LoggerFactory.getLogger(RequestDataService.class);
 
     private final CoordinateTransformationService transformationService;
 
-    public RequestDataService(CoordinateTransformationService transformationService) {
-        this.transformationService = transformationService;
-    }
-
-    public void transformCoordinates(List<CoordinateJson> coordinateList) {
-        MathTransform mathTransformation = getTransformation();
+    public void transformCoordinates(List<Coordinate> coordinateList) {
+        var mathTransformation = transformationService.getMathTransformation(CLIENT_TO_OSM_DB);
         coordinateList.forEach(coordinate -> {
             try {
-                coordinate.setCoordinate(JTS.transform(coordinate, null, mathTransformation));
+                JTS.transform(coordinate, coordinate, mathTransformation);
             } catch (TransformException e) {
-                logger.error(e.getMessage(), e);
+                log.error(e.getMessage(), e);
             }
         });
-    }
-
-    private MathTransform getTransformation() {
-        return transformationService.getMathTransformation(client_to_osmDB);
     }
 }

@@ -1,10 +1,16 @@
 package git.niklogik.db.entities.fire;
 
-import org.locationtech.jts.geom.Geometry;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 import org.locationtech.jts.geom.LineString;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+@Getter
 
 @Entity
 @Table(name = "contour_lines", schema = "public")
@@ -25,17 +31,5 @@ public class ContourLine {
     public ContourLine(double elevation, LineString horizontal) {
         this.elevation = elevation;
         this.horizontal = horizontal;
-    }
-
-    public Geometry getHorizontal() {
-        return this.horizontal;
-    }
-
-    public Double getElevation() {
-        return this.elevation;
-    }
-
-    public Long getId() {
-        return this.id;
     }
 }

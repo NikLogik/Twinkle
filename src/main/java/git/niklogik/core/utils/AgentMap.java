@@ -1,85 +1,86 @@
 package git.niklogik.core.utils;
 
-import git.niklogik.core.Id;
 import git.niklogik.core.exceptions.AgentMapOperationExeption;
 import git.niklogik.core.fire.FireUtils;
 import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.fire.lib.AgentStatus;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.validation.constraints.NotNull;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
 
-public class AgentMap implements Iterable<Agent>{
+public class AgentMap implements Iterable<Agent> {
 
     Logger logger = LoggerFactory.getLogger(AgentMap.class);
 
-    private Map<Id<Agent>, Agent> agentMap;
-    private Set<Id<Agent>> disabled = new TreeSet<>();
-    private Set<Id<Agent>> stopped = new TreeSet<>();
-    private Id<Agent> headAgent;
+    private Map<UUID, Agent> agentMap;
+    private Set<UUID> disabled = new TreeSet<>();
+    private Set<UUID> stopped = new TreeSet<>();
+    private UUID headAgent;
 
-    public AgentMap(){ agentMap = new HashMap<>(); }
+    public AgentMap() {agentMap = new HashMap<UUID, Agent>();}
 
-    public AgentMap(Map<Id<Agent>, Agent> agentList){
+    public AgentMap(Map<UUID, Agent> agentList) {
         this.headAgent = FireUtils.getHeadAgent(agentList).getId();
         this.agentMap = new HashMap<>(agentList);
     }
 
-    public AgentMap(AgentMap map){
-        this(map.getMap());
-    }
-
-    public Agent put(Id<Agent> key, Agent value){
-        if (!agentMap.isEmpty()){
-            if (value.isHead()){
-                if (key.toString().equals(headAgent.toString())){
-                    return value;
-                } else {
-                    value.setHead(false);
-                }
-            }
-            Agent rightNeighbour = value.getRightNeighbour();
-            Agent leftNeighbour = value.getLeftNeighbour();
-            if (rightNeighbour != null && leftNeighbour != null){
-                if (!agentMap.containsKey(rightNeighbour.getId())){
-                    agentMap.putIfAbsent(rightNeighbour.getId(), rightNeighbour);
-                }
-                agentMap.get(rightNeighbour.getId()).setLeftNeighbour(value);
-                if (!agentMap.containsKey(leftNeighbour.getId())){
-                    agentMap.putIfAbsent(leftNeighbour.getId(), leftNeighbour);
-                }
-                agentMap.get(leftNeighbour.getId()).setRightNeighbour(value);
-            } else {
-                throw new AgentMapOperationExeption("Can`t put new item with ID=" + key +  "without any neighbours mapping.");
-            }
-        } else if (agentMap.isEmpty()){
+    public Agent put(UUID key, Agent value) {
+        if (agentMap.isEmpty()) {
             value.setHead(true);
             this.headAgent = key;
+            return agentMap.put(key, value);
+        }
+
+        if (value.isHead()) {
+            if (key.toString().equals(headAgent.toString())) {
+                return value;
+            } else {
+                value.setHead(false);
+            }
+        }
+        var rightNeighbour = value.getRightNeighbour();
+        var leftNeighbour = value.getLeftNeighbour();
+        if (rightNeighbour != null && leftNeighbour != null) {
+            if (!agentMap.containsKey(rightNeighbour.getId())) {
+                agentMap.putIfAbsent(rightNeighbour.getId(), rightNeighbour);
+            }
+            agentMap.get(rightNeighbour.getId()).setLeftNeighbour(value);
+            if (!agentMap.containsKey(leftNeighbour.getId())) {
+                agentMap.putIfAbsent(leftNeighbour.getId(), leftNeighbour);
+            }
+            agentMap.get(leftNeighbour.getId()).setRightNeighbour(value);
+        } else {
+            throw new AgentMapOperationExeption(
+                "Can`t put new item with ID=" + key + "without any neighbours mapping.");
         }
         return agentMap.put(key, value);
     }
 
-    public Agent getHead(){
+    public Agent getHead() {
         return agentMap.get(headAgent);
     }
 
-    public Agent get(Id<Agent> key){ return agentMap.get(key); }
+    public Agent get(UUID key) {return agentMap.get(key);}
 
-    public void putAll(Map<Id<Agent>, Agent> map){
-        for (Agent agent : map.values()){
+    public void putAll(Map<UUID, Agent> map) {
+        for (Agent agent : map.values()) {
             put(agent.getId(), agent);
         }
     }
 
-    public boolean merge(Map<Id<Agent>, Agent> map){
+    public boolean merge(Map<UUID, Agent> map) {
         int current = agentMap.size();
         int counter = 0;
-        Iterator<Map.Entry<Id<Agent>, Agent>> iterator = map.entrySet().iterator();
-        while (iterator.hasNext()){
-            Map.Entry<Id<Agent>, Agent> next = iterator.next();
-            if (!agentMap.containsKey(next.getValue().getId())){
+        for (Map.Entry<UUID, Agent> next : map.entrySet()) {
+            if (!agentMap.containsKey(next.getValue().getId())) {
                 counter++;
             }
             put(next.getKey(), next.getValue());
@@ -87,23 +88,22 @@ public class AgentMap implements Iterable<Agent>{
         return agentMap.size() == current + counter;
     }
 
-    public boolean merge(AgentMap map){
-        Map<Id<Agent>, Agent> var = map.getMap();
-        return merge(var);
+    public void merge(AgentMap map) {
+        Map<UUID, Agent> var = map.getMap();
+        merge(var);
     }
 
-    public Id<Agent> setToStopped(Id<Agent> agentId){
+    public void stopAgent(UUID agentId) {
         Agent agent = agentMap.get(agentId);
         agent.setStatus(AgentStatus.STOPPED);
         stopped.add(agentId);
-        logger.warn("Agent with ID=" + agentId.toString() + " change status to STOPPED");
-        return agentId;
+        logger.warn("Agent with ID={} change status to STOPPED", agentId);
     }
 
-    public Id<Agent> setToDisable(Id<Agent> agentId){
+    public void disableAgent(UUID agentId) {
         Agent agent = agentMap.get(agentId);
         agent.setStatus(AgentStatus.DISABLED);
-        if (agent.isHead()){
+        if (agent.isHead()) {
             agent.getRightNeighbour().setHead(true);
             headAgent = agent.getRightNeighbour().getId();
         }
@@ -111,18 +111,18 @@ public class AgentMap implements Iterable<Agent>{
         agent.getLeftNeighbour().setRightNeighbour(agent.getRightNeighbour());
         agent.setRightNeighbour(null);
         agent.setLeftNeighbour(null);
-        if (stopped.removeIf(agentId1 -> agentId1.equals(agentId))){
-            logger.warn("Agent with ID=" + agentId.toString() + " change status from STOPPED to DISABLED");
+        if (stopped.removeIf(agentId1 -> agentId1.equals(agentId))) {
+            logger.warn("Agent with ID= {} change status from STOPPED to DISABLED", agentId);
         }
         disabled.add(agentId);
-        logger.warn("Agent with ID=" + agentId.toString() + " change status to DISABLED");
-        return agentId;
+        logger.warn("Agent with ID={} change status to DISABLED", agentId);
+
     }
 
-    public Agent remove(Id<Agent> key){
-        if (agentMap.containsKey(key)){
+    public Agent remove(UUID key) {
+        if (agentMap.containsKey(key)) {
             Agent agent = agentMap.get(key);
-            if (agent.isHead()){
+            if (agent.isHead()) {
                 agent.getRightNeighbour().setHead(true);
                 headAgent = agent.getRightNeighbour().getId();
             }
@@ -132,50 +132,49 @@ public class AgentMap implements Iterable<Agent>{
         return agentMap.remove(key);
     }
 
-    public Map<Id<Agent>, Agent> getMap() {
+    public Map<UUID, Agent> getMap() {
         return this.agentMap;
     }
 
-    public Collection<Agent> values(){
+    public Collection<Agent> values() {
         return agentMap.values();
     }
 
-    public Set<Id<Agent>> keySet(){
+    public Set<UUID> keySet() {
         return agentMap.keySet();
     }
 
-    public boolean containsKey(Id<Agent> key){
+    public boolean containsKey(UUID key) {
         return agentMap.containsKey(key);
     }
 
-    public int size(){
-        return agentMap.keySet().size();
+    public int size() {
+        return agentMap.size();
     }
 
-    public boolean isEmpty(){
-        return agentMap.size() == 0;
+    public boolean isEmpty() {
+        return agentMap.isEmpty();
     }
 
-    public void clear(){
+    public void clear() {
         agentMap.clear();
     }
 
-    @NotNull
     @Override
-    public Iterator<Agent> iterator() {
+    public @NotNull Iterator<Agent> iterator() {
         return new AgentIterator();
     }
 
-    public Iterator<Agent> reverseIterator() { return new AgentReverseIterator(); }
+    public Iterator<Agent> reverseIterator() {return new AgentReverseIterator();}
 
-    private class AgentIterator implements Iterator<Agent>{
+    private class AgentIterator implements Iterator<Agent> {
 
         int size = agentMap.size() - disabled.size();
         int count = 0;
-        Id<Agent> current = headAgent;
+        UUID current = headAgent;
 
         @Override
-        public boolean hasNext() { return count < size; }
+        public boolean hasNext() {return count < size;}
 
         @Override
         public Agent next() {
@@ -196,10 +195,10 @@ public class AgentMap implements Iterable<Agent>{
         }
     }
 
-    private class AgentReverseIterator implements Iterator<Agent>{
+    private class AgentReverseIterator implements Iterator<Agent> {
         int size = agentMap.size();
         int count = 0;
-        Id<Agent> current = headAgent;
+        UUID current = headAgent;
 
         @Override
         public boolean hasNext() {

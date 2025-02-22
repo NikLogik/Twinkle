@@ -1,71 +1,22 @@
 package git.niklogik.core.network;
 
-import org.locationtech.jts.geom.Coordinate;
-import git.niklogik.core.Id;
 import git.niklogik.core.network.lib.Link;
 import git.niklogik.core.network.lib.Node;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.locationtech.jts.geom.Coordinate;
 
+import java.util.UUID;
+
+@Setter
+@Getter
+@RequiredArgsConstructor
 public class NodeImpl implements Node {
-    private Id<Node> id;
+    private final UUID id;
+    private final Double elevation;
+    private final Coordinate coordinate;
     private Link inLink;
     private Link outLink;
-    private double elevation;
-    private Coordinate coordinate;
-    private int tripTime;
-
-    public NodeImpl(Id<Node> id, double elevation, Coordinate coordinate){
-        this.id = id;
-        this.elevation = elevation;
-        this.coordinate = coordinate;
-        this.tripTime = 0;
-    }
-
-    @Override
-    public Id<Node> getId() {
-        return this.id;
-    }
-
-    @Override
-    public double getElevation() {
-        return this.elevation;
-    }
-
-    @Override
-    public void setInLink(Link link) {
-        this.inLink = link;
-    }
-
-    @Override
-    public void setOutLink(Link link) {
-        this.outLink = link;
-    }
-
-    @Override
-    public Link getInLink() {
-        return this.inLink;
-    }
-
-    @Override
-    public Link getOutLink() {
-        return this.outLink;
-    }
-
-    @Override
-    public void setCoordinate(Coordinate coordinate) {
-        this.coordinate = coordinate;
-    }
-
-    @Override
-    public Coordinate getCoordinate() {
-        return this.coordinate;
-    }
-    @Override
-    public void setTripTime(int time){
-        this.tripTime = time;
-    }
-
-    @Override
-    public int getTripTime(){
-        return this.tripTime;
-    }
+    private int tripTime = 0;
 }
