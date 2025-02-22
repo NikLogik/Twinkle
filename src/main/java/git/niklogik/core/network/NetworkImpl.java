@@ -1,7 +1,6 @@
 package git.niklogik.core.network;
 
 import git.niklogik.core.Id;
-import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.network.lib.ForestFuelType;
 import git.niklogik.core.network.lib.Network;
 import git.niklogik.core.network.lib.NetworkFactory;
@@ -18,10 +17,10 @@ import java.util.UUID;
 public class NetworkImpl implements Network {
 
     private String name;
-    private NetworkFactory factory;
-    private Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
+    private final NetworkFactory factory;
+    private final Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons = new HashMap<>();
     private TreeMap<Long, ContourLine> relief = new TreeMap<>();
-    private HashMap<UUID, Trip> trips = new HashMap<>();
+    private final HashMap<UUID, Trip> trips = new HashMap<>();
     private ForestFuelType fuelType;
 
     NetworkImpl(NetworkFactory factory){
@@ -36,8 +35,6 @@ public class NetworkImpl implements Network {
     public NetworkFactory getFactory() { return this.factory;}
     @Override
     public Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> getPolygones() {return this.polygons;}
-    @Override
-    public void addPolygonsByType(PolygonType type, Map<Id<PolygonV2>, PolygonV2> polygons) { this.polygons.put(type, polygons); }
     @Override
     public void setName(String name) {this.name = name;}
     @Override

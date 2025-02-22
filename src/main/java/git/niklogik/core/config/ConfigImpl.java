@@ -3,7 +3,6 @@ package git.niklogik.core.config;
 import git.niklogik.calc.speed.WindForecast;
 import git.niklogik.core.config.lib.Config;
 import org.locationtech.jts.geom.Coordinate;
-import org.springframework.beans.factory.annotation.Value;
 
 public class ConfigImpl implements Config {
 

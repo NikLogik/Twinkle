@@ -1,9 +1,8 @@
 package git.niklogik.core.network.lib;
 
 import git.niklogik.core.Id;
-import git.niklogik.core.fire.lib.Agent;
-import git.niklogik.db.entities.fire.ContourLine;
 import git.niklogik.core.utils.PolygonType;
+import git.niklogik.db.entities.fire.ContourLine;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,8 +15,6 @@ public interface Network {
     NetworkFactory getFactory();
 
     Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> getPolygones();
-
-    void addPolygonsByType(PolygonType type, Map<Id<PolygonV2>, PolygonV2> polygons);
 
     void setName(String name);
 

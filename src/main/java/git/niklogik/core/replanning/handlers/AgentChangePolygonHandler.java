@@ -130,7 +130,7 @@ public class AgentChangePolygonHandler implements EventHandler {
                 }
             }
             if (position != null) {
-                log.warn("Set to agent ID=" + agent.getId() + " new position " + position.toString());
+                log.warn("Set to agent ID={} new position {}", agent.getId(), position);
                 agent.setCoordinate(position);
                 agent.setDistanceFromStart(distance);
                 stoppedAgents.add(agent.getId());

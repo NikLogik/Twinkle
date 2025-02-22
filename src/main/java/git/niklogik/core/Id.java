@@ -21,11 +21,7 @@ public abstract class Id<T> implements Comparable<Id<T>> {
     }
 
     public static <T> Id<T> create(String key, Class<T> type) {
-        Map<String, Id<?>> map = (Map) cache.get(type);
-        if (map == null) {
-            map = new ConcurrentHashMap();
-            cache.put(type, map);
-        }
+        var map = cache.computeIfAbsent(type, k -> new ConcurrentHashMap<>());
 
         Id<?> id = (Id) ((Map) map).get(key);
         if (id == null) {
@@ -37,8 +33,7 @@ public abstract class Id<T> implements Comparable<Id<T>> {
     }
 
     public int compareTo(Id<T> o) throws IllegalArgumentException {
-        int res = this.toString().compareTo(o.toString());
-        return res;
+        return this.toString().compareTo(o.toString());
     }
 
     public boolean equals(Object obj) {

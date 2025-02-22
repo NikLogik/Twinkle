@@ -6,8 +6,6 @@ import git.niklogik.core.replanning.events.AgentsTooCloseMovedEvent;
 import git.niklogik.core.replanning.lib.Event;
 import git.niklogik.core.replanning.lib.EventHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.LinkedList;

@@ -23,8 +23,9 @@ spring:
   #Resources
   main:
     banner-mode: off
-  resources:
-    add-mappings: true
+  web:
+    resources:
+      add-mappings: true
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     enabled: true
