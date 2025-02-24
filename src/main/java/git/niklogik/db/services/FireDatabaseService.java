@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static git.niklogik.db.services.CoordinateTransformationService.TransformDirection.OSM_DB_TO_FIRE_DB;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -46,15 +48,9 @@ public class FireDatabaseService {
     }
 
     public void saveIteration(int currentIteration, Polygon front, FireModel model) {
-        MathTransform mathTransformation = transformationService.getMathTransformation(
-            CoordinateTransformationService.TransformDirection.OSM_DB_TO_FIRE_DB);
-        Coordinate[] coordinates = front.getCoordinates();
-        try {
-            for (Coordinate coordinate : coordinates) {
-                JTS.transform(coordinate, coordinate, mathTransformation);
-            }
-        } catch (TransformException ex) {
-            log.error(ex.getMessage(), ex);
+        var mathTransformation = transformationService.getMathTransformation(OSM_DB_TO_FIRE_DB);
+        for (Coordinate coordinate : front.getCoordinates()) {
+            transformationService.transform(coordinate, mathTransformation);
         }
         front.setSRID(transformationService.getFireDatabaseSRID());
         FireDAO one = fireRepository.findById(model.getFireId())

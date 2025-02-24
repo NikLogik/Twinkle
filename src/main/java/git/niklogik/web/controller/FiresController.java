@@ -5,7 +5,6 @@ import git.niklogik.db.services.FireDatabaseService;
 import git.niklogik.error.exception.FireModelNotFoundException;
 import git.niklogik.web.models.CreateFireRequest;
 import git.niklogik.web.models.FireDataResponse;
-import git.niklogik.web.services.RequestDataService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -28,17 +27,14 @@ public class FiresController {
 
     private final Logger logger = LoggerFactory.getLogger(FiresController.class);
 
-    private final RequestDataService requestService;
     private final FireModelRunner fireRunner;
     private final FireDatabaseService fireDatabaseService;
 
     @PostMapping(value = "/fires")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void createNewFire(@Valid @RequestBody CreateFireRequest requestData) {
-        requestService.transformCoordinates(requestData.fireCenter());
         logger.info("Get estimated data :{}", requestData);
         fireRunner.run(requestData);
-        logger.info("Send response with result of the first iteration");
     }
 
     @GetMapping(value = "/fires/{fireId}")
