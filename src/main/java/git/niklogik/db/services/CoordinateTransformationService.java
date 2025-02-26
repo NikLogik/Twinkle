@@ -43,6 +43,16 @@ public class CoordinateTransformationService {
         return requireNonNull(result);
     }
 
+    public Coordinate transformAsNew(Coordinate source, MathTransform transform) {
+        Coordinate result = null;
+        try {
+            result = JTS.transform(source, new Coordinate(), transform);
+        } catch (TransformException e) {
+            log.error(e.getMessage(), e);
+        }
+        return requireNonNull(result);
+    }
+
     private MathTransform getMathTransform(Integer fromSystemCode, Integer toSystemCode) {
         try {
             var fromCRS = getReferenceSystem(fromSystemCode);

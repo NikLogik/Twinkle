@@ -37,7 +37,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         this.reTransformation = createReTransformation(config.getSrid());
     }
 
-    private MathTransform createReTransformation(String sourceSrid) {
+    private MathTransform createReTransformation(int sourceSrid) {
         CoordinateReferenceSystem fromSystem;
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;
@@ -51,7 +51,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         return math;
     }
 
-    private MathTransform createTransformation(String sourceSrid) {
+    private MathTransform createTransformation(int sourceSrid) {
         CoordinateReferenceSystem fromSystem;
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;

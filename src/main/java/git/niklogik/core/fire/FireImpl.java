@@ -7,6 +7,7 @@ import git.niklogik.core.fire.lib.FireFactory;
 import git.niklogik.core.utils.AgentMap;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
@@ -38,7 +39,7 @@ class FireImpl implements Fire {
     /**
      * The speed of fire spread, without relief constraint
      */
-    private double fireSpeed;
+    private BigDecimal fireSpeed;
     /**
      * The class of fire
      */
@@ -81,7 +82,7 @@ class FireImpl implements Fire {
     public int getAgentDistance() {return agentDistance;}
 
     @Override
-    public double getFireSpeed() {return fireSpeed;}
+    public BigDecimal getFireSpeed() {return fireSpeed;}
 
     @Override
     public AgentMap getTwinkles() {return twinkles;}
@@ -89,7 +90,7 @@ class FireImpl implements Fire {
     @Override
     public Agent addAgent(Agent agent) {
         if (twinkles.containsKey(agent.getId())) {
-            throw new IllegalArgumentException("Twinkle with id: " + agent.getId() + " has already existed");
+            return twinkles.get(agent.getId());
         } else {
             if (!(agent instanceof Twinkle)) {
                 throw new IllegalArgumentException(
@@ -111,7 +112,7 @@ class FireImpl implements Fire {
     }
 
     @Override
-    public void setFireSpeed(double fireSpeed) {this.fireSpeed = fireSpeed;}
+    public void setFireSpeed(BigDecimal fireSpeed) {this.fireSpeed = fireSpeed;}
 
     void setHeadDirection(double direction) {this.headDirection = direction;}
 }

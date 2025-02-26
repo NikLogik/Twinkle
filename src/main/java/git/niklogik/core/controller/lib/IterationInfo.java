@@ -9,6 +9,7 @@ import git.niklogik.core.utils.AgentMap;
 import git.niklogik.core.utils.PolygonType;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public interface IterationInfo {
@@ -20,7 +21,7 @@ public interface IterationInfo {
 
     AgentMap getAgents();
 
-    double getFireSpeed();
+    BigDecimal getFireSpeed();
 
     int getIterNum();
 

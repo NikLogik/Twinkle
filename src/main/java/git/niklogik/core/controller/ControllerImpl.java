@@ -1,44 +1,43 @@
 package git.niklogik.core.controller;
 
 import git.niklogik.core.Id;
+import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.lib.Controller;
+import git.niklogik.core.controller.lib.InitialPreprocessingData;
+import git.niklogik.core.controller.lib.IterationInfo;
 import git.niklogik.core.fire.FireModel;
 import git.niklogik.core.fire.FireUtils;
+import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
 import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.fire.lib.AgentState;
-import git.niklogik.core.fire.lib.AgentStatus;
 import git.niklogik.core.fire.lib.Fire;
 import git.niklogik.core.fire.lib.FireFactory;
+import git.niklogik.core.network.lib.Network;
+import git.niklogik.core.network.lib.PolygonV2;
 import git.niklogik.core.replanning.EventManagerImpl;
 import git.niklogik.core.replanning.EventsHandling;
 import git.niklogik.core.replanning.events.AfterIterationEvent;
+import git.niklogik.core.utils.AgentMap;
+import git.niklogik.core.utils.PolygonType;
+import git.niklogik.db.services.FireDatabaseService;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import git.niklogik.core.config.lib.Config;
-import git.niklogik.core.controller.lib.InitialPreprocessingData;
-import git.niklogik.core.controller.lib.IterationInfo;
-import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
-import git.niklogik.core.network.NetworkUtils;
-import git.niklogik.core.network.lib.Network;
-import git.niklogik.core.network.lib.PolygonV2;
-import git.niklogik.core.utils.AgentMap;
-import git.niklogik.core.utils.GeodeticCalculator;
-import git.niklogik.core.utils.PolygonType;
-import git.niklogik.db.services.FireDatabaseService;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static git.niklogik.core.fire.FireUtils.getPolygonFromAgentMap;
+import static git.niklogik.core.fire.lib.AgentStatus.ACTIVE;
+import static git.niklogik.core.network.NetworkUtils.findPolygonByAgentCoords;
 import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
 import static git.niklogik.core.utils.GeodeticCalculator.directProblem;
+import static git.niklogik.core.utils.GeodeticCalculator.distance;
 import static java.math.RoundingMode.HALF_UP;
 
 class ControllerImpl implements Controller {
@@ -82,14 +81,14 @@ class ControllerImpl implements Controller {
         logger.info(MARKER + "Preparing agents for start FIRE!!!");
         this.currentIteration = 0;
         for (Agent agent : this.fire.getTwinkles().values()) {
-            Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+            Id<PolygonV2> polygonId = findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
             agent.setPolygonId(polygonId);
-            agent.setStatus(AgentStatus.ACTIVE);
+            agent.setStatus(ACTIVE);
             agent.saveState(currentIteration);
         }
         LinkedList<AgentState> listOfStates = FireUtils.getListOfStates(fire.getTwinkles(), currentIteration);
         iterationMap.put(currentIteration, listOfStates);
-        Polygon iterPolygon = FireUtils.getPolygonFromAgentMap(fire.getTwinkles(), new GeometryFactory());
+        Polygon iterPolygon = getPolygonFromAgentMap(fire.getTwinkles(), new GeometryFactory());
         fireService.saveIteration(currentIteration, iterPolygon, model);
     }
 
@@ -102,34 +101,31 @@ class ControllerImpl implements Controller {
 
     private void iteration(int iteration) {
         this.currentIteration = iteration;
-        logger.info(DIVIDER + "Iteration #" + currentIteration + " begin");
+        logger.info(DIVIDER + "Iteration #{} begin", currentIteration);
         this.currentTime += stepTimeAmount.intValue();
         iterationStep();
-        IterationInfo info = new IterationInfoImpl(currentIteration);
+        var info = new IterationInfoImpl(currentIteration);
         eventsHandler.handleAfterIterationEnd(new AfterIterationEvent(currentIteration, info));
         eventsHandler.persistAndReset(iterationMap);
-        Polygon iterPolygon = FireUtils.getPolygonFromAgentMap(fire.getTwinkles(), new GeometryFactory());
+        Polygon iterPolygon = getPolygonFromAgentMap(fire.getTwinkles(), new GeometryFactory());
         fireService.saveIteration(currentIteration, iterPolygon, model);
-        logger.info(DIVIDER + "Iteration #" + currentIteration + " finished");
+        logger.info(DIVIDER + "Iteration #{} finished", currentIteration);
     }
 
     private void iterationStep() {
         logger.info("Move agents to new locations");
-        Iterator<Agent> iterator = fire.getTwinkles().iterator();
-        while (iterator.hasNext()) {
-            Agent agent = iterator.next();
-            if (agent.getStatus().equals(AgentStatus.ACTIVE)) {
+        for (Agent agent : fire.getTwinkles()) {
+            if (agent.getStatus() == ACTIVE) {
                 Coordinate newCoordinate;
-                AgentState lastState;
-                lastState = agent.getLastState();
                 if (network.getTrip(agent.getId()) != null) {
-                    newCoordinate = GeodeticCalculator.distance(currentTime, network.getTrip(agent.getId()), agent);
+                    newCoordinate = distance(currentTime, network.getTrip(agent.getId()), agent);
                 } else {
+                    var lastState = agent.getLastState();
                     var distance = agent.getSpeed().multiply(stepTimeAmount.divide(toBigDecimal(60.0), HALF_UP));
                     newCoordinate = directProblem(lastState.getCoordinate(), distance, agent.getDirection());
                 }
                 agent.setCoordinate(newCoordinate);
-                Id<PolygonV2> polygonId = NetworkUtils.findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
+                var polygonId = findPolygonByAgentCoords(this.network, agent.getCoordinate()).getId();
                 agent.setPolygonId(polygonId);
             }
         }
@@ -173,7 +169,7 @@ class ControllerImpl implements Controller {
         private final int agentDistance;
         private final FireSpreadCalculator calculator;
         private final FireFactory fireFactory;
-        private final double fireSpeed;
+        private final BigDecimal fireSpeed;
         private final Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons;
         private final double headDirection;
         private final Coordinate fireCenter;
@@ -218,7 +214,7 @@ class ControllerImpl implements Controller {
         }
 
         @Override
-        public double getFireSpeed() {
+        public BigDecimal getFireSpeed() {
             return fireSpeed;
         }
 

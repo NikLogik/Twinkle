@@ -4,7 +4,6 @@ package git.niklogik.core.network;
 import git.niklogik.core.Id;
 import git.niklogik.core.fire.algorithms.FireSpreadCalculator;
 import git.niklogik.core.fire.lib.Agent;
-import git.niklogik.core.network.lib.Link;
 import git.niklogik.core.network.lib.Network;
 import git.niklogik.core.network.lib.NetworkFactory;
 import git.niklogik.core.network.lib.Node;
@@ -74,8 +73,7 @@ public final class NetworkUtils {
         return findPolygonByAgentCoords(new GeometryFactory(), network.getPolygones(), coord);
     }
 
-    public static PolygonV2 findPolygonByAgentCoords(GeometryFactory geoFactory,
-                                                     Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons, Coordinate coordinate) {
+    public static PolygonV2 findPolygonByAgentCoords(GeometryFactory geoFactory, Map<PolygonType, Map<Id<PolygonV2>, PolygonV2>> polygons, Coordinate coordinate) {
         List<Collection<PolygonV2>> list = polygons.values().stream().map(Map::values).toList();
         PolygonV2 polygon = null;
         for (Collection<PolygonV2> var : list) {
@@ -141,32 +139,26 @@ public final class NetworkUtils {
         LineString lineString = new GeometryFactory().createLineString(new Coordinate[]{pS, pF});
         //!!!
         lineString.setSRID(3857);
-        int counter = 0;
         LinkedList<Node> intersections = new LinkedList<>();
         for (ContourLine line : network.getRelief().values()) {
             if (lineString.intersects(line.getHorizontal())) {
                 Geometry intersection = lineString.intersection(line.getHorizontal());
                 Node node = networkFactory.createNode(intersection.getCoordinate(), line.getElevation());
                 intersections.add(node);
-                counter++;
             }
         }
         if (intersections.isEmpty()) {
             intersections.add(networkFactory.createNode(pS, 0.0));
             intersections.add(networkFactory.createNode(pF, 0.0));
         } else {
-            intersections.sort((a, b) ->
-                                   (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
-                                                                                               .distance(
-                                                                                                   agent.getCoordinate())));
-            intersections.addFirst(networkFactory.createNode(pS,
-                                                             intersections.getFirst().getElevation()));
-            intersections.addLast(networkFactory.createNode(pF,
-                                                            intersections.getLast().getElevation()));
-            intersections.sort((a, b) ->
-                                   (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
-                                                                                               .distance(
-                                                                                                   agent.getCoordinate())));
+            intersections.sort((a, b) -> (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
+                                                                                                     .distance(
+                                                                                                         agent.getCoordinate())));
+            intersections.addFirst(networkFactory.createNode(pS, intersections.getFirst().getElevation()));
+            intersections.addLast(networkFactory.createNode(pF, intersections.getLast().getElevation()));
+            intersections.sort((a, b) -> (int) (a.getCoordinate().distance(agent.getCoordinate()) - b.getCoordinate()
+                                                                                                     .distance(
+                                                                                                         agent.getCoordinate())));
         }
         Trip trip = networkFactory.createTrip(agent.getId(), intersections);
         int tripTime = (int) curTime;
@@ -182,14 +174,12 @@ public final class NetworkUtils {
             from.setTripTime(tripTime);
 
             var distanceBetween = from.getCoordinate().distance(to.getCoordinate());
-            int flowTime = divide(
-                toBigDecimal(distanceBetween),
-                agent.getSpeed().add(kRelief))
+            int flowTime = divide(toBigDecimal(distanceBetween), agent.getSpeed().add(kRelief))
                 .multiply(toBigDecimal(60))
                 .intValue();
+
             tripTime += flowTime;
-            Link link = networkFactory.createLink(from, to,
-                                                  kRelief.add(agent.getSpeed()), flowTime);
+            var link = networkFactory.createLink(from, to, kRelief.add(agent.getSpeed()), flowTime);
             from.setOutLink(link);
             to.setInLink(link);
             to.setTripTime(tripTime);

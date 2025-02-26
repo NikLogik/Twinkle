@@ -2,8 +2,12 @@ package git.niklogik.core.config;
 
 import git.niklogik.calc.speed.WindForecast;
 import git.niklogik.core.config.lib.Config;
+import lombok.Getter;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
+
+@Getter
 public class ConfigImpl implements Config {
 
     private String fireName;
@@ -14,7 +18,7 @@ public class ConfigImpl implements Config {
     private long endTime;
     private FireSpreadModels calculator;
     private int fuelType;
-    private double windSpeed;
+    private BigDecimal windSpeed;
     private double windDirection;
     private double humidity;
     private double temperature;
@@ -30,115 +34,59 @@ public class ConfigImpl implements Config {
         this.firePerimeter = 50; //for radius = 5 m
     }
 
-    @Override
-    public String getFireName() { return this.fireName; }
-
-    @Override
-    public int getFirstIteration() { return firstIteration; }
-
-    @Override
-    public int getLastIteration() { return lastIteration; }
-
     public void setLastIteration(int lastIteration) {
         this.lastIteration = lastIteration;
     }
-
-    @Override
-    public int getStepTimeAmount() { return stepTimeAmount; }
 
     public void setStepTimeAmount(int stepTimeAmount) {
         this.stepTimeAmount = stepTimeAmount;
     }
 
-    @Override
-    public long getStartTime() { return startTime; }
-
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
-
-    @Override
-    public long getEndTime() { return endTime; }
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
-    @Override
-    public FireSpreadModels getCalculator() { return calculator; }
-
     public void setCalculator(FireSpreadModels calculator) {
         this.calculator = calculator;
     }
-
-    @Override
-    public int getFuelType() { return fuelType; }
 
     public void setFuelType(int fuelType) {
         this.fuelType = fuelType;
     }
 
-    @Override
-    public double getWindSpeed() { return windSpeed; }
-
-    public void setWindSpeed(double windSpeed) {
+    public void setWindSpeed(BigDecimal windSpeed) {
         this.windSpeed = windSpeed;
     }
-
-    @Override
-    public double getWindDirection() { return windDirection; }
 
     public void setWindDirection(double windDirection) {
         this.windDirection = windDirection;
     }
 
-    @Override
-    public WindForecast getForecast(){
-        return new WindForecast(windSpeed, windDirection);
-    }
-
-    @Override
-    public double getTemperature() { return temperature; }
-
     public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
-
-    @Override
-    public double getHumidity() { return humidity; }
 
     public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
 
-    @Override
-    public FirePowerClassification getFireClass() { return fireClass; }
-
     public void setFireClass(FirePowerClassification fireClass) {
         this.fireClass = fireClass;
     }
-
-    @Override
-    public Coordinate getFireCenterCoordinate() { return fireCenterCoordinate; }
 
     public void setFireCenterCoordinate(Coordinate fireCenterCoordinate) {
         this.fireCenterCoordinate = fireCenterCoordinate;
     }
 
-    @Override
-    public int getFirePerimeter() { return firePerimeter; }
-
     public void setFirePerimeter(int firePerimeter) {
         this.firePerimeter = firePerimeter;
     }
 
-    @Override
-    public int getFireAgentsDistance() { return fireAgentsDistance; }
-
     public void setSrid(int srid) { this.srid = srid; }
-
-    @Override
-    public String getSrid() { return "EPSG:" + this.srid; }
 
     public void setFireAgentsDistance(int fireAgentsDistance) {
         this.fireAgentsDistance = fireAgentsDistance;

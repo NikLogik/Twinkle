@@ -4,6 +4,8 @@ import git.niklogik.calc.speed.WindForecast;
 import org.locationtech.jts.geom.Coordinate;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public interface Config {
 
@@ -15,7 +17,7 @@ public interface Config {
     long getEndTime();
     FireSpreadModels getCalculator();
     int getFuelType();
-    double getWindSpeed();
+    BigDecimal getWindSpeed();
     double getWindDirection();
 
     WindForecast getForecast();
@@ -26,7 +28,7 @@ public interface Config {
     Coordinate getFireCenterCoordinate();
     int getFirePerimeter();
     int getFireAgentsDistance();
-    String getSrid();
+    int getSrid();
 
     enum FireSpreadModels{ Rotermel; }
 

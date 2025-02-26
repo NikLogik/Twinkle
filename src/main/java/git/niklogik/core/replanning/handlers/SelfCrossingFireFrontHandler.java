@@ -8,7 +8,6 @@ import git.niklogik.core.replanning.events.SelfCrossingFireFrontEvent;
 import git.niklogik.core.replanning.lib.Event;
 import git.niklogik.core.replanning.lib.EventHandler;
 import git.niklogik.core.utils.AgentMap;
-import git.niklogik.db.repository.osm.OsmDatabaseManager;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequenceFactory;
@@ -18,8 +17,6 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.impl.CoordinateArraySequenceFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -30,12 +27,12 @@ import java.util.UUID;
 import static git.niklogik.core.utils.BigDecimalUtils.divide;
 import static git.niklogik.core.utils.BigDecimalUtils.lessThan;
 import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
+import static git.niklogik.db.repository.osm.OsmDatabaseManager.Definitions.POINT;
 
 @Slf4j
 public class SelfCrossingFireFrontHandler implements EventHandler {
 
     private IterationInfo info;
-    private final String POSTFIX = ":crossed";
     private Set<UUID> removeIds = new TreeSet<>();
 
     @Override
@@ -106,7 +103,7 @@ public class SelfCrossingFireFrontHandler implements EventHandler {
         LineString string2 = geometryFactory.createLineString(factory.create(new Coordinate[]{p3, p4}));
         Geometry geometry = string1.intersection(string2);
         if (geometry != null) {
-            if (OsmDatabaseManager.Definitions.POINT.equals(geometry.getGeometryType())) {
+            if (POINT.equals(geometry.getGeometryType())) {
                 return (Point) geometry;
             }
         }

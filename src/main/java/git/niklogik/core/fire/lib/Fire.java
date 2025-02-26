@@ -3,6 +3,7 @@ package git.niklogik.core.fire.lib;
 import git.niklogik.core.utils.AgentMap;
 import org.locationtech.jts.geom.Coordinate;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface Fire {
@@ -21,7 +22,7 @@ public interface Fire {
 
     int getAgentDistance();
 
-    double getFireSpeed();
+    BigDecimal getFireSpeed();
 
     AgentMap getTwinkles();
 
@@ -33,9 +34,5 @@ public interface Fire {
 
     void setCenterPoint(Coordinate center);
 
-    void setFireSpeed(double fireSpeed);
-
-    class Definitions{
-        public static final String POST_FIX = ":twinkle";
-    }
+    void setFireSpeed(BigDecimal fireSpeed);
 }

@@ -3,6 +3,8 @@ package git.niklogik.core.config;
 import org.locationtech.jts.geom.Coordinate;
 import git.niklogik.core.config.lib.Config;
 
+import static git.niklogik.core.utils.BigDecimalUtils.toBigDecimal;
+
 public class ConfigUtils {
 
     public static Config createConfig() {
@@ -68,7 +70,7 @@ public class ConfigUtils {
         }
 
         public ConfigBuilder setWindSpeed(double speed) {
-            config.setWindSpeed(speed);
+            config.setWindSpeed(toBigDecimal(speed));
             return this;
         }
 

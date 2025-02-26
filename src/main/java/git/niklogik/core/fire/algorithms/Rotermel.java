@@ -3,10 +3,10 @@ package git.niklogik.core.fire.algorithms;
 import git.niklogik.calc.geo.Point3D;
 import git.niklogik.calc.speed.AngleTangent;
 import git.niklogik.calc.speed.ReliefSpeedRatio;
-import git.niklogik.core.fire.lib.Agent;
 import git.niklogik.core.network.lib.ForestFuelType;
 import git.niklogik.core.network.lib.Node;
 import git.niklogik.db.entities.fire.ForestFuelTypeDao;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -16,25 +16,26 @@ public class Rotermel implements FireSpreadCalculator {
 
     private double gamma;
 
-    private ForestFuelType type;
+    @Setter private ForestFuelType type;
 
-    private double windSpeed;
+    private BigDecimal windSpeed;
 
     @Override
-    public void calculateSpeedOfSpreadWithArbitraryDirection(double fireSpeed, Agent agent, double windDirection) {
-        var direction = toBigDecimal(windDirection).subtract(agent.getDirection());
+    public BigDecimal calculateForDirection(BigDecimal fireSpeed, BigDecimal agentDirection, double windDirection) {
+        var direction = toBigDecimal(windDirection).subtract(agentDirection);
         var albiniSpeed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
         var A = 0.785 * albiniSpeed - 0.106 * Math.pow(albiniSpeed, 2);
-        fireSpeed = fireSpeed * Math.exp(A * (Math.cos(Math.toRadians(direction.doubleValue())) - 1));
-        agent.setSpeed(toBigDecimal(fireSpeed));
+        var resultSpeed = fireSpeed.doubleValue() * Math.exp(
+            A * (Math.cos(Math.toRadians(direction.doubleValue())) - 1));
+        return toBigDecimal(resultSpeed);
     }
 
     @Override
-    public double calculateSpeedOfSpreadWithConstraint(ForestFuelTypeDao forestFuelTypeDao, double windSpeed) {
+    public BigDecimal calculateForFuel(ForestFuelTypeDao forestFuelTypeDao, BigDecimal windSpeed) {
         double speed = calculateSpeedWithoutExternalConstraint(forestFuelTypeDao);
         this.windSpeed = windSpeed;
         double windK = windCoefficient();
-        return speed * (1 + windK);
+        return toBigDecimal(speed * (1 + windK));
     }
 
     public double calculateSpeedWithoutExternalConstraint(ForestFuelType type) {
@@ -81,14 +82,14 @@ public class Rotermel implements FireSpreadCalculator {
      */
     public double windCoefficient() {
         double k1 = Math.pow(gamma, -0.715 * Math.exp(-1.094 * Math.pow(10, -4) * type.getSpecificArea()));
-        double speed = albiniFormulaForWindSpeed(windSpeedOn6Meters());
+        double speed = albiniFormulaForWindSpeed(windSpeedOn6Meters().doubleValue());
         double k2 = 7.47 * Math.exp((-0.06919 * Math.pow(type.getSpecificArea(), 0.55))
                                     * Math.pow((196.848 * speed), 0.0133 * Math.pow(type.getSpecificArea(), 0.54)));
         return k1 * k2;
     }
 
-    public double windSpeedOn6Meters() {
-        return windSpeed * Math.pow(((type.getTreeHeight() + 6) / 10.0), 0.28);
+    public BigDecimal windSpeedOn6Meters() {
+        return toBigDecimal(windSpeed.doubleValue() * Math.pow(((type.getTreeHeight() + 6) / 10.0), 0.28));
     }
 
     /**
@@ -99,7 +100,7 @@ public class Rotermel implements FireSpreadCalculator {
      */
     private double albiniFormulaForWindSpeed(double windSpeed6meters) {
         if (windSpeed6meters == 0.000) {
-            windSpeed6meters = windSpeedOn6Meters();
+            windSpeed6meters = windSpeedOn6Meters().doubleValue();
         }
         double albiniSpeed = 0.31 * windSpeed6meters / (Math.sqrt(type.getCapacityDensityWood() * type.getTreeHeight())
                                                         * Math.log(
@@ -115,9 +116,5 @@ public class Rotermel implements FireSpreadCalculator {
             new ReliefSpeedRatio(type)
                 .reliefRatio(new AngleTangent(fromPoint, toPoint))
         );
-    }
-
-    public void setType(ForestFuelType type) {
-        this.type = type;
     }
 }
