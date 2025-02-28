@@ -66,7 +66,8 @@ public class AgentTooFarMovedHandler implements EventHandler {
 
     private void setMiddleNeighbour(Agent left, Agent right) {
         var middleCoordinate = GeodeticCalculator.middleCoordinate(left.getCoordinate(), right.getCoordinate());
-        PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(new GeometryFactory(), info.getPolygons(), middleCoordinate);
+        PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(new GeometryFactory(), info.getPolygons(),
+                                                                   middleCoordinate);
         Agent newAgent = null;
         if (PolygonType.isFireproof(geometry.getPolygonType())) {
             GeometryCollection geometryCollection = JtsTools.splitPolygon(geometry, left.getCoordinate(),
@@ -85,8 +86,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
                         newAgent.setDirection(direction);
                         var agentSpeed = info.getCalculator()
                                              .calculateForDirection(info.getFireSpeed(),
-                                                                    direction,
-                                                                    info.getHeadDirection());
+                                                                    direction);
                         newAgent.setSpeed(agentSpeed);
                         newAgent.setStatus(STOPPED);
                         newAgent.setDistanceFromStart(info.getFireCenter().distance(newAgent.getCoordinate()));
@@ -100,7 +100,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
             newAgent = info.getFireFactory().createTwinkle(POSTFIX);
             TwinkleUtils.createMiddleAgent(left, right, newAgent);
             newAgent.setPolygonId(geometry.getId());
-            if (left.getStatus().equals(STOPPED) && right.getStatus().equals(STOPPED)) {
+            if (isStopped(left) && isStopped(right)) {
                 newAgent.setStatus(STOPPED);
                 cacheStopped.add(newAgent.getId());
             } else if ((isStopped(left) && isActive(right))
@@ -111,9 +111,8 @@ public class AgentTooFarMovedHandler implements EventHandler {
                                                                       middleCoordinate);
                 newAgent.setDirection(agentDirection);
                 var agentSpeed = info.getCalculator()
-                                     .calculateForDirection(info.getFireSpeed(),
-                                                            agentDirection,
-                                                            info.getHeadDirection());
+                                     .calculateForDirection(info.getFireSpeed(), agentDirection);
+
                 newAgent.setSpeed(agentSpeed);
                 newAgent.setStatus(ACTIVE);
             } else {
@@ -139,18 +138,6 @@ public class AgentTooFarMovedHandler implements EventHandler {
     public void resetHandler() {
         this.info = null;
         cacheActive.clear();
-    }
-
-    private boolean checkDistance(AgentMap map) {
-        Iterator<Agent> iterator = map.iterator();
-        while (iterator.hasNext()) {
-            Agent next = iterator.next();
-            if (next.getCoordinate().distance(next.getRightNeighbour().getCoordinate()) > multipliedDistance) {
-                System.out.println(next.getId());
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

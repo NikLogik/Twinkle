@@ -40,7 +40,7 @@ public class FireDatabaseService {
     private final FireIterationRepository iterationRepository;
 
     public FireModel createAndGetModel(Fire fire, Point center, int iterAmount, int fuelTypeId) {
-        FireInfoDAO fireInfoDAO = new FireInfoDAO(fire.getHeadDirection(), fire.getFireSpeed(),
+        FireInfoDAO fireInfoDAO = new FireInfoDAO(fire.getHeadDirection(), fire.getFireSpeed().doubleValue(),
                                                   fire.getFireClass(), center);
         var fuelType = getForestFuelType(fuelTypeId);
         FireDAO fireDAO = fireRepository.save(new FireDAO(fire.getName(), new Date(), fuelType, fireInfoDAO));

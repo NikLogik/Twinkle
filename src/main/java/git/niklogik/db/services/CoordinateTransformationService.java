@@ -12,13 +12,14 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 @Slf4j
 @Getter
-@Component
+@Service
 @RequiredArgsConstructor
 public class CoordinateTransformationService {
 

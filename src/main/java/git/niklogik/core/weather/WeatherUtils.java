@@ -13,7 +13,7 @@ public class WeatherUtils {
         return new Weather(
             Id.create(format("%s:weather", config.getFireName()), Weather.class),
             config.getWindDirection(),
-            config.getWindSpeed(),
+            config.getWindSpeed().doubleValue(),
             config.getTemperature(),
             config.getHumidity()
         );

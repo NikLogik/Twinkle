@@ -5,7 +5,7 @@ import git.niklogik.core.config.ConfigUtils;
 import git.niklogik.core.config.lib.Config;
 import git.niklogik.core.controller.ControllerUtils;
 import git.niklogik.core.controller.InitialPreprocessingDataImpl;
-import git.niklogik.core.controller.InitialPreprocessingDataUtils;
+import git.niklogik.core.controller.InitialPreprocessingDataLoader;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.db.services.ContourLineService;
@@ -33,11 +33,12 @@ public class FireModelRunner {
     private final ContourLineService lineService;
     private final CoordinateTransformationService transformationService;
     private final EPSGProperties properties;
+    private final InitialPreprocessingDataLoader initialPreprocessingDataLoader;
 
     public void run(CreateFireRequest requestData) {
         Config config = createConfig(requestData);
         InitialPreprocessingData initialData = new InitialPreprocessingDataImpl(config, properties.getWebMercator());
-        InitialPreprocessingDataUtils.loadInitialData(initialData, geometryService, fireService, lineService);
+        initialPreprocessingDataLoader.loadPreprocessingData(config, initialData);
         ControllerUtils.createController(initialData, fireService).run();
     }
 

@@ -22,7 +22,7 @@ public class FireSpeed {
     public FireSpeed(ForestFuelType fuelType, WindForecast windForecast) {
         this.windForecast = windForecast;
         this.reliefSpeedRatio = new ReliefSpeedRatio(fuelType);
-        AlbineWindSpeed albineWindSpeed = new AlbineWindSpeed(fuelType, windForecast.speed());
+        var albineWindSpeed = new AlbineWindSpeed(fuelType, windForecast.speed());
         this.directionSpeedRatio = new DirectionSpeedRatio(albineWindSpeed);
         this.windSpeedRatio = new WindSpeedRatio(fuelType, albineWindSpeed);
         this.freeFireSpeed = new FreeFireSpeed(fuelType);

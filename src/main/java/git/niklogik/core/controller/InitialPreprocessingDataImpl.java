@@ -9,11 +9,13 @@ import git.niklogik.core.fire.lib.Fire;
 import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.core.network.lib.Network;
 import git.niklogik.core.weather.Weather;
+import git.niklogik.core.weather.WeatherUtils;
 import org.geotools.referencing.CRS;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
-import git.niklogik.core.weather.WeatherUtils;
+
+import static java.lang.String.format;
 
 public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
@@ -32,7 +34,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         this.fire = FireUtils.createFire(this.config);
         this.network = NetworkUtils.createNetwork();
         this.weather = WeatherUtils.createWeather(this.config);
-        this.calculator = new Rotermel();
+        this.calculator = new Rotermel(this.weather);
         this.transformation = createTransformation(config.getSrid());
         this.reTransformation = createReTransformation(config.getSrid());
     }
@@ -43,7 +45,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         MathTransform math = null;
         try {
             fromSystem = CRS.decode("EPSG:" + osmDatabaseSRID, true);
-            toSystem = CRS.decode(sourceSrid, true);
+            toSystem = CRS.decode(format("EPSG:%s", sourceSrid), true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
             e.printStackTrace();
@@ -56,7 +58,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
         CoordinateReferenceSystem toSystem;
         MathTransform math = null;
         try {
-            fromSystem = CRS.decode(sourceSrid, true);
+            fromSystem = CRS.decode(format("EPSG:%s", sourceSrid), true);
             toSystem = CRS.decode("EPSG:" + osmDatabaseSRID, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {

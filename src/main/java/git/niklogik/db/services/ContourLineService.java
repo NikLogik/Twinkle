@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class ContourLineService {
 
     private final CoordinateTransformationService transformationService;
@@ -46,5 +46,4 @@ public class ContourLineService {
         }
         return intersections;
     }
-
 }

@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 
 public interface FireSpreadCalculator {
 
-    BigDecimal calculateForDirection(BigDecimal fireSpeed, BigDecimal agentDirection, double windDirection);
+    BigDecimal calculateForDirection(BigDecimal fireSpeed, BigDecimal agentDirection);
 
-    BigDecimal calculateForFuel(ForestFuelTypeDao forestFuelTypeDao, BigDecimal windSpeed);
+    BigDecimal freeFireSpeed(ForestFuelTypeDao forestFuelTypeDao, BigDecimal windSpeed);
 
     /**
      * This method calculate relief constraint for the speed of fire spread
