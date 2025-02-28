@@ -8,10 +8,8 @@ import git.niklogik.core.controller.InitialPreprocessingDataImpl;
 import git.niklogik.core.controller.InitialPreprocessingDataLoader;
 import git.niklogik.core.controller.lib.InitialPreprocessingData;
 import git.niklogik.core.network.NetworkUtils;
-import git.niklogik.db.services.ContourLineService;
 import git.niklogik.db.services.CoordinateTransformationService;
 import git.niklogik.db.services.FireDatabaseService;
-import git.niklogik.db.services.GeometryDatabaseService;
 import git.niklogik.web.models.CreateFireRequest;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Coordinate;
@@ -28,12 +26,11 @@ import static git.niklogik.db.services.CoordinateTransformationService.Transform
 @RequiredArgsConstructor
 public class FireModelRunner {
 
-    private final GeometryDatabaseService geometryService;
     private final FireDatabaseService fireService;
-    private final ContourLineService lineService;
     private final CoordinateTransformationService transformationService;
     private final EPSGProperties properties;
     private final InitialPreprocessingDataLoader initialPreprocessingDataLoader;
+    private static final Integer START_TIME = 0;
 
     public void run(CreateFireRequest requestData) {
         Config config = createConfig(requestData);
@@ -46,8 +43,9 @@ public class FireModelRunner {
         Coordinate fireCenterCoordinate = new Coordinate(calculateFireCenter(requestData.fireCenter()));
         int perimeter = fireService.firePerimeter(requestData.fireCenter(), fireCenterCoordinate);
         int lastIteration = requestData.lastIterationTime() / requestData.iterationStepTime();
+
         return new ConfigUtils.ConfigBuilder(ConfigUtils.createConfig())
-            .setStartTime(0)
+            .setStartTime(START_TIME)
             .setEndTime(requestData.lastIterationTime())
             .setSRID(properties.getWebMercator())
             .setIterationStepTime(requestData.iterationStepTime())

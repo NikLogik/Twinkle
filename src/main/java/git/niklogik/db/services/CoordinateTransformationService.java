@@ -11,7 +11,6 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.TransformException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import static java.lang.String.format;
@@ -63,10 +62,6 @@ public class CoordinateTransformationService {
             log.error(ex.getMessage(), ex);
             return null;
         }
-    }
-
-    public int getClientSRID() {
-        return properties.getWgs84();
     }
 
     public int getFireDatabaseSRID() {

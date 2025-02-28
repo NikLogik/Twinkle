@@ -14,13 +14,10 @@ import git.niklogik.error.exception.FuelTypeNotFoundException;
 import git.niklogik.web.models.FireDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.geotools.geometry.jts.JTS;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
-import org.opengis.referencing.operation.MathTransform;
-import org.opengis.referencing.operation.TransformException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

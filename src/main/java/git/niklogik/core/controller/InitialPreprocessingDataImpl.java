@@ -10,6 +10,7 @@ import git.niklogik.core.network.NetworkUtils;
 import git.niklogik.core.network.lib.Network;
 import git.niklogik.core.weather.Weather;
 import git.niklogik.core.weather.WeatherUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.geotools.referencing.CRS;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
@@ -17,15 +18,16 @@ import org.opengis.referencing.operation.MathTransform;
 
 import static java.lang.String.format;
 
+@Slf4j
 public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
 
-    private Config config;
-    private Fire fire;
-    private Weather weather;
-    private Network network;
-    private FireSpreadCalculator calculator;
-    private MathTransform transformation;
-    private MathTransform reTransformation;
+    private final Config config;
+    private final Fire fire;
+    private final Weather weather;
+    private final Network network;
+    private final FireSpreadCalculator calculator;
+    private final MathTransform transformation;
+    private final MathTransform reTransformation;
     private int osmDatabaseSRID;
 
     public InitialPreprocessingDataImpl(Config config, int osmDatabaseSRID){
@@ -48,7 +50,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
             toSystem = CRS.decode(format("EPSG:%s", sourceSrid), true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
-            e.printStackTrace();
+            log.error("Error while creating backward transformation", e);
         }
         return math;
     }
@@ -62,7 +64,7 @@ public class InitialPreprocessingDataImpl implements InitialPreprocessingData {
             toSystem = CRS.decode("EPSG:" + osmDatabaseSRID, true);
             math = CRS.findMathTransform(fromSystem, toSystem);
         } catch (FactoryException e) {
-            e.printStackTrace();
+            log.error("Error while creating transformation", e);
         }
         return math;
     }

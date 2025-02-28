@@ -9,7 +9,6 @@ import git.niklogik.core.network.lib.PolygonV2;
 import git.niklogik.core.replanning.events.AgentsTooFarMovedEvent;
 import git.niklogik.core.replanning.lib.Event;
 import git.niklogik.core.replanning.lib.EventHandler;
-import git.niklogik.core.utils.AgentMap;
 import git.niklogik.core.utils.GeodeticCalculator;
 import git.niklogik.core.utils.JtsTools;
 import git.niklogik.core.utils.PolygonType;
@@ -19,7 +18,6 @@ import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,12 +30,10 @@ import static git.niklogik.core.fire.lib.AgentStatus.STOPPED;
 @Slf4j
 public class AgentTooFarMovedHandler implements EventHandler {
 
-    private final String POSTFIX = ":twinkle";
     private IterationInfo info;
     private final Map<UUID, Agent> cacheActive = new LinkedHashMap<>();
     private final Set<UUID> cacheStopped = new TreeSet<>();
     private Polygon firePolygon;
-    private double multipliedDistance;
 
     @Override
     public void handleEvent(Event event) {
@@ -50,7 +46,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
         log.info("Start to find agents with too far distance");
         this.info = event.getInfo();
         this.firePolygon = FireUtils.getPolygonFromAgentMap(info.getAgents(), new GeometryFactory());
-        multipliedDistance = info.getAgentDistance() * 1.5;
+        double multipliedDistance = info.getAgentDistance() * 1.5;
         for (Agent agent : info.getAgents()) {
             if (agent.getCoordinate().distance(agent.getRightNeighbour().getCoordinate()) > multipliedDistance) {
                 setMiddleNeighbour(agent, agent.getRightNeighbour());
@@ -69,6 +65,7 @@ public class AgentTooFarMovedHandler implements EventHandler {
         PolygonV2 geometry = NetworkUtils.findPolygonByAgentCoords(new GeometryFactory(), info.getPolygons(),
                                                                    middleCoordinate);
         Agent newAgent = null;
+        String POSTFIX = ":twinkle";
         if (PolygonType.isFireproof(geometry.getPolygonType())) {
             GeometryCollection geometryCollection = JtsTools.splitPolygon(geometry, left.getCoordinate(),
                                                                           right.getCoordinate());
